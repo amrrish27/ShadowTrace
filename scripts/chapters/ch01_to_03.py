@@ -7,7 +7,7 @@ def get_ch01_to_03():
     return """
 <!-- CHAPTER 1: THE MODERN API THREAT LANDSCAPE & PROBLEM DEFINITION -->
 <div class="chapter-header">
-  <div class="chapter-number">CHAPTER 1</div>
+  <div class="chapter-kicker">CHAPTER 1</div>
   <h1 class="chapter-title">The Modern API Threat Landscape & Problem Definition</h1>
 </div>
 
@@ -94,7 +94,7 @@ Beyond direct security risks, maintaining an accurate and continuous inventory o
 
 <!-- CHAPTER 2: PROJECT OBJECTIVES, SCOPE & ETHICAL OPERATING GUARDRAILS -->
 <div class="chapter-header">
-  <div class="chapter-number">CHAPTER 2</div>
+  <div class="chapter-kicker">CHAPTER 2</div>
   <h1 class="chapter-title">Project Objectives, Scope & Ethical Operating Guardrails</h1>
 </div>
 
@@ -188,7 +188,7 @@ Every scan event, domain target creation, and verification action is immutably l
 
 <!-- CHAPTER 3: SYSTEM ARCHITECTURE & HIGH-LEVEL PROCESSING PIPELINE -->
 <div class="chapter-header">
-  <div class="chapter-number">CHAPTER 3</div>
+  <div class="chapter-kicker">CHAPTER 3</div>
   <h1 class="chapter-title">System Architecture & High-Level Processing Pipeline</h1>
 </div>
 

@@ -7,7 +7,7 @@ def get_ch04_to_06():
     return """
 <!-- CHAPTER 4: DISCOVERY ENGINE & PASSIVE CRAWLING SUBSYSTEM -->
 <div class="chapter-header">
-  <div class="chapter-number">CHAPTER 4</div>
+  <div class="chapter-kicker">CHAPTER 4</div>
   <h1 class="chapter-title">Discovery Engine & Passive Crawling Subsystem</h1>
 </div>
 
@@ -90,7 +90,7 @@ In addition to spidering and script analysis, the discovery subsystem probes a c
 
 <!-- CHAPTER 5: ROUTE NORMALIZATION, PARAMETER TEMPLATING & BASELINE RECONCILIATION -->
 <div class="chapter-header">
-  <div class="chapter-number">CHAPTER 5</div>
+  <div class="chapter-kicker">CHAPTER 5</div>
   <h1 class="chapter-title">Normalization, Parameter Templating & Baseline Reconciliation</h1>
 </div>
 
@@ -208,7 +208,7 @@ With both runtime discovered endpoints and declared baseline specifications norm
 
 <!-- CHAPTER 6: SAFE HEURISTIC VALIDATION & SOFT-404 MITIGATION ENGINE -->
 <div class="chapter-header">
-  <div class="chapter-number">CHAPTER 6</div>
+  <div class="chapter-kicker">CHAPTER 6</div>
   <h1 class="chapter-title">Safe Heuristic Validation & Soft-404 Mitigation Engine</h1>
 </div>
 

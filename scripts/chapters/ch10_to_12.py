@@ -7,7 +7,7 @@ def get_ch10_to_12():
     return """
 <!-- CHAPTER 10: SHADOWLAB: BUNDLED VULNERABLE TRAINING APPLICATION -->
 <div class="chapter-header">
-  <div class="chapter-number">CHAPTER 10</div>
+  <div class="chapter-kicker">CHAPTER 10</div>
   <h1 class="chapter-title">ShadowLab: Bundled Vulnerable Training Application</h1>
 </div>
 
@@ -139,7 +139,7 @@ This hands-on walkthrough bridges theoretical vulnerability definitions with off
 
 <!-- CHAPTER 11: FRONTEND UI/UX ARCHITECTURE & REAL-TIME VISUALIZATION -->
 <div class="chapter-header">
-  <div class="chapter-number">CHAPTER 11</div>
+  <div class="chapter-kicker">CHAPTER 11</div>
   <h1 class="chapter-title">Frontend UI/UX Architecture & Real-Time Visualization</h1>
 </div>
 
@@ -199,7 +199,7 @@ In accordance with professional design guidelines and HackHalt standards, Shadow
 
 <!-- CHAPTER 12: BACKEND ARCHITECTURE, DATABASE DESIGN & API REFERENCE -->
 <div class="chapter-header">
-  <div class="chapter-number">CHAPTER 12</div>
+  <div class="chapter-kicker">CHAPTER 12</div>
   <h1 class="chapter-title">Backend Architecture, Database Design & API Reference</h1>
 </div>
 

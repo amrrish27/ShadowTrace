@@ -7,7 +7,7 @@ def get_ch07_to_09():
     return """
 <!-- CHAPTER 7: SECURITY DETECTION RULESET & VULNERABILITY CATALOG -->
 <div class="chapter-header">
-  <div class="chapter-number">CHAPTER 7</div>
+  <div class="chapter-kicker">CHAPTER 7</div>
   <h1 class="chapter-title">Security Detection Ruleset & Vulnerability Catalog</h1>
 </div>
 
@@ -280,7 +280,7 @@ server {
 
 <!-- CHAPTER 8: MATHEMATICAL RISK SCORING MODEL & REMEDIATION PRIORITIZATION -->
 <div class="chapter-header">
-  <div class="chapter-number">CHAPTER 8</div>
+  <div class="chapter-kicker">CHAPTER 8</div>
   <h1 class="chapter-title">Mathematical Risk Scoring Model & Remediation Prioritization</h1>
 </div>
 
@@ -406,7 +406,7 @@ Once the mathematical risk score is computed, ShadowTrace maps the numerical sco
 
 <!-- CHAPTER 9: DEFENSE-IN-DEPTH & SSRF PROTECTION ARCHITECTURE -->
 <div class="chapter-header">
-  <div class="chapter-number">CHAPTER 9</div>
+  <div class="chapter-kicker">CHAPTER 9</div>
   <h1 class="chapter-title">Defense-in-Depth & SSRF Protection Architecture</h1>
 </div>
 

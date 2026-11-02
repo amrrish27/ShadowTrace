@@ -74,7 +74,7 @@ def get_cover_and_toc(logo_b64):
 
 <!-- PAGE 2: EXECUTIVE SUMMARY & ABSTRACT (Page 2 & 3 Certificate/Declaration removed per instructions) -->
 <div class="chapter-header chapter-header-first">
-  <div class="chapter-number">EXECUTIVE SUMMARY</div>
+  <div class="chapter-kicker">EXECUTIVE SUMMARY</div>
   <h1 class="chapter-title">Executive Summary & Abstract</h1>
 </div>
 
@@ -165,12 +165,12 @@ During testing and evaluation against synthetic test environments (including the
 
 <!-- TABLE OF CONTENTS -->
 <div class="chapter-header">
-  <div class="chapter-number">DOCUMENT STRUCTURE</div>
+  <div class="chapter-kicker">DOCUMENT STRUCTURE</div>
   <h1 class="chapter-title">Table of Contents & Reading Roadmap</h1>
 </div>
 
 <h2>Table of Contents</h2>
-<table style="border: none;">
+<table class="toc-table">
   <tbody>
     <tr style="background: transparent;"><td style="border: none; font-weight: 700; width: 85%;">Executive Summary & Abstract</td><td style="border: none; text-align: right; font-weight: 700;">Page 2</td></tr>
     <tr style="background: transparent;"><td style="border: none; font-weight: 700;">Table of Contents & Reading Roadmap</td><td style="border: none; text-align: right; font-weight: 700;">Page 4</td></tr>

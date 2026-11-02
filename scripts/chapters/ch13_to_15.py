@@ -7,7 +7,7 @@ def get_ch13_to_15():
     return """
 <!-- CHAPTER 13: CLOUD DEPLOYMENT, DEVOPS & PRODUCTION ENGINEERING -->
 <div class="chapter-header">
-  <div class="chapter-number">CHAPTER 13</div>
+  <div class="chapter-kicker">CHAPTER 13</div>
   <h1 class="chapter-title">Cloud Deployment, DevOps & Production Engineering</h1>
 </div>
 
@@ -82,7 +82,7 @@ The project repository (<code>https://github.com/amrrish27/ShadowTrace.git</code
 
 <!-- CHAPTER 14: VERIFICATION STRATEGY, QUALITY ASSURANCE & BENCHMARKS -->
 <div class="chapter-header">
-  <div class="chapter-number">CHAPTER 14</div>
+  <div class="chapter-kicker">CHAPTER 14</div>
   <h1 class="chapter-title">Verification Strategy, Quality Assurance & Benchmarks</h1>
 </div>
 
@@ -181,7 +181,7 @@ To evaluate performance and safety under adversarial conditions, ShadowTrace was
 
 <!-- CHAPTER 15: ENGINEERING REFLECTIONS, FUTURE ROADMAP & REFERENCES -->
 <div class="chapter-header">
-  <div class="chapter-number">CHAPTER 15</div>
+  <div class="chapter-kicker">CHAPTER 15</div>
   <h1 class="chapter-title">Engineering Reflections, Future Roadmap & References</h1>
 </div>
 

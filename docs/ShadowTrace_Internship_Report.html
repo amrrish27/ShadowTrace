@@ -2,155 +2,200 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>ShadowTrace — Comprehensive Project Documentation & Internship Report</title>
+<title>ShadowTrace — Engineering Documentation & Internship Report</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
+  /* ── Google Fonts ───────────────────────────────────────────── */
+  @import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  /* ── Page geometry & running footer ─────────────────────────── */
   @page {
     size: A4;
-    margin: 18mm 16mm 18mm 16mm;
+    margin: 20mm 18mm 22mm 18mm;
+    @bottom-left {
+      content: "ShadowTrace — Internship Project Report | HackHalt Cyber Security";
+      font-family: 'Inter', sans-serif;
+      font-size: 7pt;
+      color: #94A3B8;
+    }
+    @bottom-right {
+      content: "Page " counter(page) " of " counter(pages);
+      font-family: 'Inter', sans-serif;
+      font-size: 7.5pt;
+      color: #64748B;
+      font-weight: 600;
+    }
   }
 
-  * {
+  @page :first {
+    @bottom-left  { content: none; }
+    @bottom-right { content: none; }
+  }
+
+  /* ── Reset ───────────────────────────────────────────────────── */
+  *, *::before, *::after {
     box-sizing: border-box;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
 
+  /* ── Base typography ─────────────────────────────────────────── */
   body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    font-size: 9.8pt;
-    line-height: 1.55;
-    color: #111827;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-size: 10pt;
+    line-height: 1.6;
+    color: #1E293B;
     background: #FFFFFF;
     margin: 0;
     padding: 0;
+    counter-reset: page 1;
   }
 
+  /* ── COVER PAGE ──────────────────────────────────────────────── */
   .cover-page {
-    box-sizing: border-box;
-    height: 254mm;
-    max-height: 254mm;
+    min-height: 247mm;
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: space-between;
     text-align: center;
-    padding: 10mm 15mm;
+    padding: 14mm 16mm 10mm;
     page-break-after: always;
     break-after: page;
     page-break-inside: avoid;
     break-inside: avoid;
-    overflow: hidden;
+    position: relative;
+    background: #FFFFFF;
   }
 
-  .cover-logo-container {
-    margin-top: 10mm;
-    margin-bottom: 5mm;
+  /* top blue accent strip */
+  .cover-page::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #1D4ED8 0%, #0EA5E9 100%);
   }
+
+  .cover-logo-container { margin-bottom: 4mm; }
 
   .cover-logo {
-    max-height: 130px;
-    max-width: 240px;
+    width: 110px;
+    height: 110px;
     object-fit: contain;
+    display: block;
+    margin: 0 auto;
   }
 
   .cover-company {
-    font-size: 15pt;
+    font-size: 13pt;
     font-weight: 800;
-    color: #0284C7;
-    letter-spacing: 2.5px;
+    color: #1D4ED8;
+    letter-spacing: 3px;
     text-transform: uppercase;
-    margin-top: 8px;
+    margin-top: 6px;
   }
 
   .cover-company-sub {
-    font-size: 9.5pt;
-    color: #334155;
-    letter-spacing: 1.2px;
+    font-size: 8.5pt;
+    color: #475569;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
     font-weight: 500;
+    margin-top: 2px;
   }
 
-  .cover-title-box {
-    margin: 20px 0;
-  }
+  .cover-title-box { margin: 10mm 0 6mm; }
 
   .cover-doc-type {
     display: inline-block;
     background: #EFF6FF;
-    color: #1E3A8A;
-    font-size: 9.5pt;
+    color: #1D4ED8;
+    font-size: 8pt;
     font-weight: 700;
-    padding: 5px 16px;
+    padding: 4px 18px;
     border-radius: 999px;
     border: 1.5px solid #BFDBFE;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-  }
-
-  .cover-main-title {
-    font-size: 36pt;
-    font-weight: 800;
-    color: #1E3A8A;
     letter-spacing: 2px;
-    line-height: 1.15;
+    text-transform: uppercase;
     margin-bottom: 10px;
   }
 
-  .cover-divider {
-    width: 80px;
+  .cover-main-title {
+    font-size: 40pt;
+    font-weight: 800;
+    color: #0F172A;
+    letter-spacing: 6px;
+    line-height: 1.1;
+    margin-bottom: 0;
+  }
+
+  .cover-title-rule {
+    width: 60px;
     height: 4px;
-    background: #2563EB;
-    margin: 14px auto;
+    background: #1D4ED8;
+    margin: 10px auto 12px;
     border-radius: 2px;
   }
 
   .cover-subtitle {
-    font-size: 12pt;
-    color: #1E293B;
-    font-weight: 500;
-    line-height: 1.45;
-    max-width: 620px;
+    font-size: 11pt;
+    color: #334155;
+    font-weight: 400;
+    line-height: 1.5;
+    max-width: 580px;
     margin: 0 auto;
   }
 
+  /* meta info card on cover */
   .cover-meta-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin: 15px auto 5px auto;
-    max-width: 620px;
-    text-align: left;
-    background: #FFFFFF;
+    gap: 0;
+    width: 100%;
+    max-width: 600px;
     border: 1px solid #CBD5E1;
-    border-radius: 8px;
-    padding: 14px 18px;
-    font-size: 9pt;
+    border-radius: 10px;
+    overflow: hidden;
+    font-size: 8.5pt;
+    text-align: left;
+    margin: 8mm auto 0;
   }
+
+  .cover-meta-item {
+    padding: 8px 14px;
+    border-bottom: 1px solid #E2E8F0;
+    border-right: 1px solid #E2E8F0;
+  }
+  .cover-meta-item:nth-child(even) { border-right: none; }
+  .cover-meta-item:nth-last-child(-n+2) { border-bottom: none; }
 
   .cover-meta-item strong {
     display: block;
-    color: #475569;
-    font-size: 7.5pt;
+    color: #64748B;
+    font-size: 6.5pt;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.8px;
     margin-bottom: 2px;
+    font-weight: 600;
   }
 
   .cover-meta-item span {
     color: #0F172A;
     font-weight: 600;
+    font-size: 8.5pt;
   }
 
   .cover-footer {
-    margin-top: 10px;
-    font-size: 8pt;
-    color: #64748B;
+    font-size: 7.5pt;
+    color: #94A3B8;
     border-top: 1px solid #E2E8F0;
     padding-top: 8px;
+    width: 100%;
+    margin-top: 8mm;
   }
 
+  /* ── CHAPTER HEADERS ─────────────────────────────────────────── */
   .chapter-header {
     page-break-before: always;
     break-before: page;
@@ -158,6 +203,7 @@
     break-inside: avoid;
     page-break-after: avoid;
     break-after: avoid;
+    margin-bottom: 16px;
   }
 
   .chapter-header-first {
@@ -165,50 +211,67 @@
     break-before: avoid !important;
   }
 
+  .chapter-kicker {
+    font-size: 8pt;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    background: #1D4ED8;
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 3px 3px 0 0;
+    margin-bottom: 0;
+  }
+
   h1.chapter-title {
-    font-size: 18pt;
+    font-size: 17pt;
     font-weight: 800;
-    color: #1E3A8A;
-    border-bottom: 2.5px solid #2563EB;
-    padding-bottom: 6px;
-    margin-top: 0;
-    margin-bottom: 14px;
+    color: #0F172A;
+    margin: 0 0 4px;
+    padding: 10px 14px 10px;
+    border-left: 5px solid #1D4ED8;
+    background: #F8FAFC;
+    border-radius: 0 6px 6px 0;
     page-break-before: avoid;
     break-before: avoid;
+    line-height: 1.2;
   }
 
-  .chapter-number {
-    font-size: 9.5pt;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: #2563EB;
-    font-weight: 700;
-    margin-bottom: 3px;
-  }
+  /* ── Section headings ────────────────────────────────────────── */
+  .chapter-number { display: none; } /* handled by .chapter-kicker */
 
   h2 {
-    font-size: 12.5pt;
-    color: #1E293B;
-    border-left: 4px solid #3B82F6;
-    padding-left: 8px;
-    margin-top: 1.35em;
-    margin-bottom: 0.4em;
+    font-size: 11.5pt;
+    font-weight: 700;
+    color: #1E3A8A;
+    border-bottom: 1.5px solid #BFDBFE;
+    padding-bottom: 4px;
+    margin-top: 1.6em;
+    margin-bottom: 0.5em;
     page-break-after: avoid;
     break-after: avoid;
   }
 
   h3 {
     font-size: 10.5pt;
-    color: #334155;
-    margin-top: 1.15em;
-    margin-bottom: 0.35em;
+    font-weight: 600;
+    color: #1E293B;
+    margin-top: 1.2em;
+    margin-bottom: 0.3em;
     page-break-after: avoid;
     break-after: avoid;
   }
 
+  h3::before {
+    content: '▸ ';
+    color: #3B82F6;
+    font-size: 9pt;
+  }
+
+  /* ── Body text ───────────────────────────────────────────────── */
   p {
-    margin-top: 0;
-    margin-bottom: 0.85em;
+    margin: 0 0 0.85em;
     text-align: justify;
     text-justify: inter-word;
     orphans: 3;
@@ -216,9 +279,8 @@
   }
 
   ul, ol {
-    margin-top: 0;
-    margin-bottom: 0.9em;
-    padding-left: 22px;
+    margin: 0 0 0.9em;
+    padding-left: 20px;
   }
 
   li {
@@ -226,124 +288,139 @@
     text-align: justify;
   }
 
+  /* ── Code ────────────────────────────────────────────────────── */
   code {
-    font-family: 'JetBrains Mono', Consolas, Monaco, monospace;
-    font-size: 8.5pt;
+    font-family: 'JetBrains Mono', Consolas, monospace;
+    font-size: 8pt;
     background: #F1F5F9;
     color: #0F172A;
-    padding: 2px 4px;
-    border-radius: 4px;
+    padding: 1px 5px;
+    border-radius: 3px;
     border: 1px solid #CBD5E1;
   }
 
   pre {
-    font-family: 'JetBrains Mono', Consolas, Monaco, monospace;
+    font-family: 'JetBrains Mono', Consolas, monospace;
     background: #F8FAFC;
     color: #0F172A;
     border: 1px solid #CBD5E1;
-    border-left: 4px solid #2563EB;
-    padding: 10px 12px;
-    border-radius: 6px;
-    font-size: 7.8pt;
-    line-height: 1.42;
+    border-left: 4px solid #3B82F6;
+    padding: 10px 14px;
+    border-radius: 0 6px 6px 0;
+    font-size: 7.5pt;
+    line-height: 1.5;
     margin: 0.9em 0;
     page-break-inside: avoid;
     break-inside: avoid;
-    overflow-x: hidden;
     white-space: pre-wrap;
     word-break: break-all;
+    overflow-x: hidden;
   }
 
+  pre code {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: inherit;
+    color: inherit;
+  }
+
+  /* ── Tables ──────────────────────────────────────────────────── */
   table {
     width: 100%;
     border-collapse: collapse;
     margin: 1em 0;
     font-size: 8.8pt;
     page-break-inside: auto;
-    break-inside: auto;
   }
 
-  tr {
-    page-break-inside: avoid;
-    break-inside: avoid;
+  thead { display: table-header-group; }
+
+  th {
+    background: #1E3A8A;
+    color: #FFFFFF;
+    font-weight: 600;
+    padding: 8px 10px;
+    border: 1px solid #1E3A8A;
+    text-align: left;
+    vertical-align: top;
+    font-size: 8pt;
+    letter-spacing: 0.3px;
   }
 
-  th, td {
-    padding: 7px 9px;
+  td {
+    padding: 7px 10px;
     border: 1px solid #CBD5E1;
     text-align: left;
     vertical-align: top;
   }
 
-  th {
-    background: #F1F5F9;
-    color: #0F172A;
-    font-weight: 700;
-  }
+  tr { page-break-inside: avoid; }
 
-  tr:nth-child(even) td {
-    background: #F8FAFC;
-  }
+  tr:nth-child(odd) td  { background: #FFFFFF; }
+  tr:nth-child(even) td { background: #F8FAFC; }
 
+  /* ── Callouts ────────────────────────────────────────────────── */
   .callout {
-    padding: 10px 14px;
-    border-radius: 6px;
+    padding: 10px 14px 10px 16px;
+    border-radius: 4px;
     margin: 1em 0;
     border-left: 4px solid;
-    font-size: 9.2pt;
+    font-size: 9pt;
     page-break-inside: avoid;
     break-inside: avoid;
   }
 
-  .callout-info {
-    background: #EFF6FF;
-    border-color: #3B82F6;
-    color: #1E40AF;
-  }
+  .callout-info     { background: #EFF6FF; border-color: #3B82F6; color: #1E3A8A; }
+  .callout-warn     { background: #FFFBEB; border-color: #F59E0B; color: #78350F; }
+  .callout-security { background: #FEF2F2; border-color: #EF4444; color: #7F1D1D; }
 
-  .callout-warn {
-    background: #FFFBEB;
-    border-color: #F59E0B;
-    color: #92400E;
-  }
-
-  .callout-security {
-    background: #FEF2F2;
-    border-color: #EF4444;
-    color: #991B1B;
-  }
-
+  /* ── Severity badges ─────────────────────────────────────────── */
   .badge {
     display: inline-block;
-    padding: 2px 6px;
+    padding: 2px 7px;
     border-radius: 999px;
-    font-size: 7.5pt;
+    font-size: 7pt;
     font-weight: 700;
     text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
 
-  .badge-critical { background: #FEE2E2; color: #991B1B; border: 1px solid #F87171; }
-  .badge-high { background: #FFEDD5; color: #9A3412; border: 1px solid #FB923C; }
-  .badge-medium { background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D; }
-  .badge-low { background: #E0F2FE; color: #075985; border: 1px solid #7DD3FC; }
-  .badge-info { background: #F1F5F9; color: #475569; border: 1px solid #CBD5E1; }
+  .badge-critical { background: #FEE2E2; color: #991B1B; border: 1px solid #FECACA; }
+  .badge-high     { background: #FFEDD5; color: #9A3412; border: 1px solid #FED7AA; }
+  .badge-medium   { background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; }
+  .badge-low      { background: #DBEAFE; color: #1E40AF; border: 1px solid #BFDBFE; }
+  .badge-info     { background: #F1F5F9; color: #475569; border: 1px solid #CBD5E1; }
 
+  /* ── ASCII diagram boxes ─────────────────────────────────────── */
   .diagram-box {
     background: #F8FAFC;
     border: 1px solid #CBD5E1;
-    border-left: 4px solid #2563EB;
-    border-radius: 6px;
-    padding: 10px 12px;
+    border-left: 4px solid #3B82F6;
+    border-radius: 0 6px 6px 0;
+    padding: 10px 14px;
     margin: 1em 0;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 7.5pt;
-    line-height: 1.35;
+    font-size: 7pt;
+    line-height: 1.38;
     color: #0F172A;
     white-space: pre;
     page-break-inside: avoid;
     break-inside: avoid;
     overflow-x: hidden;
   }
+
+  /* ── TOC table overrides ─────────────────────────────────────── */
+  table.toc-table th { display: none; }
+  table.toc-table { border: none; margin: 0; }
+  table.toc-table td {
+    border: none;
+    border-bottom: 1px dotted #CBD5E1;
+    padding: 4px 4px;
+    background: transparent !important;
+  }
+  table.toc-table tr:last-child td { border-bottom: none; }
+
 </style>
 </head>
 <body>
@@ -417,7 +494,7 @@
 
 <!-- PAGE 2: EXECUTIVE SUMMARY & ABSTRACT (Page 2 & 3 Certificate/Declaration removed per instructions) -->
 <div class="chapter-header chapter-header-first">
-  <div class="chapter-number">EXECUTIVE SUMMARY</div>
+  <div class="chapter-kicker">EXECUTIVE SUMMARY</div>
   <h1 class="chapter-title">Executive Summary & Abstract</h1>
 </div>
 
@@ -508,12 +585,12 @@ During testing and evaluation against synthetic test environments (including the
 
 <!-- TABLE OF CONTENTS -->
 <div class="chapter-header">
-  <div class="chapter-number">DOCUMENT STRUCTURE</div>
+  <div class="chapter-kicker">DOCUMENT STRUCTURE</div>
   <h1 class="chapter-title">Table of Contents & Reading Roadmap</h1>
 </div>
 
 <h2>Table of Contents</h2>
-<table style="border: none;">
+<table class="toc-table">
   <tbody>
     <tr style="background: transparent;"><td style="border: none; font-weight: 700; width: 85%;">Executive Summary & Abstract</td><td style="border: none; text-align: right; font-weight: 700;">Page 2</td></tr>
     <tr style="background: transparent;"><td style="border: none; font-weight: 700;">Table of Contents & Reading Roadmap</td><td style="border: none; text-align: right; font-weight: 700;">Page 4</td></tr>
@@ -614,7 +691,7 @@ This documentation has been structured to serve multiple technical audiences acr
 
 <!-- CHAPTER 1: THE MODERN API THREAT LANDSCAPE & PROBLEM DEFINITION -->
 <div class="chapter-header">
-  <div class="chapter-number">CHAPTER 1</div>
+  <div class="chapter-kicker">CHAPTER 1</div>
   <h1 class="chapter-title">The Modern API Threat Landscape & Problem Definition</h1>
 </div>
 
@@ -701,7 +778,7 @@ Beyond direct security risks, maintaining an accurate and continuous inventory o
 
 <!-- CHAPTER 2: PROJECT OBJECTIVES, SCOPE & ETHICAL OPERATING GUARDRAILS -->
 <div class="chapter-header">
-  <div class="chapter-number">CHAPTER 2</div>
+  <div class="chapter-kicker">CHAPTER 2</div>
   <h1 class="chapter-title">Project Objectives, Scope & Ethical Operating Guardrails</h1>
 </div>
 
@@ -795,7 +872,7 @@ Every scan event, domain target creation, and verification action is immutably l
 
 <!-- CHAPTER 3: SYSTEM ARCHITECTURE & HIGH-LEVEL PROCESSING PIPELINE -->
 <div class="chapter-header">
-  <div class="chapter-number">CHAPTER 3</div>
+  <div class="chapter-kicker">CHAPTER 3</div>
   <h1 class="chapter-title">System Architecture & High-Level Processing Pipeline</h1>
 </div>
 
@@ -897,7 +974,7 @@ This configuration allows the background scanner to write continuous endpoint di
 
 <!-- CHAPTER 4: DISCOVERY ENGINE & PASSIVE CRAWLING SUBSYSTEM -->
 <div class="chapter-header">
-  <div class="chapter-number">CHAPTER 4</div>
+  <div class="chapter-kicker">CHAPTER 4</div>
   <h1 class="chapter-title">Discovery Engine & Passive Crawling Subsystem</h1>
 </div>
 
@@ -980,7 +1057,7 @@ In addition to spidering and script analysis, the discovery subsystem probes a c
 
 <!-- CHAPTER 5: ROUTE NORMALIZATION, PARAMETER TEMPLATING & BASELINE RECONCILIATION -->
 <div class="chapter-header">
-  <div class="chapter-number">CHAPTER 5</div>
+  <div class="chapter-kicker">CHAPTER 5</div>
   <h1 class="chapter-title">Normalization, Parameter Templating & Baseline Reconciliation</h1>
 </div>
 
@@ -1098,7 +1175,7 @@ With both runtime discovered endpoints and declared baseline specifications norm
 
 <!-- CHAPTER 6: SAFE HEURISTIC VALIDATION & SOFT-404 MITIGATION ENGINE -->
 <div class="chapter-header">
-  <div class="chapter-number">CHAPTER 6</div>
+  <div class="chapter-kicker">CHAPTER 6</div>
   <h1 class="chapter-title">Safe Heuristic Validation & Soft-404 Mitigation Engine</h1>
 </div>
 
@@ -1189,7 +1266,7 @@ Once candidate routes have been cleared of soft-404 catch-all interference, Shad
 
 <!-- CHAPTER 7: SECURITY DETECTION RULESET & VULNERABILITY CATALOG -->
 <div class="chapter-header">
-  <div class="chapter-number">CHAPTER 7</div>
+  <div class="chapter-kicker">CHAPTER 7</div>
   <h1 class="chapter-title">Security Detection Ruleset & Vulnerability Catalog</h1>
 </div>
 
@@ -1462,7 +1539,7 @@ server {
 
 <!-- CHAPTER 8: MATHEMATICAL RISK SCORING MODEL & REMEDIATION PRIORITIZATION -->
 <div class="chapter-header">
-  <div class="chapter-number">CHAPTER 8</div>
+  <div class="chapter-kicker">CHAPTER 8</div>
   <h1 class="chapter-title">Mathematical Risk Scoring Model & Remediation Prioritization</h1>
 </div>
 
@@ -1588,7 +1665,7 @@ Once the mathematical risk score is computed, ShadowTrace maps the numerical sco
 
 <!-- CHAPTER 9: DEFENSE-IN-DEPTH & SSRF PROTECTION ARCHITECTURE -->
 <div class="chapter-header">
-  <div class="chapter-number">CHAPTER 9</div>
+  <div class="chapter-kicker">CHAPTER 9</div>
   <h1 class="chapter-title">Defense-in-Depth & SSRF Protection Architecture</h1>
 </div>
 
@@ -1672,7 +1749,7 @@ To eliminate DNS rebinding entirely, ShadowTrace employs <strong>Socket-Level IP
 
 <!-- CHAPTER 10: SHADOWLAB: BUNDLED VULNERABLE TRAINING APPLICATION -->
 <div class="chapter-header">
-  <div class="chapter-number">CHAPTER 10</div>
+  <div class="chapter-kicker">CHAPTER 10</div>
   <h1 class="chapter-title">ShadowLab: Bundled Vulnerable Training Application</h1>
 </div>
 
@@ -1801,7 +1878,7 @@ This hands-on walkthrough bridges theoretical vulnerability definitions with off
 
 <!-- CHAPTER 11: FRONTEND UI/UX ARCHITECTURE & REAL-TIME VISUALIZATION -->
 <div class="chapter-header">
-  <div class="chapter-number">CHAPTER 11</div>
+  <div class="chapter-kicker">CHAPTER 11</div>
   <h1 class="chapter-title">Frontend UI/UX Architecture & Real-Time Visualization</h1>
 </div>
 
@@ -1861,7 +1938,7 @@ In accordance with professional design guidelines and HackHalt standards, Shadow
 
 <!-- CHAPTER 12: BACKEND ARCHITECTURE, DATABASE DESIGN & API REFERENCE -->
 <div class="chapter-header">
-  <div class="chapter-number">CHAPTER 12</div>
+  <div class="chapter-kicker">CHAPTER 12</div>
   <h1 class="chapter-title">Backend Architecture, Database Design & API Reference</h1>
 </div>
 
@@ -1986,7 +2063,7 @@ Content-Type: application/json
 
 <!-- CHAPTER 13: CLOUD DEPLOYMENT, DEVOPS & PRODUCTION ENGINEERING -->
 <div class="chapter-header">
-  <div class="chapter-number">CHAPTER 13</div>
+  <div class="chapter-kicker">CHAPTER 13</div>
   <h1 class="chapter-title">Cloud Deployment, DevOps & Production Engineering</h1>
 </div>
 
@@ -2057,7 +2134,7 @@ The project repository (<code>https://github.com/amrrish27/ShadowTrace.git</code
 
 <!-- CHAPTER 14: VERIFICATION STRATEGY, QUALITY ASSURANCE & BENCHMARKS -->
 <div class="chapter-header">
-  <div class="chapter-number">CHAPTER 14</div>
+  <div class="chapter-kicker">CHAPTER 14</div>
   <h1 class="chapter-title">Verification Strategy, Quality Assurance & Benchmarks</h1>
 </div>
 
@@ -2156,7 +2233,7 @@ To evaluate performance and safety under adversarial conditions, ShadowTrace was
 
 <!-- CHAPTER 15: ENGINEERING REFLECTIONS, FUTURE ROADMAP & REFERENCES -->
 <div class="chapter-header">
-  <div class="chapter-number">CHAPTER 15</div>
+  <div class="chapter-kicker">CHAPTER 15</div>
   <h1 class="chapter-title">Engineering Reflections, Future Roadmap & References</h1>
 </div>
 
