@@ -88,10 +88,10 @@ def soft_404(sample: str) -> RuleHit:
     return RuleHit(
         rule_id="ST-017",
         title="Catch-all route returns success for unknown paths",
-        severity="low",
+        severity="info",
         confidence="confirmed",
         status="confirmed",
-        exposure=0.2,
+        exposure=0.0,
         rationale=(
             "The target answers random, non-existent paths with the same successful response as real "
             "routes (a soft-404 catch-all). Endpoint validation in this scan compensates for it."
@@ -164,5 +164,5 @@ SCAN_RULES = (
     {"id": "ST-014", "title": "Source map is publicly served", "severity": "medium", "confidence": "confirmed", "status": "confirmed"},
     {"id": "ST-015", "title": "Legacy API version is still reachable", "severity": "medium", "confidence": "high", "status": "confirmed"},
     {"id": "ST-016", "title": "Documented endpoint is no longer reachable", "severity": "info", "confidence": "high", "status": "confirmed"},
-    {"id": "ST-017", "title": "Catch-all route returns success for unknown paths", "severity": "low", "confidence": "confirmed", "status": "confirmed"},
+    {"id": "ST-017", "title": "Catch-all route returns success for unknown paths", "severity": "info", "confidence": "confirmed", "status": "confirmed"},
 )
