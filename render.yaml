@@ -12,3 +12,7 @@ services:
         value: "*"
       - key: ST_CORS_ORIGINS
         value: "*"
+      - key: ST_BOOTSTRAP_ADMIN_EMAIL
+        value: admin@example.test
+      - key: ST_BOOTSTRAP_ADMIN_PASSWORD
+        value: Bootstrap-Admin-Pass-9!

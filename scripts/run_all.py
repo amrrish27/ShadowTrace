@@ -56,6 +56,36 @@ def main() -> None:
     print("[info] applying migrations...")
     subprocess.run([sys.executable, "-m", "app.cli", "init"], cwd=str(BACKEND), env=env, check=True)
 
+    print("[info] ensuring admin user exists...")
+    bootstrap_script = (
+        "import os, sys\n"
+        "sys.path.insert(0, 'backend')\n"
+        "from app.db import db, new_id, now\n"
+        "from app.security.passwords import hash_password\n"
+        "email = os.environ.get('ST_BOOTSTRAP_ADMIN_EMAIL', 'admin@example.test').lower().strip()\n"
+        "password = os.environ.get('ST_BOOTSTRAP_ADMIN_PASSWORD', 'Bootstrap-Admin-Pass-9!')\n"
+        "org_name = os.environ.get('ST_BOOTSTRAP_ORG_NAME', 'ShadowTrace Local')\n"
+        "with db() as conn:\n"
+        "    row = conn.execute('SELECT id FROM users WHERE email = ?', (email,)).fetchone()\n"
+        "    if row is None:\n"
+        "        org_row = conn.execute('SELECT id FROM organizations WHERE name = ?', (org_name,)).fetchone()\n"
+        "        if org_row is None:\n"
+        "            org_id = new_id()\n"
+        "            conn.execute('INSERT INTO organizations (id, name, created_at) VALUES (?, ?, ?)', (org_id, org_name, now()))\n"
+        "        else:\n"
+        "            org_id = str(org_row['id'])\n"
+        "        user_id = new_id()\n"
+        "        conn.execute(\n"
+        "            'INSERT INTO users (id, org_id, email, name, role, password_hash, is_active, created_at) VALUES (?, ?, ?, ?, \"admin\", ?, 1, ?)',\n"
+        "            (user_id, org_id, email, 'Administrator', hash_password(password), now()),\n"
+        "        )\n"
+        "        print(f'[ok] created bootstrap admin: {email}')\n"
+        "    else:\n"
+        "        conn.execute('UPDATE users SET password_hash = ?, is_active = 1 WHERE email = ?', (hash_password(password), email))\n"
+        "        print(f'[ok] verified admin password for: {email}')\n"
+    )
+    subprocess.run([sys.executable, "-c", bootstrap_script], cwd=str(REPO_ROOT), env=env, check=True)
+
     api_log = open(LOGS / "api.log", "w", encoding="utf-8")
     worker_log = open(LOGS / "worker.log", "w", encoding="utf-8")
 
