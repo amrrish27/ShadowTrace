@@ -8,3 +8,7 @@ services:
     envVars:
       - key: ST_ENV
         value: development
+      - key: ST_ALLOWED_HOSTS
+        value: "*"
+      - key: ST_CORS_ORIGINS
+        value: "*"

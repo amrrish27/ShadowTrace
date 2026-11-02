@@ -36,6 +36,8 @@ def host_allowed(host_header: str, allowed: Iterable[str]) -> bool:
         host = host.split(":")[0]
     for entry in allowed:
         entry = entry.lower()
+        if entry == "*":
+            return True
         if entry.startswith("*."):
             suffix = entry[1:]
             if host.endswith(suffix) and len(host) > len(suffix):

@@ -64,8 +64,6 @@ def main() -> None:
         [sys.executable, str(REPO_ROOT / "scripts" / "run_service.py"), "api", "--host", str(api_host), "--port", str(api_port)],
         cwd=str(BACKEND),
         env=env,
-        stdout=api_log,
-        stderr=subprocess.STDOUT,
     )
 
     print("[info] starting worker...")
@@ -73,8 +71,6 @@ def main() -> None:
         [sys.executable, str(REPO_ROOT / "scripts" / "run_service.py"), "worker"],
         cwd=str(BACKEND),
         env=env,
-        stdout=worker_log,
-        stderr=subprocess.STDOUT,
     )
 
     print(f"[ok] API started (PID {api_proc.pid}), worker started (PID {worker_proc.pid})")
