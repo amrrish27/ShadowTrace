@@ -1,0 +1,928 @@
+{
+  "scan_id": "c48b947ab79745be85a92bf87ba5abf9",
+  "scan_state": "completed",
+  "partial": false,
+  "counters": {
+    "endpoints_found": 53,
+    "endpoints_validated": 49,
+    "shadow_endpoints": 33,
+    "candidate_endpoints": 12,
+    "discovered_endpoints": 0,
+    "baseline_origin": "uploaded",
+    "zombies": 0,
+    "findings": 39,
+    "findings_by_severity": {
+      "medium": 30,
+      "high": 8,
+      "low": 1
+    },
+    "pages_fetched": 33,
+    "scripts_analyzed": 6,
+    "requests_used": 247,
+    "source_maps": 2,
+    "external_references": 2,
+    "requests_failed": 9,
+    "unreachable": false,
+    "partial": false,
+    "phase": "done",
+    "outcome": "ok",
+    "policy_blocked": 3
+  },
+  "discovery": {
+    "shadow_recall": 0.7692,
+    "shadow_precision": 0.9677,
+    "matched": 30,
+    "expected": 39,
+    "observed": 31,
+    "missing": [
+      "GET /lab/api/errors/checkout",
+      "GET /lab/api/input/quantity",
+      "GET /lab/api/redirect",
+      "GET /lab/transport/checkout",
+      "GET /redoc",
+      "GET /swagger-ui.html",
+      "POST /api/v1/wishlist",
+      "POST /graphql",
+      "POST /lab/upload"
+    ],
+    "unexpected": [
+      "GET /healthz"
+    ],
+    "validation_check": [
+      {
+        "endpoint": "GET /api/v1/legacy/users",
+        "expected": "live",
+        "observed": "live"
+      },
+      {
+        "endpoint": "GET /api/internal/export",
+        "expected": "live",
+        "observed": "live"
+      },
+      {
+        "endpoint": "GET /api/v1/secret-report",
+        "expected": "live",
+        "observed": "live"
+      },
+      {
+        "endpoint": "GET /api/legacy/checkout",
+        "expected": "live",
+        "observed": "live"
+      },
+      {
+        "endpoint": "GET /api/internal/shipments",
+        "expected": "live",
+        "observed": "live"
+      },
+      {
+        "endpoint": "GET /api/v1/invoices/{param}",
+        "expected": "live",
+        "observed": "live"
+      },
+      {
+        "endpoint": "GET /api/v1/partners",
+        "expected": "live",
+        "observed": "live"
+      },
+      {
+        "endpoint": "GET /api/v1/partners/{param}/invoices",
+        "expected": "live",
+        "observed": "live"
+      },
+      {
+        "endpoint": "GET /api/v1/legacy/orders",
+        "expected": "live",
+        "observed": "live"
+      },
+      {
+        "endpoint": "GET /api/v1/customers/{param}",
+        "expected": "live",
+        "observed": "live"
+      },
+      {
+        "endpoint": "GET /api/internal/audit-log",
+        "expected": "live",
+        "observed": "live"
+      },
+      {
+        "endpoint": "POST /api/v1/wishlist",
+        "expected": "unvalidated",
+        "observed": "unvalidated"
+      },
+      {
+        "endpoint": "GET /api/v1/users",
+        "expected": "live",
+        "observed": "live"
+      },
+      {
+        "endpoint": "GET /api/v1/reports/summary",
+        "expected": "live",
+        "observed": "live"
+      },
+      {
+        "endpoint": "GET /api/admin/backup",
+        "expected": "live",
+        "observed": "live"
+      },
+      {
+        "endpoint": "GET /api/internal/tokens",
+        "expected": "live",
+        "observed": "live"
+      },
+      {
+        "endpoint": "GET /api/v1/debug/config",
+        "expected": "live",
+        "observed": "live"
+      },
+      {
+        "endpoint": "GET /graphql",
+        "expected": "live",
+        "observed": "live"
+      },
+      {
+        "endpoint": "GET /openapi.json",
+        "expected": "live",
+        "observed": "live"
+      },
+      {
+        "endpoint": "GET /swagger-ui.html",
+        "expected": "live",
+        "observed": "live"
+      },
+      {
+        "endpoint": "GET /api-docs.json",
+        "expected": "live",
+        "observed": "live"
+      },
+      {
+        "endpoint": "GET /redoc",
+        "expected": "live",
+        "observed": "missing"
+      },
+      {
+        "endpoint": "GET /api/v1/remote",
+        "expected": "live",
+        "observed": "live"
+      },
+      {
+        "endpoint": "POST /graphql",
+        "expected": "unvalidated",
+        "observed": "unvalidated"
+      },
+      {
+        "endpoint": "GET /lab/api/cookies/session",
+        "expected": "live",
+        "observed": "live"
+      },
+      {
+        "endpoint": "GET /lab/api/errors/checkout",
+        "expected": "error",
+        "observed": "error"
+      },
+      {
+        "endpoint": "GET /lab/api/cors/profile",
+        "expected": "live",
+        "observed": "live"
+      },
+      {
+        "endpoint": "GET /lab/api/xss/echo",
+        "expected": "live",
+        "observed": "live"
+      },
+      {
+        "endpoint": "GET /lab/api/sqli/product",
+        "expected": "live",
+        "observed": "live"
+      },
+      {
+        "endpoint": "GET /lab/api/files/download",
+        "expected": "live",
+        "observed": "not_found"
+      },
+      {
+        "endpoint": "GET /lab/api/idor/account/{param}",
+        "expected": "live",
+        "observed": "not_found"
+      },
+      {
+        "endpoint": "GET /lab/api/auth/admin-panel",
+        "expected": "live",
+        "observed": "live"
+      },
+      {
+        "endpoint": "GET /lab/api/redirect",
+        "expected": "live",
+        "observed": "not_found"
+      },
+      {
+        "endpoint": "GET /lab/api/api-keys/export",
+        "expected": "live",
+        "observed": "live"
+      },
+      {
+        "endpoint": "GET /lab/api/input/quantity",
+        "expected": "live",
+        "observed": "missing"
+      },
+      {
+        "endpoint": "GET /lab/api/diagnostics/env",
+        "expected": "live",
+        "observed": "live"
+      },
+      {
+        "endpoint": "GET /lab/transport/checkout",
+        "expected": "live",
+        "observed": "live"
+      },
+      {
+        "endpoint": "POST /lab/upload",
+        "expected": "unvalidated",
+        "observed": "unvalidated"
+      },
+      {
+        "endpoint": "GET /lab/api/headers/ping",
+        "expected": "live",
+        "observed": "live"
+      }
+    ]
+  },
+  "sources": {
+    "distinct_sources": 10,
+    "required_minimum": 5,
+    "meets_minimum": true,
+    "breakdown": {
+      "html": 27,
+      "crawler": 18,
+      "openapi": 10,
+      "javascript": 7,
+      "har": 3,
+      "docs": 2,
+      "graphql": 2,
+      "postman": 2,
+      "source_map": 2,
+      "sitemap": 1
+    }
+  },
+  "reconciliation": {
+    "documented_expected": 8,
+    "documented_observed": 7,
+    "shadow_expected": 39,
+    "shadow_observed": 31,
+    "zombies_expected": 1,
+    "zombies_observed": 0
+  },
+  "rules": {
+    "planted": 19,
+    "detected": 6,
+    "detection_rate": 0.3158,
+    "details": [
+      {
+        "rule": "ST-001",
+        "endpoint": "GET /api/internal/export",
+        "detected": true,
+        "count": 1
+      },
+      {
+        "rule": "ST-001",
+        "endpoint": "GET /api/admin/backup",
+        "detected": true,
+        "count": 1
+      },
+      {
+        "rule": "ST-001",
+        "endpoint": "GET /api/internal/tokens",
+        "detected": true,
+        "count": 1
+      },
+      {
+        "rule": "ST-002",
+        "endpoint": "GET /api/v1/orders",
+        "detected": false,
+        "count": 0
+      },
+      {
+        "rule": "ST-004",
+        "endpoint": "GET /openapi.json",
+        "detected": true,
+        "count": 1
+      },
+      {
+        "rule": "ST-005",
+        "endpoint": "GET /graphql",
+        "detected": false,
+        "count": 0
+      },
+      {
+        "rule": "ST-006",
+        "endpoint": "GET /api/v2/profile",
+        "detected": false,
+        "count": 0
+      },
+      {
+        "rule": "ST-007",
+        "endpoint": "GET /api/admin/backup",
+        "detected": false,
+        "count": 0
+      },
+      {
+        "rule": "ST-008",
+        "endpoint": "GET /api/v2/orders",
+        "detected": false,
+        "count": 0
+      },
+      {
+        "rule": "ST-009",
+        "endpoint": "GET /api/v1/orders",
+        "detected": false,
+        "count": 0
+      },
+      {
+        "rule": "ST-012",
+        "endpoint": "GET /api/v1/orders",
+        "detected": false,
+        "count": 0
+      },
+      {
+        "rule": "ST-014",
+        "endpoint": "GET /static/app.js.map",
+        "detected": true,
+        "count": 2
+      },
+      {
+        "rule": "ST-016",
+        "endpoint": "GET /api/v2/reports",
+        "detected": false,
+        "count": 0
+      },
+      {
+        "rule": "ST-017",
+        "endpoint": "GET /st-nonexistent",
+        "detected": true,
+        "count": 1
+      },
+      {
+        "rule": "ST-018",
+        "endpoint": "GET /lab/api/cookies/session",
+        "detected": false,
+        "count": 0
+      },
+      {
+        "rule": "ST-020",
+        "endpoint": "GET /lab/api/sqli/product",
+        "detected": false,
+        "count": 0
+      },
+      {
+        "rule": "ST-021",
+        "endpoint": "GET /lab/api/files/download",
+        "detected": false,
+        "count": 0
+      },
+      {
+        "rule": "ST-023",
+        "endpoint": "GET /lab/api/idor/account/{param}",
+        "detected": false,
+        "count": 0
+      },
+      {
+        "rule": "ST-013",
+        "endpoint": "GET /lab/api/headers/ping",
+        "detected": false,
+        "count": 0
+      }
+    ],
+    "findings_by_severity": {
+      "high": 8,
+      "low": 1,
+      "medium": 30
+    }
+  },
+  "negative_controls": [
+    {
+      "path": "/api/v2/secure",
+      "expected": "no finding",
+      "findings": 0,
+      "pass": true
+    },
+    {
+      "path": "/api/v1/health",
+      "expected": "no finding",
+      "findings": 0,
+      "pass": true
+    },
+    {
+      "path": "/api/v1/decoy-only-in-comment",
+      "expected": "not discovered",
+      "findings": 0,
+      "inventory_entries": 0,
+      "pass": true
+    },
+    {
+      "path": "/api/v1/decoy-in-prose",
+      "expected": "no finding",
+      "findings": 0,
+      "inventory_entries": 0,
+      "pass": true
+    },
+    {
+      "path": "/does-not-exist-*",
+      "expected": "not reported as live",
+      "findings": 0,
+      "pass": true
+    }
+  ],
+  "negative_controls_passed": 5,
+  "negative_controls_total": 5,
+  "traps": [
+    {
+      "path": "/redirect-metadata",
+      "expected": "blocked, not followed",
+      "handled": true,
+      "observed": [
+        "http://127.0.0.1:8099/redirect-metadata: policy_blocked (redirect_metadata_hostname)"
+      ]
+    },
+    {
+      "path": "/redirect-loopback",
+      "expected": "blocked, not followed",
+      "handled": true,
+      "observed": [
+        "http://127.0.0.1:8099/redirect-loopback: policy_blocked (cross_origin_redirect: the target redirected to a different origin)"
+      ]
+    },
+    {
+      "path": "/redirect-loop",
+      "expected": "blocked after hop limit",
+      "handled": true,
+      "observed": [
+        "http://127.0.0.1:8099/redirect-loopback: policy_blocked (cross_origin_redirect: the target redirected to a different origin)"
+      ]
+    },
+    {
+      "path": "/redirect-cross-origin",
+      "expected": "blocked",
+      "handled": true,
+      "observed": [
+        "http://127.0.0.1:8099/redirect-cross-origin: policy_blocked (cross_origin_redirect: the target redirected to a different origin)"
+      ]
+    },
+    {
+      "path": "/bomb.gz",
+      "expected": "response size aborted",
+      "handled": true,
+      "observed": [
+        "http://127.0.0.1:8099/bomb.gz: target_error"
+      ]
+    },
+    {
+      "path": "/endless",
+      "expected": "response size aborted",
+      "handled": true,
+      "observed": [
+        "http://127.0.0.1:8099/endless: target_error"
+      ]
+    },
+    {
+      "path": "/huge-headers",
+      "expected": "header limits enforced",
+      "handled": true,
+      "observed": [
+        "http://127.0.0.1:8099/huge-headers: target_error"
+      ]
+    },
+    {
+      "path": "/big.js",
+      "expected": "response size aborted",
+      "handled": true,
+      "observed": [
+        "http://127.0.0.1:8099/big.js: target_error"
+      ]
+    },
+    {
+      "path": "/nested.json",
+      "expected": "nesting rejected",
+      "handled": true,
+      "observed": [
+        "http: //127.0.0.1: 8099/nested.json:  specification_unparseable (37 notes)"
+      ]
+    },
+    {
+      "path": "/spec-remote-ref.json",
+      "expected": "remote $ref refused",
+      "handled": true,
+      "observed": [
+        "http: //127.0.0.1: 8099/spec-remote-ref.json:  refused_remote_refs: 1 (37 notes)"
+      ]
+    },
+    {
+      "path": "/sitemap-bomb.xml",
+      "expected": "entity expansion refused",
+      "handled": true,
+      "observed": [
+        "http: //127.0.0.1: 8099/sitemap-bomb.xml:  sitemap_rejected (37 notes)"
+      ]
+    },
+    {
+      "path": "/slow",
+      "expected": "timeout enforced",
+      "handled": true,
+      "observed": [
+        "http://127.0.0.1:8099/slow: timeout"
+      ]
+    }
+  ],
+  "traps_handled": 12,
+  "traps_total": 12,
+  "findings": [
+    {
+      "rule": "ST-001",
+      "severity": "high",
+      "confidence": "high",
+      "status": "confirmed",
+      "risk": 71.2,
+      "method": "GET",
+      "path": "/lab/api/diagnostics/env",
+      "title": "Undocumented API endpoint discovered"
+    },
+    {
+      "rule": "ST-001",
+      "severity": "high",
+      "confidence": "high",
+      "status": "confirmed",
+      "risk": 71.2,
+      "method": "GET",
+      "path": "/lab/api/api-keys/export",
+      "title": "Undocumented API endpoint discovered"
+    },
+    {
+      "rule": "ST-001",
+      "severity": "high",
+      "confidence": "high",
+      "status": "confirmed",
+      "risk": 71.2,
+      "method": "GET",
+      "path": "/api/v1/debug/config",
+      "title": "Undocumented API endpoint discovered"
+    },
+    {
+      "rule": "ST-001",
+      "severity": "high",
+      "confidence": "high",
+      "status": "confirmed",
+      "risk": 71.2,
+      "method": "GET",
+      "path": "/api/internal/tokens",
+      "title": "Undocumented API endpoint discovered"
+    },
+    {
+      "rule": "ST-001",
+      "severity": "high",
+      "confidence": "high",
+      "status": "confirmed",
+      "risk": 71.2,
+      "method": "GET",
+      "path": "/api/internal/shipments",
+      "title": "Undocumented API endpoint discovered"
+    },
+    {
+      "rule": "ST-001",
+      "severity": "high",
+      "confidence": "high",
+      "status": "confirmed",
+      "risk": 71.2,
+      "method": "GET",
+      "path": "/api/admin/backup",
+      "title": "Undocumented API endpoint discovered"
+    },
+    {
+      "rule": "ST-001",
+      "severity": "high",
+      "confidence": "high",
+      "status": "confirmed",
+      "risk": 71.2,
+      "method": "GET",
+      "path": "/api/internal/export",
+      "title": "Undocumented API endpoint discovered"
+    },
+    {
+      "rule": "ST-001",
+      "severity": "high",
+      "confidence": "high",
+      "status": "confirmed",
+      "risk": 71.2,
+      "method": "GET",
+      "path": "/api/internal/audit-log",
+      "title": "Undocumented API endpoint discovered"
+    },
+    {
+      "rule": "ST-017",
+      "severity": "low",
+      "confidence": "confirmed",
+      "status": "confirmed",
+      "risk": 32.8,
+      "method": "",
+      "path": "",
+      "title": "Catch-all route returns success for unknown paths"
+    },
+    {
+      "rule": "ST-001",
+      "severity": "medium",
+      "confidence": "high",
+      "status": "confirmed",
+      "risk": 50.4,
+      "method": "GET",
+      "path": "/api/v1/legacy/users",
+      "title": "Undocumented API endpoint discovered"
+    },
+    {
+      "rule": "ST-001",
+      "severity": "medium",
+      "confidence": "high",
+      "status": "confirmed",
+      "risk": 50.4,
+      "method": "GET",
+      "path": "/lab/api/auth/admin-panel",
+      "title": "Undocumented API endpoint discovered"
+    },
+    {
+      "rule": "ST-001",
+      "severity": "medium",
+      "confidence": "high",
+      "status": "confirmed",
+      "risk": 50.4,
+      "method": "GET",
+      "path": "/openapi.json",
+      "title": "Undocumented API endpoint discovered"
+    },
+    {
+      "rule": "ST-004",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "status": "confirmed",
+      "risk": 52.8,
+      "method": "GET",
+      "path": "/openapi.json",
+      "title": "API specification or documentation UI is publicly exposed"
+    },
+    {
+      "rule": "ST-004",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "status": "confirmed",
+      "risk": 25.0,
+      "method": "GET",
+      "path": "/swagger-ui.html",
+      "title": "API specification or documentation UI is publicly exposed"
+    },
+    {
+      "rule": "ST-004",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "status": "confirmed",
+      "risk": 25.0,
+      "method": "GET",
+      "path": "/",
+      "title": "API specification or documentation UI is publicly exposed"
+    },
+    {
+      "rule": "ST-001",
+      "severity": "medium",
+      "confidence": "high",
+      "status": "confirmed",
+      "risk": 50.4,
+      "method": "GET",
+      "path": "/api-docs.json",
+      "title": "Undocumented API endpoint discovered"
+    },
+    {
+      "rule": "ST-001",
+      "severity": "medium",
+      "confidence": "high",
+      "status": "confirmed",
+      "risk": 50.4,
+      "method": "GET",
+      "path": "/api/v1/partners",
+      "title": "Undocumented API endpoint discovered"
+    },
+    {
+      "rule": "ST-001",
+      "severity": "medium",
+      "confidence": "high",
+      "status": "confirmed",
+      "risk": 50.4,
+      "method": "GET",
+      "path": "/lab/api/headers/ping",
+      "title": "Undocumented API endpoint discovered"
+    },
+    {
+      "rule": "ST-001",
+      "severity": "medium",
+      "confidence": "high",
+      "status": "confirmed",
+      "risk": 50.4,
+      "method": "GET",
+      "path": "/lab/api/cookies/session",
+      "title": "Undocumented API endpoint discovered"
+    },
+    {
+      "rule": "ST-001",
+      "severity": "medium",
+      "confidence": "high",
+      "status": "confirmed",
+      "risk": 50.4,
+      "method": "GET",
+      "path": "/lab/api/cors/profile",
+      "title": "Undocumented API endpoint discovered"
+    },
+    {
+      "rule": "ST-001",
+      "severity": "medium",
+      "confidence": "high",
+      "status": "confirmed",
+      "risk": 50.4,
+      "method": "GET",
+      "path": "/lab/api/xss/echo",
+      "title": "Undocumented API endpoint discovered"
+    },
+    {
+      "rule": "ST-001",
+      "severity": "medium",
+      "confidence": "high",
+      "status": "confirmed",
+      "risk": 50.4,
+      "method": "GET",
+      "path": "/lab/api/sqli/product",
+      "title": "Undocumented API endpoint discovered"
+    },
+    {
+      "rule": "ST-001",
+      "severity": "medium",
+      "confidence": "high",
+      "status": "confirmed",
+      "risk": 50.4,
+      "method": "GET",
+      "path": "/api/v1/users",
+      "title": "Undocumented API endpoint discovered"
+    },
+    {
+      "rule": "ST-001",
+      "severity": "medium",
+      "confidence": "high",
+      "status": "confirmed",
+      "risk": 50.4,
+      "method": "GET",
+      "path": "/api/v1/remote",
+      "title": "Undocumented API endpoint discovered"
+    },
+    {
+      "rule": "ST-001",
+      "severity": "medium",
+      "confidence": "high",
+      "status": "confirmed",
+      "risk": 50.4,
+      "method": "GET",
+      "path": "/api/v1/reports/summary",
+      "title": "Undocumented API endpoint discovered"
+    },
+    {
+      "rule": "ST-001",
+      "severity": "medium",
+      "confidence": "high",
+      "status": "confirmed",
+      "risk": 50.4,
+      "method": "GET",
+      "path": "/graphql",
+      "title": "Undocumented API endpoint discovered"
+    },
+    {
+      "rule": "ST-001",
+      "severity": "medium",
+      "confidence": "high",
+      "status": "confirmed",
+      "risk": 50.4,
+      "method": "GET",
+      "path": "/api/v1/secret-report",
+      "title": "Undocumented API endpoint discovered"
+    },
+    {
+      "rule": "ST-001",
+      "severity": "medium",
+      "confidence": "high",
+      "status": "confirmed",
+      "risk": 50.4,
+      "method": "GET",
+      "path": "/api/legacy/checkout",
+      "title": "Undocumented API endpoint discovered"
+    },
+    {
+      "rule": "ST-001",
+      "severity": "medium",
+      "confidence": "high",
+      "status": "confirmed",
+      "risk": 50.4,
+      "method": "GET",
+      "path": "/api/v1/legacy/orders",
+      "title": "Undocumented API endpoint discovered"
+    },
+    {
+      "rule": "ST-001",
+      "severity": "medium",
+      "confidence": "high",
+      "status": "confirmed",
+      "risk": 50.4,
+      "method": "GET",
+      "path": "/lab/api/xss/echo",
+      "title": "Undocumented API endpoint discovered"
+    },
+    {
+      "rule": "ST-001",
+      "severity": "medium",
+      "confidence": "high",
+      "status": "confirmed",
+      "risk": 50.4,
+      "method": "GET",
+      "path": "/lab/api/sqli/product",
+      "title": "Undocumented API endpoint discovered"
+    },
+    {
+      "rule": "ST-001",
+      "severity": "medium",
+      "confidence": "high",
+      "status": "confirmed",
+      "risk": 50.4,
+      "method": "GET",
+      "path": "/api/v1/partners/{param}/invoices",
+      "title": "Undocumented API endpoint discovered"
+    },
+    {
+      "rule": "ST-001",
+      "severity": "medium",
+      "confidence": "high",
+      "status": "confirmed",
+      "risk": 50.4,
+      "method": "GET",
+      "path": "/api/v1/invoices/{param}",
+      "title": "Undocumented API endpoint discovered"
+    },
+    {
+      "rule": "ST-001",
+      "severity": "medium",
+      "confidence": "high",
+      "status": "confirmed",
+      "risk": 50.4,
+      "method": "GET",
+      "path": "/api/v1/customers/{param}",
+      "title": "Undocumented API endpoint discovered"
+    },
+    {
+      "rule": "ST-001",
+      "severity": "medium",
+      "confidence": "high",
+      "status": "confirmed",
+      "risk": 50.4,
+      "method": "GET",
+      "path": "/lab/api/files/download",
+      "title": "Undocumented API endpoint discovered"
+    },
+    {
+      "rule": "ST-001",
+      "severity": "medium",
+      "confidence": "high",
+      "status": "confirmed",
+      "risk": 50.4,
+      "method": "GET",
+      "path": "/lab/api/idor/account/{param}",
+      "title": "Undocumented API endpoint discovered"
+    },
+    {
+      "rule": "ST-014",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "status": "confirmed",
+      "risk": 54.4,
+      "method": "",
+      "path": "",
+      "title": "Source map is publicly served"
+    },
+    {
+      "rule": "ST-014",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "status": "confirmed",
+      "risk": 54.4,
+      "method": "",
+      "path": "",
+      "title": "Source map is publicly served"
+    },
+    {
+      "rule": "ST-015",
+      "severity": "medium",
+      "confidence": "high",
+      "status": "confirmed",
+      "risk": 52.0,
+      "method": "",
+      "path": "",
+      "title": "Legacy API version is still reachable"
+    }
+  ]
+}

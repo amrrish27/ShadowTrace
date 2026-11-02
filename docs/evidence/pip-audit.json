@@ -1,0 +1,140 @@
+{
+  "dependencies": [
+    {
+      "name": "fastapi",
+      "version": "0.135.0",
+      "vulns": []
+    },
+    {
+      "name": "starlette",
+      "version": "1.3.1",
+      "vulns": []
+    },
+    {
+      "name": "uvicorn",
+      "version": "0.34.0",
+      "vulns": []
+    },
+    {
+      "name": "pydantic",
+      "version": "2.10.4",
+      "vulns": []
+    },
+    {
+      "name": "pyyaml",
+      "version": "6.0.2",
+      "vulns": []
+    },
+    {
+      "name": "defusedxml",
+      "version": "0.7.1",
+      "vulns": []
+    },
+    {
+      "name": "argon2-cffi",
+      "version": "23.1.0",
+      "vulns": []
+    },
+    {
+      "name": "tree-sitter",
+      "version": "0.23.2",
+      "vulns": []
+    },
+    {
+      "name": "tree-sitter-javascript",
+      "version": "0.23.1",
+      "vulns": []
+    },
+    {
+      "name": "python-multipart",
+      "version": "0.0.31",
+      "vulns": []
+    },
+    {
+      "name": "pydantic-core",
+      "version": "2.27.2",
+      "vulns": []
+    },
+    {
+      "name": "anyio",
+      "version": "4.15.1",
+      "vulns": []
+    },
+    {
+      "name": "annotated-doc",
+      "version": "0.0.5",
+      "vulns": []
+    },
+    {
+      "name": "annotated-types",
+      "version": "0.8.0",
+      "vulns": []
+    },
+    {
+      "name": "click",
+      "version": "8.5.0",
+      "vulns": []
+    },
+    {
+      "name": "h11",
+      "version": "0.16.0",
+      "vulns": []
+    },
+    {
+      "name": "httptools",
+      "version": "0.9.0",
+      "vulns": []
+    },
+    {
+      "name": "idna",
+      "version": "3.20",
+      "vulns": []
+    },
+    {
+      "name": "python-dotenv",
+      "version": "1.2.4",
+      "vulns": []
+    },
+    {
+      "name": "typing-extensions",
+      "version": "4.16.0",
+      "vulns": []
+    },
+    {
+      "name": "typing-inspection",
+      "version": "0.4.4",
+      "vulns": []
+    },
+    {
+      "name": "uvloop",
+      "version": "0.23.0",
+      "vulns": []
+    },
+    {
+      "name": "watchfiles",
+      "version": "1.3.0",
+      "vulns": []
+    },
+    {
+      "name": "websockets",
+      "version": "17.3",
+      "vulns": []
+    },
+    {
+      "name": "argon2-cffi-bindings",
+      "version": "26.1.0",
+      "vulns": []
+    },
+    {
+      "name": "cffi",
+      "version": "2.1.1",
+      "vulns": []
+    },
+    {
+      "name": "pycparser",
+      "version": "3.12",
+      "vulns": []
+    }
+  ],
+  "fixes": []
+}

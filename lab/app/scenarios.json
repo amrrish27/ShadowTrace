@@ -1,0 +1,208 @@
+{
+  "version": 1,
+  "name": "ShadowLab training scenarios",
+  "warning": "ShadowLab is intentionally vulnerable. It binds to loopback only, contains synthetic data only, and must never be exposed to a network or deployed to production.",
+  "scenarios": [
+    {
+      "id": "transport",
+      "title": "Cleartext HTTP transport",
+      "category": "transport",
+      "severity": "medium",
+      "path": "/lab/transport/checkout",
+      "summary": "A checkout page served over cleartext HTTP with no HSTS, so the whole flow is readable on the wire.",
+      "demo": "Open /lab/transport/checkout and observe the http:// origin and the absent Strict-Transport-Security header.",
+      "expected_rules": [
+        "ST-012"
+      ],
+      "safe": "Read-only page; nothing is submitted."
+    },
+    {
+      "id": "headers",
+      "title": "Security headers missing",
+      "category": "configuration",
+      "severity": "low",
+      "path": "/lab/api/headers/ping",
+      "summary": "A page rendered without CSP, X-Content-Type-Options or X-Frame-Options.",
+      "demo": "Fetch /lab/headers/console and inspect the response headers.",
+      "expected_rules": [
+        "ST-013"
+      ],
+      "safe": "Static HTML.",
+      "description": "A JSON API response is served with no X-Content-Type-Options and no Content-Security-Policy, so a browser is free to sniff the body and the page has no script origin policy."
+    },
+    {
+      "id": "cookies",
+      "title": "Session cookie without security attributes",
+      "category": "configuration",
+      "severity": "medium",
+      "path": "/lab/api/cookies/session",
+      "summary": "A session cookie issued without HttpOnly, Secure or SameSite, so it is readable by script and sent on cross-site requests.",
+      "demo": "Fetch /lab/cookies/session and inspect the Set-Cookie header.",
+      "expected_rules": [
+        "ST-018"
+      ],
+      "safe": "The cookie value is a synthetic placeholder."
+    },
+    {
+      "id": "verbose-errors",
+      "title": "Verbose error messages",
+      "category": "information-disclosure",
+      "severity": "medium",
+      "path": "/lab/api/errors/checkout",
+      "summary": "A failing request returns a stack trace with internal file paths and the query that broke.",
+      "demo": "Fetch /lab/errors/checkout and read the JSON error body.",
+      "expected_rules": [
+        "ST-008"
+      ],
+      "safe": "The traceback is a fixed synthetic string, not a real exception."
+    },
+    {
+      "id": "cors",
+      "title": "Insecure CORS configuration",
+      "category": "configuration",
+      "severity": "medium",
+      "path": "/lab/api/cors/profile",
+      "summary": "A profile endpoint answers with Access-Control-Allow-Origin: * together with Access-Control-Allow-Credentials: true.",
+      "demo": "Fetch /lab/cors/profile and inspect the Access-Control-* headers.",
+      "expected_rules": [
+        "ST-006"
+      ],
+      "safe": "Synthetic profile record."
+    },
+    {
+      "id": "reflected-xss",
+      "title": "Reflected input rendered unencoded",
+      "category": "injection",
+      "severity": "high",
+      "path": "/lab/api/xss/echo?name=%3Cscript%3Ealert(1)%3C%2Fscript%3E",
+      "summary": "A search page echoes the name parameter into HTML without encoding it.",
+      "demo": "Fetch /lab/xss/echo?name=<script>alert(1)</script> and observe the unencoded reflection in the body.",
+      "expected_rules": [
+        "ST-019"
+      ],
+      "safe": "The payload is reflected as text; ShadowLab never executes it and the page has no other script."
+    },
+    {
+      "id": "sql-injection",
+      "title": "SQL injection (error-based simulation)",
+      "category": "injection",
+      "severity": "high",
+      "path": "/lab/api/sqli/product?id=1%27",
+      "summary": "A product lookup passes the id parameter into a query and returns the database error verbatim.",
+      "demo": "Fetch /lab/sqli/product?id=1' and observe the SQL error text in the response.",
+      "expected_rules": [
+        "ST-020"
+      ],
+      "safe": "No database is queried; the error text is a fixed synthetic string and no data is read or written."
+    },
+    {
+      "id": "path-traversal",
+      "title": "Path traversal (synthetic filesystem)",
+      "category": "injection",
+      "severity": "high",
+      "path": "/lab/api/files/download?file=../../../../etc/passwd",
+      "summary": "A download endpoint accepts a file path parameter and returns a synthetic file from a fake filesystem.",
+      "demo": "Fetch /lab/files/download?file=../../../../etc/passwd and observe the passwd-shaped content.",
+      "expected_rules": [
+        "ST-021"
+      ],
+      "safe": "The content is a hard-coded sample held in memory; no host file is opened and every traversal attempt is answered from the same synthetic table."
+    },
+    {
+      "id": "idor",
+      "title": "Insecure direct object reference",
+      "category": "authorization",
+      "severity": "high",
+      "path": "/lab/api/idor/account/1001",
+      "summary": "Account records are addressed by a sequential id and returned without authentication; 1002 and 1003 belong to other synthetic customers.",
+      "demo": "Fetch /lab/idor/account/1001, then 1002 and 1003, and compare the returned owners.",
+      "expected_rules": [
+        "ST-023",
+        "ST-001"
+      ],
+      "safe": "Three fixed synthetic records."
+    },
+    {
+      "id": "authz-flaws",
+      "title": "Authentication and authorization logic flaws",
+      "category": "authorization",
+      "severity": "high",
+      "path": "/lab/api/auth/admin-panel",
+      "summary": "An administrative panel is served without any authentication, and the login form posts over cleartext with a synthetic account list.",
+      "demo": "Fetch /lab/auth/admin-panel and observe that no credentials were required.",
+      "expected_rules": [
+        "ST-003",
+        "ST-001"
+      ],
+      "safe": "The panel shows synthetic users only; there is no session and no credential store."
+    },
+    {
+      "id": "upload",
+      "title": "Unsafe file-upload validation",
+      "category": "input-validation",
+      "severity": "medium",
+      "path": "/lab/upload",
+      "summary": "An upload form accepts any extension and does not validate content type. ShadowLab refuses the POST itself, so nothing is ever stored or executed.",
+      "demo": "Open /lab/upload to see the form, then note that every POST is answered with 405 by design.",
+      "expected_rules": [
+        "ST-001"
+      ],
+      "safe": "Uploads are never accepted, written to disk or executed; the demo ends at the form."
+    },
+    {
+      "id": "open-redirect",
+      "title": "Open redirect",
+      "category": "input-validation",
+      "severity": "medium",
+      "path": "/lab/api/redirect?next=/lab/landing",
+      "summary": "A continue parameter is used as the redirect target. ShadowLab only redirects to local paths and refuses absolute URLs, which keeps the demo contained.",
+      "demo": "Fetch /lab/redirect?next=/lab/landing and observe the 302 to the supplied path.",
+      "expected_rules": [
+        "ST-001"
+      ],
+      "safe": "Only same-site targets are honoured; an absolute URL is refused with 400.",
+      "containment_note": "The lab only honours same-site targets and answers an absolute URL with 400, so the off-site redirect that ST-022 detects cannot be produced here by design."
+    },
+    {
+      "id": "diagnostics",
+      "title": "Exposed debug and diagnostic routes",
+      "category": "exposure",
+      "severity": "high",
+      "path": "/lab/api/diagnostics/env",
+      "summary": "Diagnostic routes publish a synthetic environment, build metadata and a feature-flag dump to anyone.",
+      "demo": "Fetch /diagnostics/env and /diagnostics/config.",
+      "expected_rules": [
+        "ST-003",
+        "ST-011"
+      ],
+      "safe": "Every value is a synthetic placeholder; no real environment variable is read."
+    },
+    {
+      "id": "access-control",
+      "title": "Insecure API access control",
+      "category": "authorization",
+      "severity": "high",
+      "path": "/lab/api/api-keys/export",
+      "summary": "An export endpoint returns API keys for every synthetic tenant without checking who is asking.",
+      "demo": "Fetch /lab/api-keys/export and observe the key material.",
+      "expected_rules": [
+        "ST-011",
+        "ST-001"
+      ],
+      "safe": "Keys are obviously fake (ST-DEMO-\u2026-not-real)."
+    },
+    {
+      "id": "input-validation",
+      "title": "Weak input validation",
+      "category": "input-validation",
+      "severity": "medium",
+      "path": "/lab/api/input/quantity?q=-1%27%3E%3Cscript%3E",
+      "summary": "A quantity parameter accepts negative numbers, quotes and markup, and reflects the raw value back into the page.",
+      "demo": "Fetch /lab/input/quantity?q=-1 with markup and observe the unvalidated echo.",
+      "expected_rules": [
+        "ST-019"
+      ],
+      "safe": "Reflected as text only."
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+# Production-style composition behind a TLS-terminating proxy.
+#   cp ../.env.example .env   # then edit every CHANGE-ME
+#   docker compose up -d --build
+#
+# Network model (see HARDENING.md §6):
+#   backend  internal: true  api + proxy only — no route to the internet
+#   egress   bridge          worker only — the scanner is the one component that must
+#                            reach scan targets; no ports are published and the proxy
+#                            is not attached to it
+#   edge                     proxy only — where the published TLS ports live
+# Fixed project name so the networks are `shadowtrace_backend` / `shadowtrace_egress`
+# (the commands in HARDENING.md and known-issues.md use those names).
+name: shadowtrace
+
+services:
+  api:
+    build:
+      context: ..
+      dockerfile: deploy/docker/Dockerfile
+    image: shadowtrace-runtime:latest
+    env_file: ../.env
+    environment:
+      ST_DATABASE_PATH: /var/lib/shadowtrace/shadowtrace.db
+      # uvicorn --forwarded-allow-ips is read from this same variable in the Dockerfile,
+      # so the header allow-list and the application's own check cannot drift apart.
+      # The proxy is pinned to 172.30.0.2 below; a subnet (172.30.0.0/24) also works.
+      ST_TRUSTED_PROXIES: ${ST_TRUSTED_PROXIES:-172.30.0.2}
+    volumes:
+      - shadowtrace-data:/var/lib/shadowtrace
+    restart: unless-stopped
+    read_only: true
+    tmpfs: ["/tmp"]
+    cap_drop: ["ALL"]
+    security_opt: ["no-new-privileges:true"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/api/v1/health', timeout=3).status == 200 else 1)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    networks: [backend]
+
+  worker:
+    image: shadowtrace-runtime:latest
+    command: ["python", "-m", "app.workers.worker"]
+    env_file: ../.env
+    environment:
+      ST_DATABASE_PATH: /var/lib/shadowtrace/shadowtrace.db
+    volumes:
+      - shadowtrace-data:/var/lib/shadowtrace
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+    read_only: true
+    tmpfs: ["/tmp"]
+    cap_drop: ["ALL"]
+    security_opt: ["no-new-privileges:true"]
+    # The scanner is the only component that needs to reach scan targets, so it alone
+    # sits on a network with a route out. It has no published ports and no attachment
+    # to `backend`, so the proxy cannot reach it and it cannot reach the API.
+    networks: [egress]
+
+  proxy:
+    image: nginx:1.27-alpine
+    depends_on: [api]
+    ports: ["443:443", "80:80"]
+    volumes:
+      - ./proxy/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./proxy/certs:/etc/nginx/certs:ro
+      - csp-report:/var/log/nginx
+    restart: unless-stopped
+    networks:
+      backend:
+        ipv4_address: 172.30.0.2   # keep equal to ST_TRUSTED_PROXIES
+      edge: {}
+
+volumes:
+  shadowtrace-data:
+  csp-report:
+
+networks:
+  backend:
+    internal: true      # the app tier cannot reach the internet
+    ipam:
+      config:
+        - subnet: 172.30.0.0/24
+  egress:
+    # Deliberately NOT internal: the worker must reach scan targets. Host-firewall rules,
+    # not Docker, are what bound where those requests may go (HARDENING.md §6.1).
+    # No fixed subnet: Docker's allocator avoids collisions with existing host routes.
+  edge: {}

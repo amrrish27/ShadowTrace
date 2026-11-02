@@ -1,0 +1,114 @@
+"""ShadowTrace runner -- starts API (with training lab) and worker together."""
+from __future__ import annotations
+
+import os
+import signal
+import subprocess
+import sys
+import time
+from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
+BACKEND = REPO_ROOT / "backend"
+DATA = REPO_ROOT / "data"
+LOGS = REPO_ROOT / "logs"
+
+
+def main() -> None:
+    DATA.mkdir(parents=True, exist_ok=True)
+    LOGS.mkdir(parents=True, exist_ok=True)
+
+    secret_key_file = DATA / "secret.key"
+    if not secret_key_file.is_file():
+        import secrets
+        secret_key_file.write_text(secrets.token_urlsafe(48), encoding="utf-8")
+    secret_key = secret_key_file.read_text(encoding="utf-8").strip()
+
+    api_port = os.environ.get("API_PORT", "8000")
+    lab_port = os.environ.get("LAB_PORT", "8099")
+
+    env = os.environ.copy()
+    env.update({
+        "ST_ENV": "development",
+        "ST_SECRET_KEY": secret_key,
+        "ST_DATABASE_PATH": str(DATA / "shadowtrace.db"),
+        "ST_BASE_URL": f"http://localhost:{api_port}",
+        "ST_ALLOWED_HOSTS": "localhost,127.0.0.1",
+        "ST_CORS_ORIGINS": f"http://localhost:{api_port},http://127.0.0.1:{api_port}",
+        "ST_COOKIE_SECURE": "false",
+        "ST_LOG_LEVEL": "INFO",
+        "ST_SCANNING_ENABLED": "true",
+        "ST_PRIVATE_ALLOWLIST": f"127.0.0.1:{lab_port}",
+        "ST_LAB_ENABLED": "true",
+        "ST_LAB_HOST": "127.0.0.1",
+        "ST_LAB_PORT": str(lab_port),
+        "ST_LAB_AUTOSTART": "true",
+        "ST_DEMO_MODE": "false",
+        "ST_BOOTSTRAP_ADMIN_EMAIL": "admin@example.test",
+        "ST_BOOTSTRAP_ADMIN_PASSWORD": "Bootstrap-Admin-Pass-9!",
+        "ST_BOOTSTRAP_ORG_NAME": "ShadowTrace Local",
+    })
+
+    print("[info] applying migrations...")
+    subprocess.run([sys.executable, "-m", "app.cli", "init"], cwd=str(BACKEND), env=env, check=True)
+
+    api_log = open(LOGS / "api.log", "w", encoding="utf-8")
+    worker_log = open(LOGS / "worker.log", "w", encoding="utf-8")
+
+    print("[info] starting API and lab...")
+    api_proc = subprocess.Popen(
+        [sys.executable, str(REPO_ROOT / "scripts" / "run_service.py"), "api", "--host", "127.0.0.1", "--port", str(api_port)],
+        cwd=str(BACKEND),
+        env=env,
+        stdout=api_log,
+        stderr=subprocess.STDOUT,
+    )
+
+    print("[info] starting worker...")
+    worker_proc = subprocess.Popen(
+        [sys.executable, str(REPO_ROOT / "scripts" / "run_service.py"), "worker"],
+        cwd=str(BACKEND),
+        env=env,
+        stdout=worker_log,
+        stderr=subprocess.STDOUT,
+    )
+
+    print(f"[ok] API started (PID {api_proc.pid}), worker started (PID {worker_proc.pid})")
+    print(f"ShadowTrace UI + API : http://127.0.0.1:{api_port}/")
+    print(f"ShadowLab training   : http://127.0.0.1:{lab_port}/")
+    print("Sign in              : admin@example.test / Bootstrap-Admin-Pass-9!")
+
+    def cleanup(*_args):
+        print("\n[info] stopping services...")
+        for proc in (api_proc, worker_proc):
+            try:
+                proc.terminate()
+            except Exception:
+                pass
+        for proc in (api_proc, worker_proc):
+            try:
+                proc.wait(timeout=5)
+            except Exception:
+                proc.kill()
+        api_log.close()
+        worker_log.close()
+        sys.exit(0)
+
+    signal.signal(signal.SIGINT, cleanup)
+    signal.signal(signal.SIGTERM, cleanup)
+
+    try:
+        while True:
+            if api_proc.poll() is not None:
+                print(f"[warn] API process exited with code {api_proc.returncode}")
+                cleanup()
+            if worker_proc.poll() is not None:
+                print(f"[warn] worker process exited with code {worker_proc.returncode}")
+                cleanup()
+            time.sleep(1)
+    except KeyboardInterrupt:
+        cleanup()
+
+
+if __name__ == "__main__":
+    main()

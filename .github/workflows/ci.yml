@@ -1,0 +1,144 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+      - name: Install
+        run: pip install -r requirements.txt -r requirements-dev.txt
+      # make verify = egress gate -> mypy -> bandit + pip-audit -> tests with a
+      # coverage floor; it writes coverage.xml / coverage.json / junit.xml.
+      - name: Offline verification gate
+        run: make verify
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: backend-evidence
+          path: |
+            docs/evidence/coverage.xml
+            docs/evidence/coverage.json
+            docs/evidence/junit.xml
+
+  frontend:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - run: npm run lint          # tsc --noEmit + eslint (react-hooks)
+      - run: npx vitest run
+      - run: npm run build
+      - name: Production bundle must be script-src 'self' compatible
+        run: |
+          set -euo pipefail
+          if grep -qiE "<script[^>]*>[^<]" dist/index.html; then
+            echo "::error::inline script found in dist/index.html"; exit 1
+          fi
+          grep -q "script-src 'self'" ../deploy/proxy/nginx.conf
+      - uses: actions/upload-artifact@v4
+        with:
+          name: frontend-dist
+          path: frontend/dist
+
+  e2e:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    needs: backend
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+      - name: Install backend (the API and the seeder run under Playwright)
+        working-directory: .
+        run: pip install -r requirements.txt -r requirements-dev.txt
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - run: npm run build
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      # global-setup seeds a demo analyst and one real scan; webServer starts uvicorn.
+      - run: npx playwright test
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-results
+          path: |
+            frontend/playwright-report
+            frontend/test-results
+
+  scanner:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    needs: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+      - run: pip install -r requirements.txt -r requirements-dev.txt
+      - name: Lab scan + ground-truth evaluation (strict)
+        run: |
+          set -euo pipefail
+          python3 lab/app/lab.py --port 8099 &
+          for _ in $(seq 1 40); do curl -fsS http://127.0.0.1:8099/health && break; sleep 0.5; done
+          rm -f /tmp/st_ci.db*
+          ST_ENV=test ST_DATABASE_PATH=/tmp/st_ci.db ST_PRIVATE_ALLOWLIST=127.0.0.1:8099 \
+            python3 scripts/smoke_scan.py | tee /tmp/scan.out
+          ID=$(tail -1 /tmp/scan.out | python3 -c "import json,sys;print(json.load(sys.stdin)['scan_id'])")
+          ST_ENV=test ST_DATABASE_PATH=/tmp/st_ci.db python3 scripts/evaluate.py --scan-id "$ID" --strict
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: scanner-evaluation
+          path: docs/evidence/scanner-evaluation.*
+
+  # The Windows entry points are .cmd files: on ubuntu runners they are never executed, which
+  # is exactly how a cmd.exe-only defect (delayed expansion eating the '!' in the bootstrap
+  # password) shipped. This job parses them and byte-compiles the backend on Windows.
+  windows-scripts:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Windows entry points
+        run: python scripts/check_windows_scripts.py
+      - name: Byte-compile the backend on Windows
+        run: python -m compileall -q backend/app lab/app scripts

@@ -1,0 +1,471 @@
+{
+  "version": "1.0.0",
+  "target": "http://127.0.0.1:8099",
+  "baseline": "lab/app/baseline.json",
+  "shadow_endpoints": [
+    {
+      "method": "GET",
+      "path": "/api/v1/legacy/users",
+      "sources": [
+        "html"
+      ],
+      "validation": "live",
+      "notes": "form action"
+    },
+    {
+      "method": "GET",
+      "path": "/api/internal/export",
+      "sources": [
+        "javascript"
+      ],
+      "validation": "live"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/secret-report",
+      "sources": [
+        "source_map"
+      ],
+      "validation": "live"
+    },
+    {
+      "method": "GET",
+      "path": "/api/legacy/checkout",
+      "sources": [
+        "source_map"
+      ],
+      "validation": "live"
+    },
+    {
+      "method": "GET",
+      "path": "/api/internal/shipments",
+      "sources": [
+        "postman"
+      ],
+      "validation": "live"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/invoices/{param}",
+      "sources": [
+        "postman"
+      ],
+      "validation": "live"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/partners",
+      "sources": [
+        "docs"
+      ],
+      "validation": "live"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/partners/{param}/invoices",
+      "sources": [
+        "docs"
+      ],
+      "validation": "live"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/legacy/orders",
+      "sources": [
+        "sitemap"
+      ],
+      "validation": "live"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/customers/{param}",
+      "sources": [
+        "har"
+      ],
+      "validation": "live"
+    },
+    {
+      "method": "GET",
+      "path": "/api/internal/audit-log",
+      "sources": [
+        "har"
+      ],
+      "validation": "live"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/wishlist",
+      "sources": [
+        "har"
+      ],
+      "validation": "unvalidated"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/users",
+      "sources": [
+        "html"
+      ],
+      "validation": "live"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/reports/summary",
+      "sources": [
+        "javascript"
+      ],
+      "validation": "live"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/backup",
+      "sources": [
+        "javascript"
+      ],
+      "validation": "live"
+    },
+    {
+      "method": "GET",
+      "path": "/api/internal/tokens",
+      "sources": [
+        "html"
+      ],
+      "validation": "live"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/debug/config",
+      "sources": [
+        "html"
+      ],
+      "validation": "live"
+    },
+    {
+      "method": "GET",
+      "path": "/graphql",
+      "sources": [
+        "javascript"
+      ],
+      "validation": "live"
+    },
+    {
+      "method": "GET",
+      "path": "/openapi.json",
+      "sources": [
+        "openapi"
+      ],
+      "validation": "live"
+    },
+    {
+      "method": "GET",
+      "path": "/swagger-ui.html",
+      "sources": [
+        "swagger_ui"
+      ],
+      "validation": "live"
+    },
+    {
+      "method": "GET",
+      "path": "/api-docs.json",
+      "sources": [
+        "postman"
+      ],
+      "validation": "live"
+    },
+    {
+      "method": "GET",
+      "path": "/redoc",
+      "sources": [
+        "swagger_ui"
+      ],
+      "validation": "live"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/remote",
+      "sources": [
+        "openapi"
+      ],
+      "validation": "live",
+      "notes": "declared in the trap specification with a remote $ref"
+    },
+    {
+      "method": "POST",
+      "path": "/graphql",
+      "sources": [
+        "graphql"
+      ],
+      "validation": "unvalidated",
+      "notes": "GraphQL endpoint discovered with POST semantics"
+    },
+    {
+      "method": "GET",
+      "path": "/lab/api/cookies/session",
+      "validation": "live"
+    },
+    {
+      "method": "GET",
+      "path": "/lab/api/errors/checkout",
+      "validation": "error"
+    },
+    {
+      "method": "GET",
+      "path": "/lab/api/cors/profile",
+      "validation": "live"
+    },
+    {
+      "method": "GET",
+      "path": "/lab/api/xss/echo",
+      "validation": "live"
+    },
+    {
+      "method": "GET",
+      "path": "/lab/api/sqli/product",
+      "validation": "live"
+    },
+    {
+      "method": "GET",
+      "path": "/lab/api/files/download",
+      "validation": "live"
+    },
+    {
+      "method": "GET",
+      "path": "/lab/api/idor/account/{param}",
+      "validation": "live"
+    },
+    {
+      "method": "GET",
+      "path": "/lab/api/auth/admin-panel",
+      "validation": "live"
+    },
+    {
+      "method": "GET",
+      "path": "/lab/api/redirect",
+      "validation": "live"
+    },
+    {
+      "method": "GET",
+      "path": "/lab/api/api-keys/export",
+      "validation": "live"
+    },
+    {
+      "method": "GET",
+      "path": "/lab/api/input/quantity",
+      "validation": "live"
+    },
+    {
+      "method": "GET",
+      "path": "/lab/api/diagnostics/env",
+      "validation": "live"
+    },
+    {
+      "method": "GET",
+      "path": "/lab/transport/checkout",
+      "sources": [
+        "html"
+      ],
+      "validation": "live",
+      "notes": "cleartext storefront checkout page"
+    },
+    {
+      "method": "POST",
+      "path": "/lab/upload",
+      "sources": [
+        "html"
+      ],
+      "validation": "unvalidated",
+      "notes": "upload form; never exercised because the scanner is read-only"
+    },
+    {
+      "method": "GET",
+      "path": "/lab/api/headers/ping",
+      "sources": [
+        "html"
+      ],
+      "validation": "live",
+      "notes": "JSON response without nosniff/CSP (ST-013 scenario)"
+    }
+  ],
+  "zombies": [
+    {
+      "method": "GET",
+      "path": "/api/v2/reports",
+      "reason": "documented in the baseline, not implemented"
+    }
+  ],
+  "planted_findings": [
+    {
+      "rule": "ST-001",
+      "endpoint": "GET /api/internal/export"
+    },
+    {
+      "rule": "ST-001",
+      "endpoint": "GET /api/admin/backup"
+    },
+    {
+      "rule": "ST-001",
+      "endpoint": "GET /api/internal/tokens"
+    },
+    {
+      "rule": "ST-002",
+      "endpoint": "GET /api/v1/orders",
+      "notes": "declared protected, answers anonymously"
+    },
+    {
+      "rule": "ST-004",
+      "endpoint": "GET /openapi.json"
+    },
+    {
+      "rule": "ST-005",
+      "endpoint": "GET /graphql"
+    },
+    {
+      "rule": "ST-006",
+      "endpoint": "GET /api/v2/profile"
+    },
+    {
+      "rule": "ST-007",
+      "endpoint": "GET /api/admin/backup"
+    },
+    {
+      "rule": "ST-008",
+      "endpoint": "GET /api/v2/orders"
+    },
+    {
+      "rule": "ST-009",
+      "endpoint": "GET /api/v1/orders"
+    },
+    {
+      "rule": "ST-010",
+      "endpoint": "GET /static/app.js"
+    },
+    {
+      "rule": "ST-011",
+      "endpoint": "GET /api/internal/tokens"
+    },
+    {
+      "rule": "ST-012",
+      "endpoint": "GET /api/v1/orders"
+    },
+    {
+      "rule": "ST-014",
+      "endpoint": "GET /static/app.js.map"
+    },
+    {
+      "rule": "ST-016",
+      "endpoint": "GET /api/v2/reports"
+    },
+    {
+      "rule": "ST-017",
+      "endpoint": "GET /st-nonexistent"
+    },
+    {
+      "rule": "ST-018",
+      "endpoint": "GET /lab/api/cookies/session"
+    },
+    {
+      "rule": "ST-019",
+      "endpoint": "GET /lab/api/xss/echo"
+    },
+    {
+      "rule": "ST-020",
+      "endpoint": "GET /lab/api/sqli/product"
+    },
+    {
+      "rule": "ST-021",
+      "endpoint": "GET /lab/api/files/download"
+    },
+    {
+      "rule": "ST-023",
+      "endpoint": "GET /lab/api/idor/account/{param}"
+    },
+    {
+      "rule": "ST-013",
+      "endpoint": "GET /lab/api/headers/ping"
+    }
+  ],
+  "negative_controls": [
+    {
+      "path": "/api/v2/secure",
+      "expect": "no finding",
+      "reason": "correctly secured endpoint answers 401"
+    },
+    {
+      "path": "/api/v1/health",
+      "expect": "no finding",
+      "reason": "clean documented endpoint"
+    },
+    {
+      "path": "/api/v1/decoy-only-in-comment",
+      "expect": "not discovered",
+      "reason": "endpoint string lives in an HTML comment"
+    },
+    {
+      "path": "/api/v1/decoy-in-prose",
+      "expect": "no finding",
+      "reason": "prose decoy resolves to the SPA catch-all (soft-404)"
+    },
+    {
+      "path": "/does-not-exist-*",
+      "expect": "not reported as live",
+      "reason": "SPA catch-all 200 is fingerprinted"
+    }
+  ],
+  "traps": [
+    {
+      "path": "/redirect-metadata",
+      "expected": "blocked, not followed"
+    },
+    {
+      "path": "/redirect-loopback",
+      "expected": "blocked, not followed"
+    },
+    {
+      "path": "/redirect-loop",
+      "expected": "blocked after hop limit"
+    },
+    {
+      "path": "/redirect-cross-origin",
+      "expected": "blocked"
+    },
+    {
+      "path": "/bomb.gz",
+      "expected": "response size aborted"
+    },
+    {
+      "path": "/endless",
+      "expected": "response size aborted"
+    },
+    {
+      "path": "/huge-headers",
+      "expected": "header limits enforced"
+    },
+    {
+      "path": "/big.js",
+      "expected": "response size aborted"
+    },
+    {
+      "path": "/nested.json",
+      "expected": "nesting rejected"
+    },
+    {
+      "path": "/spec-remote-ref.json",
+      "expected": "remote $ref refused"
+    },
+    {
+      "path": "/sitemap-bomb.xml",
+      "expected": "entity expansion refused"
+    },
+    {
+      "path": "/slow",
+      "expected": "timeout enforced"
+    }
+  ],
+  "by_design_absent": [
+    {
+      "rule": "ST-022",
+      "scenario": "open-redirect",
+      "reason": "The lab honours only same-site redirect targets and answers an absolute URL with 400, so an off-site Location can never be produced. Proving ST-022 requires a target the operator does not control."
+    }
+  ]
+}

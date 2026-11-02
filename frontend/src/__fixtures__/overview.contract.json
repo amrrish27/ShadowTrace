@@ -1,0 +1,88 @@
+{
+  "$comment": "Single source of truth for the GET /api/v1/dashboard/overview contract. Read by backend/tests/test_api_dashboard.py (payload keys must equal `keys`) and by frontend/src/dashboard.test.tsx (fixtures must equal `keys`). Change both here, never in one place.",
+  "keys": [
+    "scans_by_state",
+    "endpoints",
+    "findings_by_severity",
+    "triage",
+    "recent_findings",
+    "source_breakdown",
+    "recent_scans",
+    "scan_timeline",
+    "targets"
+  ],
+  "empty": {
+    "scans_by_state": {},
+    "endpoints": { "total": 0, "shadow": 0, "documented": 0, "zombie": 0 },
+    "findings_by_severity": { "critical": 0, "high": 0, "medium": 0, "low": 0, "info": 0 },
+    "triage": { "open": 0, "accepted_risk": 0, "false_positive": 0, "fixed": 0 },
+    "recent_findings": [],
+    "source_breakdown": [],
+    "recent_scans": [],
+    "scan_timeline": [],
+    "targets": { "total": 0, "approved": 0 }
+  },
+  "populated": {
+    "scans_by_state": { "completed": 2, "running": 1 },
+    "endpoints": { "total": 12, "shadow": 7, "documented": 4, "zombie": 1 },
+    "findings_by_severity": { "critical": 0, "high": 2, "medium": 3, "low": 1, "info": 0 },
+    "triage": { "open": 5, "accepted_risk": 1, "false_positive": 0, "fixed": 0 },
+    "recent_findings": [
+      {
+        "id": "fnd-1",
+        "rule_id": "ST-003",
+        "title": "Debug or management endpoint exposed",
+        "severity": "high",
+        "confidence": "high",
+        "status": "confirmed",
+        "risk_score": 69.6,
+        "fingerprint": "GET|127.0.0.1|/api/admin/export|",
+        "created_at": 1700000000,
+        "triage_status": "open",
+        "endpoint_method": "GET",
+        "endpoint_path": "/api/admin/export"
+      },
+      {
+        "id": "fnd-2",
+        "rule_id": "ST-001",
+        "title": "Undocumented endpoint is reachable",
+        "severity": "medium",
+        "confidence": "high",
+        "status": "confirmed",
+        "risk_score": 49.6,
+        "fingerprint": "GET|127.0.0.1|/api/v1/internal/reports|",
+        "created_at": 1700000001,
+        "triage_status": "accepted_risk",
+        "endpoint_method": "GET",
+        "endpoint_path": "/api/v1/internal/reports"
+      }
+    ],
+    "source_breakdown": [
+      { "source": "openapi", "endpoints": 9 },
+      { "source": "javascript", "endpoints": 6 }
+    ],
+    "recent_scans": [
+      {
+        "id": "scan-1",
+        "state": "running",
+        "created_at": 1700000000,
+        "finished_at": null,
+        "counters": { "endpoints_found": 12, "findings": 6 },
+        "target_name": "Alpha Lab"
+      },
+      {
+        "id": "scan-2",
+        "state": "completed",
+        "created_at": 1699990000,
+        "finished_at": 1699990500,
+        "counters": { "endpoints_found": 11, "findings": 5 },
+        "target_name": "Alpha Lab"
+      }
+    ],
+    "scan_timeline": [
+      { "day": "2026-10-24", "scans": 1 },
+      { "day": "2026-10-25", "scans": 1 }
+    ],
+    "targets": { "total": 1, "approved": 1 }
+  }
+}
