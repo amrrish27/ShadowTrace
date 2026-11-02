@@ -85,7 +85,6 @@ Go to **http://127.0.0.1:8000/** and sign in with:
 |---|---|
 | http://127.0.0.1:8000/ | Main UI and JSON API |
 | http://127.0.0.1:8099/ | ShadowLab — the bundled training target |
-| http://127.0.0.1:8000/api/docs | Interactive API docs (dev only) |
 
 Logs are written to `logs/api.log` and `logs/worker.log`. Stop everything with `stop.cmd` / `./stop.sh` or Ctrl+C.
 
