@@ -102,25 +102,45 @@ export function FindingDetailPage({ findingId, notify, session }: PageProps & { 
       {tab === "evidence" ? (
         <div className="split">
           <div className="grid" style={{ gap: 14 }}>
-            <Card title="Captured request">
-              <pre className="code">{`${String(request.method ?? "GET")} ${String(request.url ?? "—")}`}</pre>
-            </Card>
-            <Card title="Captured response">
-              <dl className="kv" style={{ marginBottom: 10 }}>
-                <dt>Status</dt>
-                <dd className="mono">{String(response.status ?? "—")}</dd>
-                <dt>Captured</dt>
-                <dd>{String(evidence.captured ?? "—")}</dd>
-              </dl>
-              {Object.keys(headers).length ? (
-                <pre className="code" style={{ marginBottom: 10 }}>
-                  {Object.entries(headers)
-                    .map(([key, value]) => `${key}: ${value}`)
-                    .join("\n")}
-                </pre>
-              ) : null}
-              <pre className="code redacted">{String(response.body_excerpt ?? "(no body captured)")}</pre>
-            </Card>
+            {request.url ? (
+              <Card title="Captured request">
+                <pre className="code">{`${String(request.method ?? "GET")} ${String(request.url)}`}</pre>
+              </Card>
+            ) : evidence.detail ? (
+              <Card title="Observed detail">
+                <pre className="code">{String(evidence.detail)}</pre>
+              </Card>
+            ) : (
+              <Card title="Captured request">
+                <Notice kind="info">
+                  This finding is a scan-level observation — it was detected from a pattern across
+                  multiple requests rather than a single captured HTTP exchange.
+                </Notice>
+              </Card>
+            )}
+            {request.url ? (
+              <Card title="Captured response">
+                <dl className="kv" style={{ marginBottom: 10 }}>
+                  <dt>Status</dt>
+                  <dd className="mono">{String(response.status ?? "—")}</dd>
+                  <dt>Captured</dt>
+                  <dd>{String(evidence.captured ?? "—")}</dd>
+                </dl>
+                {Object.keys(headers).length ? (
+                  <pre className="code" style={{ marginBottom: 10 }}>
+                    {Object.entries(headers)
+                      .map(([key, value]) => `${key}: ${value}`)
+                      .join("\n")}
+                  </pre>
+                ) : null}
+                <pre className="code redacted">{String(response.body_excerpt ?? "(no body captured)")}</pre>
+              </Card>
+            ) : null}
+            {evidence.reproduction ? (
+              <Card title="Reproduction command">
+                <pre className="code">{String(evidence.reproduction)}</pre>
+              </Card>
+            ) : null}
           </div>
           <div className="grid" style={{ gap: 14 }}>
             <Card title="Why this was recorded">
@@ -129,13 +149,15 @@ export function FindingDetailPage({ findingId, notify, session }: PageProps & { 
             <Card title="Limitations">
               <p style={{ color: "var(--text-muted)", fontSize: 13 }}>{finding.limitations}</p>
             </Card>
-            <Card title="Redaction">
-              <Notice kind="info">
-                Headers and bodies pass through the redactor before they are stored: credential-shaped
-                values become <span className="mono">[redacted]</span>. Copies are truncated, so a long
-                body may be cut off.
-              </Notice>
-            </Card>
+            {request.url ? (
+              <Card title="Redaction">
+                <Notice kind="info">
+                  Headers and bodies pass through the redactor before they are stored: credential-shaped
+                  values become <span className="mono">[redacted]</span>. Copies are truncated, so a long
+                  body may be cut off.
+                </Notice>
+              </Card>
+            ) : null}
           </div>
         </div>
       ) : null}
