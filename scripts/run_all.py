@@ -24,29 +24,33 @@ def main() -> None:
         secret_key_file.write_text(secrets.token_urlsafe(48), encoding="utf-8")
     secret_key = secret_key_file.read_text(encoding="utf-8").strip()
 
-    api_port = os.environ.get("API_PORT", "8000")
+    api_port = os.environ.get("PORT") or os.environ.get("API_PORT", "8000")
+    api_host = os.environ.get("HOST", "0.0.0.0")
     lab_port = os.environ.get("LAB_PORT", "8099")
+
+    allowed_hosts = os.environ.get("ST_ALLOWED_HOSTS") or "localhost,127.0.0.1,0.0.0.0,*"
+    cors_origins = os.environ.get("ST_CORS_ORIGINS") or f"http://localhost:{api_port},http://127.0.0.1:{api_port},*"
 
     env = os.environ.copy()
     env.update({
-        "ST_ENV": "development",
-        "ST_SECRET_KEY": secret_key,
-        "ST_DATABASE_PATH": str(DATA / "shadowtrace.db"),
-        "ST_BASE_URL": f"http://localhost:{api_port}",
-        "ST_ALLOWED_HOSTS": "localhost,127.0.0.1",
-        "ST_CORS_ORIGINS": f"http://localhost:{api_port},http://127.0.0.1:{api_port}",
-        "ST_COOKIE_SECURE": "false",
-        "ST_LOG_LEVEL": "INFO",
+        "ST_ENV": os.environ.get("ST_ENV", "development"),
+        "ST_SECRET_KEY": os.environ.get("ST_SECRET_KEY", secret_key),
+        "ST_DATABASE_PATH": os.environ.get("ST_DATABASE_PATH", str(DATA / "shadowtrace.db")),
+        "ST_BASE_URL": os.environ.get("ST_BASE_URL", f"http://localhost:{api_port}"),
+        "ST_ALLOWED_HOSTS": allowed_hosts,
+        "ST_CORS_ORIGINS": cors_origins,
+        "ST_COOKIE_SECURE": os.environ.get("ST_COOKIE_SECURE", "false"),
+        "ST_LOG_LEVEL": os.environ.get("ST_LOG_LEVEL", "INFO"),
         "ST_SCANNING_ENABLED": "true",
-        "ST_PRIVATE_ALLOWLIST": f"127.0.0.1:{lab_port}",
-        "ST_LAB_ENABLED": "true",
+        "ST_PRIVATE_ALLOWLIST": os.environ.get("ST_PRIVATE_ALLOWLIST", f"127.0.0.1:{lab_port}"),
+        "ST_LAB_ENABLED": os.environ.get("ST_LAB_ENABLED", "true"),
         "ST_LAB_HOST": "127.0.0.1",
         "ST_LAB_PORT": str(lab_port),
-        "ST_LAB_AUTOSTART": "true",
+        "ST_LAB_AUTOSTART": os.environ.get("ST_LAB_AUTOSTART", "true"),
         "ST_DEMO_MODE": "false",
-        "ST_BOOTSTRAP_ADMIN_EMAIL": "admin@example.test",
-        "ST_BOOTSTRAP_ADMIN_PASSWORD": "Bootstrap-Admin-Pass-9!",
-        "ST_BOOTSTRAP_ORG_NAME": "ShadowTrace Local",
+        "ST_BOOTSTRAP_ADMIN_EMAIL": os.environ.get("ST_BOOTSTRAP_ADMIN_EMAIL", "admin@example.test"),
+        "ST_BOOTSTRAP_ADMIN_PASSWORD": os.environ.get("ST_BOOTSTRAP_ADMIN_PASSWORD", "Bootstrap-Admin-Pass-9!"),
+        "ST_BOOTSTRAP_ORG_NAME": os.environ.get("ST_BOOTSTRAP_ORG_NAME", "ShadowTrace Local"),
     })
 
     print("[info] applying migrations...")
@@ -57,7 +61,7 @@ def main() -> None:
 
     print("[info] starting API and lab...")
     api_proc = subprocess.Popen(
-        [sys.executable, str(REPO_ROOT / "scripts" / "run_service.py"), "api", "--host", "127.0.0.1", "--port", str(api_port)],
+        [sys.executable, str(REPO_ROOT / "scripts" / "run_service.py"), "api", "--host", str(api_host), "--port", str(api_port)],
         cwd=str(BACKEND),
         env=env,
         stdout=api_log,

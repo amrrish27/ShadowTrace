@@ -91,6 +91,23 @@ Logs are written to `logs/api.log` and `logs/worker.log`. Stop everything with `
 
 ---
 
+## Deploy to Cloud
+
+### Option 1 — Railway (Recommended)
+
+1. Go to [railway.app](https://railway.app) and click **New Project** → **Deploy from GitHub repo**.
+2. Select `amrrish27/ShadowTrace`. Railway automatically detects the `Dockerfile` and `railway.json`.
+3. Add a persistent volume under **Settings** → **Volumes** mounted at `/app/data` (to persist scan history and the database).
+4. Click **Generate Domain** under **Settings** → **Networking** to get your live public URL.
+
+### Option 2 — Render
+
+1. Go to [render.com](https://render.com) and click **New +** → **Blueprint**.
+2. Connect `amrrish27/ShadowTrace`. It automatically configures from `render.yaml` with a persistent disk.
+3. Click **Apply** to deploy.
+
+---
+
 ## Architecture
 
 ```

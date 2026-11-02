@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: shadowtrace
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /api/v1/health
+    disk:
+      name: shadowtrace-data
+      mountPath: /app/data
+      sizeGB: 1
+    envVars:
+      - key: ST_ENV
+        value: development
