@@ -145,7 +145,10 @@ def create_session(
             (request.headers.get("user-agent") or "")[:200],
         ),
     )
-    secure = settings.cookie_secure
+    secure = settings.cookie_secure or (
+        request.url.scheme == "https"
+        or request.headers.get("x-forwarded-proto", "").lower() == "https"
+    )
     response.set_cookie(
         SESSION_COOKIE,
         token,
@@ -175,9 +178,15 @@ def create_session(
     return session_id
 
 
-def clear_session_cookies(response: Response) -> None:
-    response.delete_cookie(SESSION_COOKIE, path="/")
-    response.delete_cookie(CSRF_COOKIE, path="/")
+def clear_session_cookies(response: Response, request: Optional[Request] = None) -> None:
+    secure = get_settings().cookie_secure
+    if request is not None:
+        secure = secure or (
+            request.url.scheme == "https"
+            or request.headers.get("x-forwarded-proto", "").lower() == "https"
+        )
+    response.delete_cookie(SESSION_COOKIE, path="/", secure=secure, samesite="strict")
+    response.delete_cookie(CSRF_COOKIE, path="/", secure=secure, samesite="strict")
 
 
 def revoke_session(conn: sqlite3.Connection, session_id: str) -> None:

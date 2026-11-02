@@ -33,9 +33,9 @@ function initialTheme(): Theme {
     const stored = window.localStorage.getItem(THEME_KEY);
     if (stored === "light" || stored === "dark") return stored;
   } catch {
-    /* storage can be blocked; the dark default is fine */
+    /* storage can be blocked; the light default is fine */
   }
-  return "dark";
+  return "light";
 }
 
 export function applyTheme(theme: Theme): void {
@@ -47,7 +47,15 @@ export function applyTheme(theme: Theme): void {
   }
 }
 
-export function Login({ onSignedIn }: { onSignedIn: (session: Session) => void }): JSX.Element {
+export function Login({
+  onSignedIn,
+  theme,
+  setTheme,
+}: {
+  onSignedIn: (session: Session) => void;
+  theme?: Theme;
+  setTheme?: (theme: Theme) => void;
+}): JSX.Element {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -72,12 +80,35 @@ export function Login({ onSignedIn }: { onSignedIn: (session: Session) => void }
   return (
     <div className="login-shell">
       <div className="login-card">
-        <div className="brand" style={{ padding: 0, marginBottom: 14 }}>
-          <span className="brand-mark">S</span>
-          <div>
-            <div className="brand-name">ShadowTrace</div>
-            <div className="brand-sub">API shadow-endpoint discovery</div>
+        <div
+          className="brand"
+          style={{
+            padding: 0,
+            marginBottom: 14,
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <span className="brand-mark">S</span>
+            <div>
+              <div className="brand-name">ShadowTrace</div>
+              <div className="brand-sub">API shadow-endpoint discovery</div>
+            </div>
           </div>
+          {setTheme ? (
+            <button
+              type="button"
+              className="small"
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+              title={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+            >
+              <Icon name={theme === "dark" ? "sun" : "moon"} size={14} />
+              {theme === "dark" ? "Light" : "Dark"}
+            </button>
+          ) : null}
         </div>
         <h1>Sign in</h1>
         <p className="lede">Authorized testing only. Every scan is attested, audited and scoped.</p>
@@ -230,6 +261,17 @@ export function App(): JSX.Element {
     setMenuOpen(false);
   }, [route.name, route.params.join("/")]);
 
+  useEffect(() => {
+    const handleUnauthorized = () => {
+      setSession(null);
+      push("info", "Session expired or server reset. Please sign in again.");
+    };
+    window.addEventListener("st:unauthorized", handleUnauthorized);
+    return () => {
+      window.removeEventListener("st:unauthorized", handleUnauthorized);
+    };
+  }, [push]);
+
   const signOut = useCallback(async () => {
     try {
       await api.logout();
@@ -257,7 +299,7 @@ export function App(): JSX.Element {
     // An invitation link is a pre-authentication route: it must not require a session.
     const token = route.name === "accept-invite" ? (route.query.get("token") ?? "") : "";
     if (token) return <AcceptInvite token={token} onSignedIn={setSession} />;
-    return <Login onSignedIn={setSession} />;
+    return <Login onSignedIn={setSession} theme={theme} setTheme={setTheme} />;
   }
 
   const meta = PAGE_TITLES[route.name] ?? PAGE_TITLES["overview"] ?? { title: "Overview", sub: "" };

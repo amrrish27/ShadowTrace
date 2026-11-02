@@ -2,38 +2,10 @@
  *
  * A single stylesheet, no CSS framework and no webfont: the bundle must work offline and
  * inside a sandboxed preview where external requests are blocked. Theming is done with
- * custom properties on :root / [data-theme="light"] so every component follows the toggle.
+ * custom properties on :root / [data-theme="dark"] so every component follows the toggle.
  */
 
-:root {
-  color-scheme: dark;
-  --bg: #0b0f1a;
-  --bg-elevated: #111726;
-  --bg-raised: #161d2f;
-  --bg-hover: #1c2438;
-  --border: #232c42;
-  --border-strong: #33405c;
-  --text: #e7ebf5;
-  --text-muted: #97a1bb;
-  --text-dim: #6b7691;
-  --brand: #4f8cff;
-  --brand-strong: #2f6fe0;
-  --brand-soft: rgba(79, 140, 255, 0.14);
-  --critical: #ff4d63;
-  --high: #ff8a3d;
-  --medium: #ffc53d;
-  --low: #4fc3a1;
-  --info: #7aa2ff;
-  --ok: #39c07f;
-  --warn: #ffb020;
-  --danger: #ff5c6c;
-  --shadow: 0 10px 30px rgba(3, 7, 18, 0.45);
-  --radius: 12px;
-  --radius-sm: 8px;
-  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
-  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-}
-
+:root,
 [data-theme="light"] {
   color-scheme: light;
   --bg: #f5f7fb;
@@ -48,7 +20,36 @@
   --brand: #2f6fe0;
   --brand-strong: #1f57ba;
   --brand-soft: rgba(47, 111, 224, 0.1);
+  --critical: #ff4d63;
+  --high: #ff8a3d;
+  --medium: #ffc53d;
+  --low: #4fc3a1;
+  --info: #7aa2ff;
+  --ok: #39c07f;
+  --warn: #ffb020;
+  --danger: #ff5c6c;
   --shadow: 0 8px 24px rgba(19, 26, 41, 0.09);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0b0f1a;
+  --bg-elevated: #111726;
+  --bg-raised: #161d2f;
+  --bg-hover: #1c2438;
+  --border: #232c42;
+  --border-strong: #33405c;
+  --text: #e7ebf5;
+  --text-muted: #97a1bb;
+  --text-dim: #6b7691;
+  --brand: #4f8cff;
+  --brand-strong: #2f6fe0;
+  --brand-soft: rgba(79, 140, 255, 0.14);
+  --shadow: 0 10px 30px rgba(3, 7, 18, 0.45);
 }
 
 * { box-sizing: border-box; }

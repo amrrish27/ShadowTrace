@@ -53,6 +53,15 @@ async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
     payload = null;
   }
   if (!response.ok) {
+    if (
+      response.status === 401 &&
+      typeof window !== "undefined" &&
+      !path.includes("/auth/session") &&
+      !path.includes("/auth/login") &&
+      !path.includes("/auth/me")
+    ) {
+      window.dispatchEvent(new CustomEvent("st:unauthorized"));
+    }
     const shape = (payload as { error?: ApiErrorShape } | null)?.error;
     throw new ApiError(
       response.status,

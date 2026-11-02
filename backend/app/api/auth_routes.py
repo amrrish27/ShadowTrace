@@ -87,7 +87,7 @@ def logout(
     conn: sqlite3.Connection = Depends(get_conn),
 ) -> Dict[str, object]:
     revoke_session(conn, auth.session_id)
-    clear_session_cookies(response)
+    clear_session_cookies(response, request)
     audit.record(conn, action="auth.logout", org_id=auth.org_id, actor_type="user", actor_id=auth.user_id, ip=client_ip(request))
     return {"ok": True}
 
