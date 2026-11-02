@@ -171,7 +171,7 @@ def add_styled_text(p, text):
 html_raw = HTML_PATH.read_text(encoding="utf-8")
 body_match = re.search(r'<body>(.*?)</body>', html_raw, flags=re.DOTALL)
 body_content = body_match.group(1) if body_match else html_raw
-pages = re.split(r'<div class=["\']page-break["\']></div>', body_content)
+pages = re.split(r'(?=<div class="chapter-header)', body_content)
 
 print(f"Generating professional DOCX with {len(pages)} chapters/sections...")
 
@@ -277,6 +277,8 @@ doc.add_page_break()
 # ==============================================================================
 for page_idx in range(1, len(pages)):
     page = pages[page_idx]
+    if page_idx > 1:
+        doc.add_page_break()
     elements = re.split(
         r'(<h1[^>]*>.*?</h1>|<h2[^>]*>.*?</h2>|<h3[^>]*>.*?</h3>|<p[^>]*>.*?</p>|<pre><code>.*?</code></pre>|<div class="diagram-box">.*?</div>|<div class="callout[^"]*">.*?</div>|<table[^>]*>.*?</table>|<ul[^>]*>.*?</ul>|<ol[^>]*>.*?</ol>)',
         page,
@@ -431,3 +433,8 @@ for page_idx in range(1, len(pages)):
 
 doc.save(str(OUTPUT_DOCX))
 print(f"SUCCESS: Generated improved Word document at {OUTPUT_DOCX}")
+
+import shutil
+downloads_docx = pathlib.Path(r"c:\Users\acer\Downloads\ShadowTrace_Internship_Report.docx")
+shutil.copyfile(str(OUTPUT_DOCX), str(downloads_docx))
+print(f"Copied Word document to {downloads_docx} ({downloads_docx.stat().st_size / 1024:.1f} KB)")
