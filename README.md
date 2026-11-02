@@ -31,35 +31,61 @@ ShadowTrace combines several discovery techniques into one pipeline:
 
 ## Quick Start
 
-**Windows**
+### Step 1 — Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+Then install the frontend dependencies (only needed once):
+
+```bash
+cd frontend
+npm install
+cd ..
+```
+
+### Step 2 — Start the app
+
+**Windows** — double-click `start.cmd` in the project folder, or run it from a terminal:
 ```bat
 start.cmd
 ```
 
-**Linux / macOS / WSL**
+**Linux / macOS / WSL** — open a terminal in the project folder and run:
 ```bash
 ./start.sh
 ```
 
-The start script handles everything automatically:
-1. Installs Python dependencies (if missing, it prints the exact `pip install` line)
-2. Builds the frontend bundle on first run (`npm ci && npm run build`)
-3. Creates the SQLite database and applies migrations
-4. Starts the API server, the scan worker, and the bundled ShadowLab training target
-5. Waits until all three are healthy before printing the URLs
+The script will print something like this when everything is ready:
+```
+ShadowTrace UI + API : http://127.0.0.1:8000/
+ShadowLab training   : http://127.0.0.1:8099/
+Sign in              : admin@example.test / Bootstrap-Admin-Pass-9!
+```
+
+### Step 3 — Open the browser
+
+Go to **http://127.0.0.1:8000/** and sign in with:
+
+| Field | Value |
+|---|---|
+| Email | `admin@example.test` |
+| Password | `Bootstrap-Admin-Pass-9!` |
+
+### Step 4 — Run your first scan
+
+1. Click **Lab** in the left sidebar → click **Start Lab** to launch the training target
+2. Click **Targets** in the left sidebar → you'll see the lab target already registered
+3. Click **Run Scan** on the lab target → choose a profile and click **Start Scan**
+4. Click **Scans** to watch progress in real time — phase, requests, and endpoints update live
+5. Open the scan when complete to browse **Findings**, **Endpoints**, **Events**, and **Exports**
 
 | URL | What it is |
 |---|---|
 | http://127.0.0.1:8000/ | Main UI and JSON API |
 | http://127.0.0.1:8099/ | ShadowLab — the bundled training target |
 | http://127.0.0.1:8000/api/docs | Interactive API docs (dev only) |
-
-**Default credentials on a fresh database:**
-
-| Field | Value |
-|---|---|
-| Email | `admin@example.test` |
-| Password | `Bootstrap-Admin-Pass-9!` |
 
 Logs are written to `logs/api.log` and `logs/worker.log`. Stop everything with `stop.cmd` / `./stop.sh` or Ctrl+C.
 
