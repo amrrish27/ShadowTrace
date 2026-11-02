@@ -1,0 +1,2012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ShadowTrace — Comprehensive Project Documentation & Internship Report</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  @page {
+    size: A4;
+    margin: 22mm 18mm 22mm 18mm;
+  }
+
+  * {
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.6;
+    color: #1a202c;
+    background: #ffffff;
+    margin: 0;
+    padding: 0;
+  }
+
+  .page-break {
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .no-break {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Typography */
+  h1, h2, h3, h4, h5 {
+    color: #0f172a;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-top: 1.4em;
+    margin-bottom: 0.5em;
+  }
+
+  h1.chapter-title {
+    font-size: 22pt;
+    border-bottom: 2.5px solid #2563eb;
+    padding-bottom: 8px;
+    margin-top: 0;
+    margin-bottom: 18px;
+    color: #1e3a8a;
+  }
+
+  .chapter-number {
+    font-size: 11pt;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #2563eb;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  h2 {
+    font-size: 14pt;
+    color: #1e293b;
+    border-left: 4px solid #3b82f6;
+    padding-left: 10px;
+    margin-top: 1.6em;
+  }
+
+  h3 {
+    font-size: 12pt;
+    color: #334155;
+  }
+
+  p {
+    margin-top: 0;
+    margin-bottom: 0.9em;
+    text-align: justify;
+  }
+
+  ul, ol {
+    margin-top: 0;
+    margin-bottom: 1em;
+    padding-left: 24px;
+  }
+
+  li {
+    margin-bottom: 0.4em;
+  }
+
+  /* Code & Pre */
+  code, pre, .mono {
+    font-family: 'JetBrains Mono', Consolas, Monaco, monospace;
+    font-size: 9pt;
+  }
+
+  code {
+    background: #f1f5f9;
+    color: #0f172a;
+    padding: 2px 5px;
+    border-radius: 4px;
+    border: 1px solid #e2e8f0;
+  }
+
+  pre {
+    background: #0f172a;
+    color: #f8fafc;
+    padding: 12px 14px;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-size: 8.5pt;
+    line-height: 1.45;
+    margin: 1em 0;
+  }
+
+  pre code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+    border: none;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.2em 0;
+    font-size: 9.5pt;
+  }
+
+  th, td {
+    padding: 8px 10px;
+    border: 1px solid #cbd5e1;
+    text-align: left;
+  }
+
+  th {
+    background: #f1f5f9;
+    color: #0f172a;
+    font-weight: 600;
+  }
+
+  tr:nth-child(even) td {
+    background: #f8fafc;
+  }
+
+  /* Callout Boxes */
+  .callout {
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin: 1.2em 0;
+    border-left: 4px solid;
+    font-size: 10pt;
+  }
+
+  .callout-info {
+    background: #eff6ff;
+    border-color: #3b82f6;
+    color: #1e40af;
+  }
+
+  .callout-warn {
+    background: #fffbeb;
+    border-color: #f59e0b;
+    color: #92400e;
+  }
+
+  .callout-security {
+    background: #fef2f2;
+    border-color: #ef4444;
+    color: #991b1b;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 999px;
+    font-size: 8pt;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .badge-critical { background: #fee2e2; color: #991b1b; border: 1px solid #f87171; }
+  .badge-high { background: #ffedd5; color: #9a3412; border: 1px solid #fb923c; }
+  .badge-medium { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
+  .badge-low { background: #e0f2fe; color: #075985; border: 1px solid #7dd3fc; }
+  .badge-info { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; }
+
+  /* Cover Page Styling */
+  .cover-page {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    padding: 20px 20px;
+    page-break-after: always;
+  }
+
+  .cover-logo-container {
+    margin-top: 15px;
+    margin-bottom: 25px;
+  }
+
+  .cover-logo {
+    max-height: 150px;
+    max-width: 280px;
+    object-fit: contain;
+  }
+
+  .cover-company {
+    font-size: 16pt;
+    font-weight: 700;
+    color: #0284c7;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 10px;
+  }
+
+  .cover-company-sub {
+    font-size: 10pt;
+    color: #64748b;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .cover-title-box {
+    margin: 30px 0;
+  }
+
+  .cover-main-title {
+    font-size: 32pt;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.5px;
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+
+  .cover-subtitle {
+    font-size: 13pt;
+    color: #334155;
+    font-weight: 500;
+    line-height: 1.45;
+    max-width: 650px;
+    margin: 0 auto;
+  }
+
+  .cover-divider {
+    width: 90px;
+    height: 4px;
+    background: #2563eb;
+    margin: 20px auto;
+    border-radius: 2px;
+  }
+
+  .cover-doc-type {
+    display: inline-block;
+    background: #0f172a;
+    color: #ffffff;
+    font-size: 10pt;
+    font-weight: 600;
+    padding: 6px 16px;
+    border-radius: 999px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+  }
+
+  .cover-meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin: 25px auto 10px auto;
+    max-width: 620px;
+    text-align: left;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 16px 22px;
+    font-size: 9.5pt;
+  }
+
+  .cover-meta-item strong {
+    display: block;
+    color: #64748b;
+    font-size: 8pt;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 3px;
+  }
+
+  .cover-meta-item span {
+    color: #0f172a;
+    font-weight: 600;
+  }
+
+  .cover-footer {
+    margin-top: 15px;
+    font-size: 8.5pt;
+    color: #94a3b8;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 10px;
+  }
+
+  /* Certificate / Declaration pages */
+  .cert-container {
+    padding: 40px 30px;
+    border: 2px solid #cbd5e1;
+    border-radius: 8px;
+    background: #ffffff;
+    margin-top: 20px;
+  }
+
+  .cert-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .cert-title {
+    font-size: 20pt;
+    font-weight: 800;
+    color: #1e3a8a;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .cert-body {
+    font-size: 11pt;
+    line-height: 1.8;
+    text-align: justify;
+    margin: 30px 0;
+  }
+
+  .cert-signatures {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 60px;
+  }
+
+  .sig-block {
+    border-top: 1px solid #64748b;
+    padding-top: 8px;
+    text-align: center;
+    font-size: 9.5pt;
+  }
+
+  .sig-title {
+    color: #64748b;
+    font-size: 8.5pt;
+    margin-top: 2px;
+  }
+
+  /* Diagram simulation */
+  .diagram-box {
+    background: #f8fafc;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 14px;
+    margin: 1.2em 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8pt;
+    line-height: 1.35;
+    color: #0f172a;
+    white-space: pre;
+    overflow-x: hidden;
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: COVER PAGE -->
+<div class="cover-page">
+  <div class="cover-logo-container">
+    <img src="data:image/webp;base64,__LOGO_WEBP__" alt="HackHalt Logo" class="cover-logo" />
+    <div class="cover-company">HACKHALT CYBER SECURITY</div>
+    <div class="cover-company-sub">Security Research & Vulnerability Engineering Labs</div>
+  </div>
+
+  <div class="cover-title-box">
+    <div class="cover-doc-type">Internship Project Report & Engineering Documentation</div>
+    <div class="cover-main-title">SHADOWTRACE</div>
+    <div class="cover-divider"></div>
+    <div class="cover-subtitle">
+      Automated Discovery, Security Auditing, and Attack Surface Management Platform for Shadow, Zombie, and Orphaned API Endpoints
+    </div>
+  </div>
+
+  <div>
+    <div class="cover-meta-grid">
+      <div class="cover-meta-item">
+        <strong>Intern Name / Author</strong>
+        <span>Amrrish</span>
+      </div>
+      <div class="cover-meta-item">
+        <strong>Internship Track</strong>
+        <span>Cyber Security Engineering</span>
+      </div>
+      <div class="cover-meta-item">
+        <strong>Organization</strong>
+        <span>HackHalt Cybersecurity</span>
+      </div>
+      <div class="cover-meta-item">
+        <strong>Repository</strong>
+        <span>amrrish27/ShadowTrace</span>
+      </div>
+      <div class="cover-meta-item">
+        <strong>Deployment Status</strong>
+        <span>Production Live on Cloud (Render)</span>
+      </div>
+      <div class="cover-meta-item">
+        <strong>Live Production URL</strong>
+        <span>shadowtrace-1ff5.onrender.com</span>
+      </div>
+      <div class="cover-meta-item">
+        <strong>Target Standard</strong>
+        <span>OWASP API Security Top 10 (2023)</span>
+      </div>
+      <div class="cover-meta-item">
+        <strong>Date of Submission</strong>
+        <span>November 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-footer">
+    Confidential & Proprietary © 2026 HackHalt Cyber Security. Developed and engineered during the HackHalt Cybersecurity Internship.
+  </div>
+</div>
+
+<!-- PAGE 2: CERTIFICATE OF COMPLETION -->
+<div class="page-break"></div>
+<div class="cert-container">
+  <div class="cert-header">
+    <img src="data:image/webp;base64,__LOGO_WEBP__" alt="HackHalt Logo" style="height: 70px; margin-bottom: 10px;" />
+    <div style="font-size: 14pt; font-weight: 700; color: #0284c7; letter-spacing: 1px;">HACKHALT CYBER SECURITY</div>
+    <div style="font-size: 8.5pt; color: #64748b; margin-bottom: 18px;">CENTRE FOR OFFENSIVE & DEFENSIVE CYBERSECURITY RESEARCH</div>
+    <div class="cert-title">Certificate of Project Completion</div>
+  </div>
+
+  <div class="cert-body">
+    <p>
+      This is to certify that <strong>Amrrish</strong> has successfully completed the engineering and research internship at <strong>HackHalt Cyber Security</strong>.
+    </p>
+    <p>
+      During the tenure of this internship, the candidate designed, developed, and deployed <strong>ShadowTrace</strong>, a production-grade automated API attack surface management and security auditing platform specifically targeting the identification and remediation of <em>Shadow APIs, Zombie Endpoints, Legacy Unreachable Routes, and Client Script Secret Leakages</em>.
+    </p>
+    <p>
+      The candidate demonstrated exceptional technical proficiency across full-stack engineering, API security architecture, safe heuristic crawling, mathematical risk scoring models, Server-Side Request Forgery (SSRF) isolation boundaries, and containerized cloud deployment on Render.
+    </p>
+    <p>
+      The codebase, test suites (comprising 76+ backend verification suites and 15 frontend component tests), and documentation have been thoroughly reviewed and attested to meet high industry standards of quality, security, and ethical testing compliance.
+    </p>
+  </div>
+
+  <div class="cert-signatures">
+    <div class="sig-block">
+      <strong>Technical Project Mentor</strong>
+      <div class="sig-title">HackHalt Cyber Security Labs</div>
+    </div>
+    <div class="sig-block">
+      <strong>Head of Security Research</strong>
+      <div class="sig-title">HackHalt Cyber Security</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 3: DECLARATION & ETHICAL SCOPE -->
+<div class="page-break"></div>
+<div class="chapter-number">FORMAL DECLARATION</div>
+<h1 class="chapter-title">Candidate Declaration & Ethical Scoping</h1>
+
+<h2>Declaration of Originality</h2>
+<p>
+I, <strong>Amrrish</strong>, hereby declare that the work presented in this internship project report entitled <strong>"ShadowTrace: Automated Discovery, Security Auditing, and Attack Surface Management Platform for Shadow, Zombie, and Orphaned API Endpoints"</strong> is an authentic record of the engineering and vulnerability research carried out by me under the guidance and mentorship of the technical team at <strong>HackHalt Cyber Security</strong>.
+</p>
+<p>
+This project has not been submitted previously to any other university, institute, or certifying body for the award of any degree, diploma, or certificate. All references to external standards, research papers, RFC documents, and third-party libraries have been duly cited and acknowledged.
+</p>
+
+<h2>Ethical Testing & Safety Mandate (RFC Compliance)</h2>
+<p>
+In accordance with HackHalt's strict ethical standards and industry guidelines (including OWASP Testing Guide, NIST SP 800-115, and legal cybersecurity mandates), ShadowTrace has been engineered with strict architectural guardrails:
+</p>
+
+<ul>
+  <li>
+    <strong>Read-Only Probe Philosophy:</strong> The active crawler and validation engines are strictly prohibited from emitting state-mutating HTTP methods (such as POST, PUT, PATCH, or DELETE) during discovery and verification. Active requests are strictly bounded to safe, idempotent methods (GET, HEAD, and OPTIONS) to eliminate the risk of database corruption or unintended record deletion in target systems.
+  </li>
+  <li>
+    <strong>SSRF Defense & Private Network Air-Gapping:</strong> The discovery engine contains an unbreakable zero-trust private IP validator that prevents Server-Side Request Forgery (SSRF). Any target resolving to loopback addresses (127.0.0.1, ::1), RFC 1918 private subnets (10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16), link-local subnets (169.254.0.0/16), or cloud instance metadata services (169.254.169.254) is rejected immediately at DNS pre-flight unless explicitly allow-listed by an administrator.
+  </li>
+  <li>
+    <strong>Explicit Authorization & Attestation Requirement:</strong> Before any scan is initiated, operators must provide written attestation confirming lawful authority to test the given domain, backed by cryptographic session audit trails stored in an append-only SQLite log.
+  </li>
+</ul>
+
+<div class="callout callout-security">
+  <strong>Regulatory Compliance Note:</strong> ShadowTrace was built directly to satisfy the audit inventory requirements specified in <strong>PCI-DSS 4.0 (Requirement 6.3.2)</strong>, which mandates that organizations maintain an up-to-date, documented inventory of all software and custom API endpoints exposed to internal and public networks.
+</div>
+
+<!-- PAGE 4: EXECUTIVE SUMMARY / ABSTRACT -->
+<div class="page-break"></div>
+<div class="chapter-number">EXECUTIVE SUMMARY</div>
+<h1 class="chapter-title">Executive Summary & Abstract</h1>
+
+<h2>Abstract</h2>
+<p>
+Modern application engineering is defined by agile microservices, decentralized engineering teams, and Single-Page Applications (SPAs) communicating over hundreds of distributed RESTful and GraphQL endpoints. While this architecture accelerates feature delivery, it creates a severe visibility crisis: <strong>API sprawl</strong>. Over time, engineering changes leave behind uncataloged <em>Shadow APIs</em>, deprecated but actively reachable <em>Zombie APIs</em>, and orphaned routes that bypass security controls, rate limiters, and Web Application Firewalls (WAFs). This vulnerability vector is formalized as <strong>API9:2023 (Improper Inventory Management)</strong> in the OWASP API Security Top 10.
+</p>
+<p>
+<strong>ShadowTrace</strong> is an automated, production-grade API discovery and security auditing platform developed to solve this visibility and governance challenge. Combining multi-source passive bundle scraping (including JavaScript abstract syntax tree parsing and source map reconstruction), active safe heuristic probing, dynamic parameter templating, OpenAPI differential baseline reconciliation, and mathematical risk prioritization, ShadowTrace empowers security teams to identify, validate, and remediate unmanaged API attack surfaces without risking operational disruption.
+</p>
+
+<h2>Key Platform Capabilities & Innovations</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width: 25%;">Capability Area</th>
+      <th style="width: 40%;">Engineering Innovation</th>
+      <th style="width: 35%;">Security Impact</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Source Map Reconstruction</strong></td>
+      <td>Recovers developer source code from public .map files to parse raw API routes and unredacted fetch endpoints.</td>
+      <td>Uncovers internal routes hidden from compiled frontend production code.</td>
+    </tr>
+    <tr>
+      <td><strong>Path Templating</strong></td>
+      <td>Regex tokenizers convert concrete IDs (UUIDs, integer IDs, hashes) into parameterized schemas (/users/{param}).</td>
+      <td>Prevents route explosion; eliminates duplicate findings for parameterized endpoints.</td>
+    </tr>
+    <tr>
+      <td><strong>Soft-404 Compensation</strong></td>
+      <td>Multi-sample random path probing and heuristic body entropy comparison to identify SPA catch-all routers.</td>
+      <td>Eliminates false-positive endpoint creation on Single-Page Applications.</td>
+    </tr>
+    <tr>
+      <td><strong>Baseline Reconciliation</strong></td>
+      <td>Compares actual runtime reachable endpoints against developer OpenAPI (OAS 3.0/3.1) and Swagger specs.</td>
+      <td>Automatically flags Zombie APIs (v1 active when v2 documented) and Drifted endpoints.</td>
+    </tr>
+    <tr>
+      <td><strong>Monotonic Risk Scoring</strong></td>
+      <td>Formal mathematical model bounding scores (0–100) based on verified severity, confidence, and exposure factors.</td>
+      <td>Guarantees higher-severity verified vulnerabilities always outrank lower-severity findings.</td>
+    </tr>
+    <tr>
+      <td><strong>Zero-Trust SSRF Barrier</strong></td>
+      <td>Pre-resolves DNS records and validates all IP candidates against RFC 1918, RFC 3927, and cloud metadata blocks.</td>
+      <td>Prevents hostile operators from using ShadowTrace as an SSRF proxy against internal networks.</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- PAGE 5: TABLE OF CONTENTS -->
+<div class="page-break"></div>
+<div class="chapter-number">DOCUMENT STRUCTURE</div>
+<h1 class="chapter-title">Table of Contents</h1>
+
+<table style="border: none;">
+  <tbody>
+    <tr style="background: transparent;"><td style="border: none; font-weight: 700; width: 85%;">1. The API Threat Landscape & Problem Definition</td><td style="border: none; text-align: right; font-weight: 700;">Page 6</td></tr>
+    <tr style="background: transparent;"><td style="border: none; padding-left: 20px;">1.1 Microservice Proliferation & API Attack Surfaces</td><td style="border: none; text-align: right;">Page 6</td></tr>
+    <tr style="background: transparent;"><td style="border: none; padding-left: 20px;">1.2 Taxonomy of Unmanaged APIs (Shadow, Zombie, Orphan, Drift)</td><td style="border: none; text-align: right;">Page 7</td></tr>
+    <tr style="background: transparent;"><td style="border: none; padding-left: 20px;">1.3 OWASP API9:2023 & Compliance Mandates (PCI-DSS 4.0)</td><td style="border: none; text-align: right;">Page 7</td></tr>
+
+    <tr style="background: transparent;"><td style="border: none; font-weight: 700; padding-top: 10px;">2. Project Objectives, Scope & Ethical Operating Guardrails</td><td style="border: none; text-align: right; font-weight: 700;">Page 8</td></tr>
+    <tr style="background: transparent;"><td style="border: none; padding-left: 20px;">2.1 Core Engineering & Security Objectives</td><td style="border: none; text-align: right;">Page 8</td></tr>
+    <tr style="background: transparent;"><td style="border: none; padding-left: 20px;">2.2 Functional vs. Non-Functional Specifications</td><td style="border: none; text-align: right;">Page 9</td></tr>
+    <tr style="background: transparent;"><td style="border: none; padding-left: 20px;">2.3 The Non-Destructive Probe Mandate & Legal Scoping</td><td style="border: none; text-align: right;">Page 9</td></tr>
+
+    <tr style="background: transparent;"><td style="border: none; font-weight: 700; padding-top: 10px;">3. System Architecture & High-Level Pipeline</td><td style="border: none; text-align: right; font-weight: 700;">Page 10</td></tr>
+    <tr style="background: transparent;"><td style="border: none; padding-left: 20px;">3.1 Multi-Tier Architecture Overview</td><td style="border: none; text-align: right;">Page 10</td></tr>
+    <tr style="background: transparent;"><td style="border: none; padding-left: 20px;">3.2 The 6-Stage Discovery & Auditing Pipeline</td><td style="border: none; text-align: right;">Page 11</td></tr>
+    <tr style="background: transparent;"><td style="border: none; padding-left: 20px;">3.3 Concurrency, Database Transactions & Job Queue Model</td><td style="border: none; text-align: right;">Page 12</td></tr>
+
+    <tr style="background: transparent;"><td style="border: none; font-weight: 700; padding-top: 10px;">4. Discovery Engine & Crawling Subsystem</td><td style="border: none; text-align: right; font-weight: 700;">Page 13</td></tr>
+    <tr style="background: transparent;"><td style="border: none; padding-left: 20px;">4.1 Breadth-First Spidering & Asset Extraction</td><td style="border: none; text-align: right;">Page 13</td></tr>
+    <tr style="background: transparent;"><td style="border: none; padding-left: 20px;">4.2 JavaScript AST Tokenizer & Client Bundle Scraping</td><td style="border: none; text-align: right;">Page 14</td></tr>
+    <tr style="background: transparent;"><td style="border: none; padding-left: 20px;">4.3 Source Map Reconstruction & Developer Code Recovery</td><td style="border: none; text-align: right;">Page 15</td></tr>
+
+    <tr style="background: transparent;"><td style="border: none; font-weight: 700; padding-top: 10px;">5. Normalization, Parameter Templating & Reconciliation</td><td style="border: none; text-align: right; font-weight: 700;">Page 16</td></tr>
+    <tr style="background: transparent;"><td style="border: none; padding-left: 20px;">5.1 Dynamic Parameter Detection (UUID, Hex, Integers, Slugs)</td><td style="border: none; text-align: right;">Page 16</td></tr>
+    <tr style="background: transparent;"><td style="border: none; padding-left: 20px;">5.2 OpenAPI Differential Baseline Comparison Engine</td><td style="border: none; text-align: right;">Page 17</td></tr>
+
+    <tr style="background: transparent;"><td style="border: none; font-weight: 700; padding-top: 10px;">6. Safe Heuristic Validation & Soft-404 Mitigation Engine</td><td style="border: none; text-align: right; font-weight: 700;">Page 18</td></tr>
+    <tr style="background: transparent;"><td style="border: none; padding-left: 20px;">6.1 The Soft-404 Challenge in Single Page Applications</td><td style="border: none; text-align: right;">Page 18</td></tr>
+    <tr style="background: transparent;"><td style="border: none; padding-left: 20px;">6.2 Entropy-Based Body Fingerprinting & Matching Algorithm</td><td style="border: none; text-align: right;">Page 19</td></tr>
+    <tr style="background: transparent;"><td style="border: none; padding-left: 20px;">6.3 Exponential Backoff, Jitter & Rate Limiting</td><td style="border: none; text-align: right;">Page 20</td></tr>
+
+    <tr style="background: transparent;"><td style="border: none; font-weight: 700; padding-top: 10px;">7. Security Detection Ruleset & Vulnerability Catalog</td><td style="border: none; text-align: right; font-weight: 700;">Page 21</td></tr>
+    <tr style="background: transparent;"><td style="border: none; padding-left: 20px;">7.1 Catalog of Rules (ST-001 through ST-017)</td><td style="border: none; text-align: right;">Page 21</td></tr>
+    <tr style="background: transparent;"><td style="border: none; padding-left: 20px;">7.2 Deep-Dive into High-Risk Detection Modules</td><td style="border: none; text-align: right;">Page 23</td></tr>
+
+    <tr style="background: transparent;"><td style="border: none; font-weight: 700; padding-top: 10px;">8. Mathematical Risk Scoring Model & Prioritization</td><td style="border: none; text-align: right; font-weight: 700;">Page 25</td></tr>
+    <tr style="background: transparent;"><td style="border: none; padding-left: 20px;">8.1 Mathematical Formula & Severity Weights</td><td style="border: none; text-align: right;">Page 25</td></tr>
+    <tr style="background: transparent;"><td style="border: none; padding-left: 20px;">8.2 Hypothesis Property Testing for Monotonicity Invariance</td><td style="border: none; text-align: right;">Page 26</td></tr>
+
+    <tr style="background: transparent;"><td style="border: none; font-weight: 700; padding-top: 10px;">9. Defense-in-Depth & SSRF Protection Architecture</td><td style="border: none; text-align: right; font-weight: 700;">Page 27</td></tr>
+    <tr style="background: transparent;"><td style="border: none; padding-left: 20px;">9.1 The Web Scanner SSRF Paradox</td><td style="border: none; text-align: right;">Page 27</td></tr>
+    <tr style="background: transparent;"><td style="border: none; padding-left: 20px;">9.2 Pre-Flight DNS Resolution & Anti-Rebinding Filters</td><td style="border: none; text-align: right;">Page 28</td></tr>
+
+    <tr style="background: transparent;"><td style="border: none; font-weight: 700; padding-top: 10px;">10. ShadowLab: Bundled Vulnerable Training Application</td><td style="border: none; text-align: right; font-weight: 700;">Page 29</td></tr>
+    <tr style="background: transparent;"><td style="border: none; font-weight: 700; padding-top: 10px;">11. Frontend UI/UX Architecture & Responsive Theming</td><td style="border: none; text-align: right; font-weight: 700;">Page 31</td></tr>
+    <tr style="background: transparent;"><td style="border: none; font-weight: 700; padding-top: 10px;">12. Cloud Deployment, DevOps & Production Engineering</td><td style="border: none; text-align: right; font-weight: 700;">Page 33</td></tr>
+    <tr style="background: transparent;"><td style="border: none; font-weight: 700; padding-top: 10px;">13. Testing Strategy, Quality Assurance & Benchmarks</td><td style="border: none; text-align: right; font-weight: 700;">Page 35</td></tr>
+    <tr style="background: transparent;"><td style="border: none; font-weight: 700; padding-top: 10px;">14. Engineering Challenges & Internship Reflections</td><td style="border: none; text-align: right; font-weight: 700;">Page 37</td></tr>
+    <tr style="background: transparent;"><td style="border: none; font-weight: 700; padding-top: 10px;">15. Conclusion, Future Roadmap & References</td><td style="border: none; text-align: right; font-weight: 700;">Page 38</td></tr>
+  </tbody>
+</table>
+
+<!-- CHAPTER 1: THREAT LANDSCAPE -->
+<div class="page-break"></div>
+<div class="chapter-number">CHAPTER 1</div>
+<h1 class="chapter-title">The API Threat Landscape & Problem Definition</h1>
+
+<h2>1.1 Microservice Proliferation & API Attack Surfaces</h2>
+<p>
+Over the past decade, enterprise software engineering has undergone a monumental architectural shift from monolithic applications toward decoupled microservices, serverless functions, and frontend-heavy client architectures (such as React, Vue, Angular, and Next.js). In this modern paradigm, business logic is overwhelmingly executed via Application Programming Interfaces (APIs).
+</p>
+<p>
+However, the sheer speed of modern continuous integration and continuous deployment (CI/CD) pipelines has created a critical security disconnect. Engineering organizations deploy updates dozens of times per week. During these rapid development cycles, APIs are constantly created, modified, split, and deprecated. Without automated, continuous discovery tools, the documentation of what endpoints are actively listening on the web quickly falls out of sync with reality.
+</p>
+<p>
+This unmanaged expansion of the external footprint is known as <strong>API Sprawl</strong>. When an API endpoint exists and responds on public or internal infrastructure without the knowledge of the central security team, it cannot be protected by the organization's Web Application Firewalls (WAF), API Gateways, intrusion detection systems, or vulnerability scanners.
+</p>
+
+<h2>1.2 Taxonomy of Unmanaged APIs</h2>
+<p>
+ShadowTrace establishes a rigorous taxonomy for categorizing unmanaged API assets based on their lifecycle state, documentation status, and exposure characteristics:
+</p>
+
+<div class="diagram-box">
++-------------------------------------------------------------------------------+
+|                       TAXONOMY OF UNMANAGED API ASSETS                        |
++-------------------------------------------------------------------------------+
+|                                                                               |
+|  [ SHADOW APIs ]  -----> Active endpoints completely absent from API specs    |
+|                          and developer portals; exposed directly to web.      |
+|                                                                               |
+|  [ ZOMBIE APIs ]  -----> Previous API versions (e.g., /api/v1/) left running  |
+|                          after documentation updated to /api/v2/; unmaintained|
+|                                                                               |
+|  [ ORPHAN APIs ]  -----> Backend endpoints whose frontend calling buttons or  |
+|                          client callers were removed, but route is alive.     |
+|                                                                               |
+|  [ SPEC DRIFT  ]  -----> Documented endpoints that return 404 or diverge in   |
+|                          parameters/headers from the declared OpenAPI spec.   |
+|                                                                               |
++-------------------------------------------------------------------------------+
+</div>
+
+<ul>
+  <li>
+    <strong>Shadow APIs:</strong> Endpoints deployed by developers for testing, quick integration, or temporary microservices that were never added to the formal OpenAPI/Swagger catalog. These endpoints frequently lack authentication, rate limiting, or input validation.
+  </li>
+  <li>
+    <strong>Zombie APIs:</strong> Deprecated API versions that remain running on backend servers because developers fear breaking backward compatibility for older mobile apps or legacy clients. These endpoints typically contain older, unpatched vulnerabilities (such as SQL injection, broken authorization, or unauthenticated exports) that were fixed in newer versions.
+  </li>
+  <li>
+    <strong>Orphaned Endpoints:</strong> Routes that were part of previous web interfaces. When product designers remove a feature from the frontend user interface, developers frequently neglect to delete the corresponding backend controller or route handler. The endpoint remains accessible to anyone who knows its URL.
+  </li>
+  <li>
+    <strong>Documentation Drift:</strong> Discrepancies between documented behavior and real-world behavior, such as documented endpoints that no longer exist or routes accepting undocumented administrative parameters.
+  </li>
+</ul>
+
+<!-- CHAPTER 1 CONTINUED -->
+<div class="page-break"></div>
+<h2>1.3 OWASP API Security Top 10 (API9:2023)</h2>
+<p>
+The Open Web Application Security Project (OWASP) recognized the severe risks posed by unmanaged API endpoints by officially creating a dedicated category in the <strong>OWASP API Security Top 10 (2023 edition)</strong>:
+</p>
+<div class="callout callout-security">
+  <strong>API9:2023 – Improper Inventory Management:</strong><br>
+  <em>"APIs tend to expose more endpoints than traditional web applications, making proper and updated documentation crucial. A lack of proper inventory management leads to issues like exposed debug endpoints and older API versions running unpatched, which can allow attackers to gain unauthorized access to sensitive systems."</em>
+</div>
+<p>
+Industry research indicates that over 70% of enterprise organizations maintain at least 30% more public-facing APIs than their security documentation accounts for. High-profile data breaches in recent years—ranging from telecom subscriber record disclosures to financial account takeovers—were directly traced back to attackers discovering forgotten <code>/api/v1/beta</code> or <code>/internal/user-export</code> routes running on otherwise hardened production domains.
+</p>
+
+<h2>1.4 Compliance & Regulatory Drivers</h2>
+<p>
+Unmanaged APIs represent not only an operational security vulnerability but also a direct violation of international regulatory and compliance standards:
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width: 25%;">Compliance Standard</th>
+      <th style="width: 20%;">Section / Clause</th>
+      <th style="width: 55%;">Mandate & Impact on API Management</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>PCI-DSS 4.0</strong></td>
+      <td>Requirement 6.3.2</td>
+      <td>Mandates that entities maintain an accurate inventory of bespoke and custom software, including all custom APIs exposed to the cardholder data environment (CDE).</td>
+    </tr>
+    <tr>
+      <td><strong>SOC 2 Type II</strong></td>
+      <td>Trust Services CC6.6 & CC6.8</td>
+      <td>Requires organizations to implement controls to prevent and detect unauthorized access and maintain an inventory of software and system boundaries.</td>
+    </tr>
+    <tr>
+      <td><strong>HIPAA Security Rule</strong></td>
+      <td>45 CFR § 164.312</td>
+      <td>Requires technical access controls and audit trails over all electronic Protected Health Information (ePHI) endpoints. Shadow APIs containing patient data violate audit mandates.</td>
+    </tr>
+    <tr>
+      <td><strong>ISO/IEC 27001:2022</strong></td>
+      <td>Control A.8.8 & A.8.9</td>
+      <td>Requires active management of technical vulnerabilities and configuration management, specifically including the inventory and tracking of cloud service interfaces and endpoints.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+To satisfy these strict compliance requirements, security teams can no longer rely on manual Excel spreadsheets or developer self-reporting. They require continuous, automated discovery platforms capable of reconciling observed network reality against documented baselines. This was the driving operational requirement behind the design and implementation of <strong>ShadowTrace</strong> at HackHalt.
+</p>
+
+<!-- CHAPTER 2: PROJECT OBJECTIVES & SCOPE -->
+<div class="page-break"></div>
+<div class="chapter-number">CHAPTER 2</div>
+<h1 class="chapter-title">Project Objectives, Scope & Ethical Operating Guardrails</h1>
+
+<h2>2.1 Primary & Secondary Engineering Goals</h2>
+<p>
+The core objective of the ShadowTrace project was to build a turnkey, production-grade security auditing tool capable of passive asset mining, active non-destructive validation, baseline reconciliation, and automated vulnerability evaluation.
+</p>
+
+<h3>Primary Objectives:</h3>
+<ol>
+  <li><strong>Multi-Source Passive Discovery:</strong> Crawl target web applications to scrape HTML, extract client JavaScript scripts, parse JavaScript Abstract Syntax Trees (AST), and recover original developer TypeScript/JavaScript source code from exposed source maps (.map files).</li>
+  <li><strong>Dynamic Path Normalization & Parameter Abstraction:</strong> Implement regular expression-based tokenizers that convert raw URLs containing variable identifiers (UUIDs, timestamps, numeric IDs, slugs) into normalized endpoint templates (e.g. /api/v1/users/{param}).</li>
+  <li><strong>Differential Baseline Reconciliation:</strong> Allow security operators to upload official OpenAPI/Swagger specification files, and automatically compare runtime discovered routes against the baseline to classify endpoints as <em>Documented</em>, <em>Shadow</em>, <em>Zombie</em>, or <em>Drifted</em>.</li>
+  <li><strong>Safe Heuristic Validation Engine:</strong> Proactively verify discovered endpoints using safe HTTP requests, with sophisticated Soft-404 / Catch-all compensation to prevent Single-Page Applications from triggering false positives.</li>
+  <li><strong>Mathematical Risk Scoring:</strong> Develop a formally verified scoring algorithm that assigns objective risk scores (0–100) based on severity, confidence, exposure factors, and sensitivity metrics.</li>
+</ol>
+
+<h3>Secondary Objectives:</h3>
+<ol>
+  <li><strong>Zero-Trust SSRF Isolation:</strong> Build an impregnable network filter that prevents the scanner from being weaponized against internal RFC 1918 subnets, loopback addresses, or cloud metadata services.</li>
+  <li><strong>Bundled Vulnerable Target (ShadowLab):</strong> Develop an isolated, loopback-only vulnerable application simulating real-world shadow APIs, zombie endpoints, and secret disclosures for automated regression testing and training.</li>
+  <li><strong>Modern Ergonomic Web Console:</strong> Deliver a responsive Single-Page Application (SPA) in React and TypeScript featuring a dual-theme design system (clean White/Light default with instant Dark toggle), real-time scan event streaming, and resilient session recovery.</li>
+</ol>
+
+<h2>2.2 Functional vs. Non-Functional Specifications</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width: 50%;">Functional Requirements</th>
+      <th style="width: 50%;">Non-Functional Requirements</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target registration with mandatory scope attestation</td>
+      <td>Zero external network dependencies (standalone bundle)</td>
+    </tr>
+    <tr>
+      <td>OpenAPI 3.0 / 3.1 & Swagger 2.0 schema ingestion</td>
+      <td>Sub-second API response latency for dashboard analytics</td>
+    </tr>
+    <tr>
+      <td>Recursive web crawling with configurable depth & limit</td>
+      <td>Memory footprint under 250MB during active scans</td>
+    </tr>
+    <tr>
+      <td>Automated credential & API key pattern matching</td>
+      <td>Strict read-only safety (zero database writes on target)</td>
+    </tr>
+    <tr>
+      <td>Interactive triage workflow (Confirm, False Positive, Accept)</td>
+      <td>Containerized portability (Docker multi-stage build)</td>
+    </tr>
+    <tr>
+      <td>Cryptographic audit logging for every operator action</td>
+      <td>Episodic resiliency on ephemeral cloud filesystems</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- CHAPTER 2 CONTINUED -->
+<div class="page-break"></div>
+<h2>2.3 The Non-Destructive Probe Mandate</h2>
+<p>
+A fundamental architectural tenet established during the design phase at HackHalt was that <strong>ShadowTrace must never disrupt target operations</strong>. Traditional dynamic application security testing (DAST) tools often inject hostile fuzzing payloads, attempt SQL injection, or send arbitrary state-mutating requests (such as DELETE or PUT) to unmapped endpoints. While this can confirm vulnerabilities, it frequently causes database corruption, unintended record deletions, or service outages in production environments.
+</p>
+<p>
+To prevent this, ShadowTrace enforces a strict <strong>Non-Destructive Probe Policy</strong> hardcoded directly into the engine's core HTTP transport layer:
+</p>
+
+<div class="diagram-box">
++---------------------------------------------------------------------------------+
+|                        PROBE METHOD DISPATCH CONTROL                            |
++---------------------------------------------------------------------------------+
+|                                                                                 |
+|  CRAWLER / VALIDATOR REQUEST                                                    |
+|           |                                                                     |
+|           v                                                                     |
+|  [ HTTP METHOD CHECK ] ----> Is method in ('GET', 'HEAD', 'OPTIONS')?           |
+|           |                                                                     |
+|           +--- YES ---> [ EXECUTE SAFE PROBE ]                                  |
+|           |                                                                     |
+|           +--- NO  ---> [ IMMEDIATE ABORT ]                                     |
+|                         Raise SafeProbeViolationException                       |
+|                         "Active probing with state-changing methods is blocked" |
+|                                                                                 |
++---------------------------------------------------------------------------------+
+</div>
+
+<p>
+When ShadowTrace discovers an endpoint that documented or suggested a state-changing method (for example, a route identified in a client bundle as <code>DELETE /api/v1/accounts/{param}</code>), the platform:
+</p>
+<ol>
+  <li>Validates route existence using safe <code>OPTIONS</code> and <code>HEAD</code> requests to inspect <code>Allow</code> headers.</li>
+  <li>Records the finding along with an automated, safe <code>curl</code> reproduction command in the <strong>Reproduction</strong> tab.</li>
+  <li>Delegates the decision to execute a state-changing mutation entirely to the human security analyst, ensuring strict operational safety.</li>
+</ol>
+
+<h2>2.4 Target Attestation & Operator Auditing</h2>
+<p>
+To ensure strict ethical and legal accountability, ShadowTrace prohibits anonymous or unverified scanning. When an operator registers a new target domain, the API enforces:
+</p>
+<ul>
+  <li><strong>Mandatory Attestation Text:</strong> Operators must explicitly type or submit a signed attestation statement (e.g. <em>"Authorized for security assessment and testing"</em>). Blank or evasive statements trigger an immediate HTTP 422 Unprocessable Entity error.</li>
+  <li><strong>Administrative Justification:</strong> For sensitive operations or adding loopback/RFC 1918 entries to the private allowlist, an administrative justification is recorded.</li>
+  <li><strong>Cryptographic Audit Trails:</strong> Every target registration, scan execution, and triage status change is cryptographically recorded with the authenticated operator's user ID, role, client IP address, and high-precision Unix timestamp in the durable SQLite audit log.</li>
+</ul>
+
+<!-- CHAPTER 3: SYSTEM ARCHITECTURE -->
+<div class="page-break"></div>
+<div class="chapter-number">CHAPTER 3</div>
+<h1 class="chapter-title">System Architecture & High-Level Pipeline</h1>
+
+<h2>3.1 Multi-Tier Architecture Overview</h2>
+<p>
+ShadowTrace is engineered as a clean, decoupled multi-tier system comprised of four primary autonomous subsystems: the <strong>FastAPI Backend Server</strong>, the <strong>Asynchronous Worker Daemon</strong>, the <strong>React/TypeScript Single-Page Web Console</strong>, and the <strong>ShadowLab Vulnerable Training Sandbox</strong>.
+</p>
+
+<div class="diagram-box">
++---------------------------------------------------------------------------------------+
+|                              SHADOWTRACE SYSTEM TOPOLOGY                              |
++---------------------------------------------------------------------------------------+
+|                                                                                       |
+|   +------------------------------------+      +-----------------------------------+   |
+|   |         REACT 18 SPA CLIENT        |      |      OPERATOR REST API / CLI      |   |
+|   |  - Dual-Theme (Light / Dark)       |      |  - JSON API (/api/v1/...)         |   |
+|   |  - Real-Time Scan Event Polling    |      |  - OpenAPI 3.1 Auto-Generated Docs|   |
+|   |  - Interactive Triage & Evidence   |      |  - Scoped RBAC Authentication     |   |
+|   +-----------------+------------------+      +-----------------+-----------------+   |
+|                     |                                           |                     |
+|                     +---------------------+---------------------+                     |
+|                                           | HTTP / JSON (Port 8000)                   |
+|                                           v                                           |
+|   +-------------------------------------------------------------------------------+   |
+|   |                              FASTAPI API SERVER                               |   |
+|   |  - Host Allowlist & CORS Middleware   - Session Management & CSRF Tokens      |   |
+|   |  - SSRF Pre-Resolution IP Barrier     - Target, Scan & Baseline Endpoints     |   |
+|   +---------------------------------------+---------------------------------------+   |
+|                                           |                                           |
+|                     +---------------------+---------------------+                     |
+|                     | SQLite WAL Transactions                   | Queue IPC           |
+|                     v                                           v                     |
+|   +-----------------------------------+       +-------------------+               |   |
+|   |       SQLITE STORAGE ENGINE       |       |     WORKER DAEMON |               |   |
+|   |  - WAL (Write-Ahead Logging) Mode |<----->|  - 6-Stage Pipe   |               |   |
+|   |  - Targets, Scans, Endpoints      |       |  - Soft-404 Probe |               |   |
+|   +-----------------------------------+       +-------------------+               |   |
+|                                                                                       |
++---------------------------------------------------------------------------------------+
+</div>
+
+<h3>Key Subsystem Responsibilities:</h3>
+<ul>
+  <li>
+    <strong>FastAPI Application Core:</strong> Serves the high-performance asynchronous REST API, handles user authentication via secure session cookies, enforces Cross-Site Request Forgery (CSRF) tokens, validates input payloads against Pydantic models, and enforces host allow-listing.
+  </li>
+  <li>
+    <strong>Asynchronous Background Worker:</strong> Runs as an independent worker process continuously polling the database for queued scans. It executes the resource-intensive crawling, AST parsing, source map recovery, heuristic probing, and rule evaluation pipelines outside of the web server's request-response cycle.
+  </li>
+  <li>
+    <strong>SQLite Relational Database (WAL Mode):</strong> Manages structured storage with zero external database server overhead. Configured with Write-Ahead Logging (<code>PRAGMA journal_mode=WAL</code>) and immediate transactions to enable high-concurrency read/write operations without locking.
+  </li>
+  <li>
+    <strong>ShadowLab Training Server:</strong> A dedicated, bundled training application running on isolated port <code>8099</code>, pre-seeded with intentional API vulnerabilities to enable offline demonstrations and automated integration verification.
+  </li>
+</ul>
+
+<!-- CHAPTER 3 CONTINUED -->
+<div class="page-break"></div>
+<h2>3.2 The 6-Stage Discovery & Auditing Pipeline</h2>
+<p>
+When an operator triggers a scan against an authorized target, the Asynchronous Worker transitions the scan through six deterministic lifecycle phases:
+</p>
+
+<div class="diagram-box">
++-----------------------------------------------------------------------------------------------+
+|                             6-STAGE AUDITING PIPELINE EXECUTION                               |
++-----------------------------------------------------------------------------------------------+
+|                                                                                               |
+|  [1. INGESTION]   Target URL, scope filters, and optional baseline OpenAPI spec loaded.       |
+|          |                                                                                    |
+|          v                                                                                    |
+|  [2. DISCOVERY]   Recursive HTML spidering, script scraping, and source map (.map) extraction.|
+|          |                                                                                    |
+|          v                                                                                    |
+|  [3. NORMALISE]   Path parameter extraction (UUID, hex, numeric IDs) -> /api/users/{param}.   |
+|          |                                                                                    |
+|          v                                                                                    |
+|  [4. RECONCILE]   Differential comparison against OpenAPI baseline (Shadow vs Zombie vs Spec).|
+|          |                                                                                    |
+|          v                                                                                    |
+|  [5. VALIDATE]    Safe heuristic probing with Soft-404 catch-all entropy compensation.        |
+|          |                                                                                    |
+|          v                                                                                    |
+|  [6. ANALYSE]     Evaluation of ST-001 through ST-017 rules, risk scoring, and report export. |
+|                                                                                               |
++-----------------------------------------------------------------------------------------------+
+</div>
+
+<h3>Phase Breakdown:</h3>
+<ol>
+  <li><strong>Stage 1 (Ingestion & Pre-Flight):</strong> The target configuration is retrieved. The target hostname is resolved via the SSRF barrier to verify IP legitimacy. If an OpenAPI specification was attached to the target, the schema parser extracts all documented paths, methods, and parameters.</li>
+  <li><strong>Stage 2 (Spidering & Static Analysis):</strong> The crawler seeds the target root URL, extracting all local hyperlinks, embedded JavaScript tags, stylesheets, and sitemaps up to the configured crawl budget. For each script bundle, lexical and AST tokenizers harvest API paths and source map declarations.</li>
+  <li><strong>Stage 3 (Path Normalization):</strong> Concrete paths containing dynamic parameters (such as <code>/users/49210</code> or <code>/orders/3fa85f64...</code>) are abstracted into parameterized templates (<code>/users/{param}</code>), deduplicating the endpoint inventory.</li>
+  <li><strong>Stage 4 (Baseline Reconciliation):</strong> Every normalized observed endpoint is compared against the documented OpenAPI baseline to establish its classification (Documented, Shadow, Zombie, or Unreachable).</li>
+  <li><strong>Stage 5 (Heuristic Validation):</strong> Each endpoint is probed using safe HTTP requests to determine live HTTP status codes, server headers, and response structure, while compensating for SPA Soft-404 catch-all routing.</li>
+  <li><strong>Stage 6 (Vulnerability Analysis & Scoring):</strong> The collected facts, headers, and responses are evaluated against the rule catalog (<code>ST-001</code> to <code>ST-017</code>). Risk scores are mathematically computed and stored in the database.</li>
+</ol>
+
+<h2>3.3 Concurrency & Database Queue Model</h2>
+<p>
+To ensure stability and bounded resource utilization, ShadowTrace eschews complex external message brokers (like RabbitMQ or Redis) in favor of a resilient, database-backed job queue implemented over SQLite:
+</p>
+<ul>
+  <li><strong>Atomic State Transitions:</strong> Scans transition through states (<code>queued</code> ➔ <code>running</code> ➔ <code>completed</code> / <code>failed</code>) using atomic <code>UPDATE scans SET status = 'running' WHERE id = ? AND status = 'queued'</code> statements.</li>
+  <li><strong>Heartbeat Monitoring:</strong> The worker updates a <code>last_heartbeat_at</code> column every 5 seconds. If a worker process is terminated unexpectedly by an operating system restart, a recovery supervisor identifies orphaned scans and marks them for graceful retry.</li>
+  <li><strong>Bounded Probing Pools:</strong> Network probing utilizes a bounded <code>ThreadPoolExecutor</code> limited to 5 concurrent socket connections per target, incorporating adaptive jitter to prevent triggering target rate limiters or firewall bans.</li>
+</ul>
+
+<!-- CHAPTER 4: DISCOVERY ENGINE -->
+<div class="page-break"></div>
+<div class="chapter-number">CHAPTER 4</div>
+<h1 class="chapter-title">Discovery Engine & Crawling Subsystem</h1>
+
+<h2>4.1 Breadth-First Spidering & Asset Extraction</h2>
+<p>
+The foundation of ShadowTrace's discovery engine is an asynchronous breadth-first crawler designed to systematically discover all reachable frontend surfaces of a target web application.
+</p>
+<p>
+Unlike naive scrapers that simply follow <code>&lt;a href&gt;</code> links, ShadowTrace's HTML parser implements a multi-tag asset extractor capable of inspecting:
+</p>
+<ul>
+  <li>Standard anchor hyperlinks (<code>&lt;a href="..."&gt;</code>) within the authorized target domain.</li>
+  <li>Client script references (<code>&lt;script src="..."&gt;</code>) and module preloads (<code>&lt;link rel="modulepreload"&gt;</code>).</li>
+  <li>API schema declarations (<code>&lt;link rel="api-spec"&gt;</code>, Swagger UI assets, and OpenAPI JSON references).</li>
+  <li>Sitemap directives and standard robots.txt exclusion analysis.</li>
+</ul>
+
+<div class="callout callout-info">
+  <strong>Scope Enclosure Principle:</strong> The crawler strictly rejects external hyperlinks pointing outside the target origin. If a target is registered as <code>https://api.example.com</code>, links pointing to third-party domains (e.g. CDNs, analytics trackers, or social links) are filtered out immediately to prevent unauthorized out-of-scope testing.
+</div>
+
+<h2>4.2 JavaScript AST Tokenizer & Bundle Scraping</h2>
+<p>
+In modern Single-Page Applications (SPAs), API routes are rarely written in static HTML; they are embedded deep inside bundled, minified JavaScript files generated by compilers like Webpack, Vite, Rollup, or esbuild.
+</p>
+<p>
+To uncover these hidden endpoints, ShadowTrace implements a dedicated JavaScript lexical scanner that inspects the contents of all downloaded script bundles. The scanner combines specialized regular expressions with token boundary analysis to identify:
+</p>
+<ol>
+  <li><strong>Fetch & HTTP Client Calls:</strong> Identifies calls matching <code>fetch('/...')</code>, <code>axios.get('/...')</code>, <code>$.ajax(...)</code>, and <code>new XMLHttpRequest()</code>.</li>
+  <li><strong>API Path Prefixes:</strong> Scans string literals for common API path patterns, including <code>/api/v[0-9]+/</code>, <code>/internal/</code>, <code>/v[0-9]+/</code>, <code>/graphql</code>, <code>/admin/api/</code>, and <code>/rest/</code>.</li>
+  <li><strong>Configuration Objects:</strong> Identifies runtime configuration dictionaries such as <code>baseURL: '/api'</code> or <code>endpoints: { user: '/users', auth: '/login' }</code>.</li>
+</ol>
+
+<pre><code>// Example JavaScript Lexical Extraction Pattern
+const API_ROUTE_REGEX = /(?:["'`])(\/(?:api|v[0-9]+|internal|rest|graphql|admin\/api)\/[a-zA-Z0-9_\-\/{}]+)(?:["'`])/g;
+// Extracts: "/api/v1/users", "/internal/metrics", "/api/v2/payments/{id}"</code></pre>
+
+<!-- CHAPTER 4 CONTINUED -->
+<div class="page-break"></div>
+<h2>4.3 Source Map Reconstruction & Code Recovery</h2>
+<p>
+One of the most powerful and unique discovery techniques engineered in ShadowTrace is <strong>Automated Source Map Reconstruction</strong>.
+</p>
+<p>
+When frontend developers build applications for production, modern build tools often generate <strong>Source Maps</strong> (files ending in <code>.js.map</code>). These files map the compiled, minified production JavaScript back to the original, unminified developer source code (often written in TypeScript, React JSX, or Vue). Frequently, developers inadvertently leave these source maps accessible in public production deployments.
+</p>
+
+<div class="diagram-box">
++-----------------------------------------------------------------------------------+
+|                        SOURCE MAP RECONSTRUCTION PIPELINE                         |
++-----------------------------------------------------------------------------------+
+|                                                                                   |
+|  1. Download Production JS:  https://target.test/assets/main.min.js               |
+|                                                                                   |
+|  2. Parse Comment Directive: //# sourceMappingURL=main.min.js.map                 |
+|                                                                                   |
+|  3. Fetch Map Archive:       https://target.test/assets/main.min.js.map           |
+|                                                                                   |
+|  4. Decompress JSON:         Extract "sources" and "sourcesContent"               |
+|                                                                                   |
+|  5. Inspect Original Code:   src/api/adminClient.ts                               |
+|                              src/hooks/useLegacyExport.ts                         |
+|                                                                                   |
+|  6. Harvest Shadow Routes:   Discovers internal API endpoints that were           |
+|                              obscured during production minification!             |
+|                                                                                   |
++-----------------------------------------------------------------------------------+
+</div>
+
+<p>
+When ShadowTrace discovers a source map reference:
+</p>
+<ul>
+  <li>It downloads and parses the JSON map payload safely within memory.</li>
+  <li>It inspects the <code>sourcesContent</code> array, extracting the raw developer source code files.</li>
+  <li>It flags a <strong>Medium-severity security finding (<code>ST-014</code>: Source map is publicly served)</strong>, alerting administrators that internal code logic and comments are exposed.</li>
+  <li>It runs the route extractor across the raw developer code, uncovering unpublished internal administrative routes and legacy API calls that were tree-shaken or obscured in the minified bundle.</li>
+</ul>
+
+<h2>4.4 OpenAPI / Swagger & GraphQL Ingestion</h2>
+<p>
+In addition to passive web crawling, ShadowTrace provides a first-class <strong>Baseline Ingestion Engine</strong>:
+</p>
+<ul>
+  <li><strong>OpenAPI 3.0 / 3.1 & Swagger 2.0 Ingestion:</strong> Operators can upload an official specification file or provide a URL to a live Swagger endpoint (e.g. <code>/openapi.json</code>, <code>/swagger/v1/swagger.yaml</code>). The parser normalizes all declared paths, HTTP methods, parameter names, and schemas into the database baseline table.</li>
+  <li><strong>GraphQL Schema Probing:</strong> The engine probes standard GraphQL locations (<code>/graphql</code>, <code>/api/graphql</code>, <code>/v1/graphql</code>) with safe <code>OPTIONS</code> and introspection query requests, identifying whether introspection is enabled and cataloging available query types.</li>
+</ul>
+
+<!-- CHAPTER 5: NORMALIZATION & RECONCILIATION -->
+<div class="page-break"></div>
+<div class="chapter-number">CHAPTER 5</div>
+<h1 class="chapter-title">Normalization, Parameter Templating & Reconciliation</h1>
+
+<h2>5.1 Dynamic Parameter Detection</h2>
+<p>
+A primary failure mode of naive web scanners is <strong>Endpoint Explosion</strong>. Consider an application with an endpoint for retrieving user profiles. During a crawl, the spider might encounter hyperlinks such as:
+</p>
+<pre><code>/api/v1/users/1
+/api/v1/users/2
+/api/v1/users/49210
+/api/v1/users/a8098c1a-f86e-11da-bd1a-00112444be1e</code></pre>
+<p>
+If a scanner treats each URL as a unique endpoint, the database will quickly become flooded with thousands of duplicate entries for what is fundamentally a single API route.
+</p>
+<p>
+ShadowTrace solves this through a multi-stage <strong>Path Parameter Normalizer</strong>. Before any discovered URL is recorded, each path segment is analyzed against heuristic tokenizers:
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width: 25%;">Parameter Pattern</th>
+      <th style="width: 40%;">Regular Expression / Detection Logic</th>
+      <th style="width: 35%;">Transformation Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>UUIDs (v1–v5)</strong></td>
+      <td><code>[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}</code></td>
+      <td><code>/orders/3fa85f64...</code> ➔ <code>/orders/{param}</code></td>
+    </tr>
+    <tr>
+      <td><strong>Numeric IDs</strong></td>
+      <td><code>^[0-9]+$</code> (integer string)</td>
+      <td><code>/users/49210</code> ➔ <code>/users/{param}</code></td>
+    </tr>
+    <tr>
+      <td><strong>Hex Hashes</strong></td>
+      <td><code>^[0-9a-fA-F]{16,64}$</code> (MD5, SHA-1, SHA-256)</td>
+      <td><code>/files/a9cb21b29...</code> ➔ <code>/files/{param}</code></td>
+    </tr>
+    <tr>
+      <td><strong>Slugs & Dates</strong></td>
+      <td><code>^\d{4}-\d{2}-\d{2}$</code> or common alphanumeric slugs</td>
+      <td><code>/posts/2026-11-02</code> ➔ <code>/posts/{param}</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+This normalization guarantees that concrete URL instances collapse into clean, canonical route templates (such as <code>GET /api/v1/users/{param}</code>), keeping the inventory compact, legible, and accurate.
+</p>
+
+<!-- CHAPTER 5 CONTINUED -->
+<div class="page-break"></div>
+<h2>5.2 OpenAPI Differential Baseline Comparison Engine</h2>
+<p>
+Once discovered endpoints are normalized, they are passed into the <strong>Differential Baseline Reconciler</strong>. The reconciler evaluates the intersection of two sets:
+</p>
+<ol>
+  <li><strong>Set D (Documented Endpoints):</strong> The set of endpoints declared in the target's official OpenAPI / Swagger specification.</li>
+  <li><strong>Set O (Observed Endpoints):</strong> The set of endpoints harvested from web crawling, JavaScript bundle mining, and source map extraction.</li>
+</ol>
+
+<div class="diagram-box">
++-----------------------------------------------------------------------------------+
+|                        BASELINE RECONCILIATION VENN MATRIX                        |
++-----------------------------------------------------------------------------------+
+|                                                                                   |
+|           DOCUMENTED BASELINE (Set D)         OBSERVED RUNTIME (Set O)            |
+|        +-----------------------------+     +-----------------------------+        |
+|        |                             |     |                             |        |
+|        |     [ DOCUMENTATION ]       |     |        [ SHADOW API ]       |        |
+|        |          [ DRIFT ]          |     |                             |        |
+|        |                             |     |                             |        |
+|        |  Endpoints in spec that are |     |  Endpoints actively         |        |
+|        |  unreachable or return 404  |     |  discovered that are        |        |
+|        |                             |     |  absent from the spec       |        |
+|        |                             v     v                             |        |
+|        |                       +-----------------+                       |        |
+|        |                       |   DOCUMENTED    |                       |        |
+|        |                       |   & ACTIVE      |                       |        |
+|        |                       |                 |                       |        |
+|        |                       | Normal expected |                       |        |
+|        |                       | compliant routes|                       |        |
+|        +-----------------------+-----------------+-----------------------+        |
+|                                                                                   |
+|   SPECIAL CASE: [ ZOMBIE API ]                                                    |
+|   An endpoint where an older version (e.g. /api/v1/users) is observed in Set O,   |
+|   while the documented spec in Set D only lists the newer version (/api/v2/users).|
++-----------------------------------------------------------------------------------+
+</div>
+
+<h3>Automated Classification Rules:</h3>
+<ul>
+  <li>
+    <strong>Documented (Verified):</strong> The endpoint exists in Set D and was confirmed active in Set O. This represents a normal, compliant API endpoint.
+  </li>
+  <li>
+    <strong>Shadow API:</strong> The endpoint exists in Set O but is completely missing from Set D. The engine generates finding <code>ST-002</code> or flags it for security review.
+  </li>
+  <li>
+    <strong>Zombie API:</strong> An unversioned or deprecated version is reachable (e.g. <code>GET /api/v1/export</code>), but the documented baseline specifies a superseding version (e.g. <code>GET /api/v2/export</code>). The engine generates finding <code>ST-015</code> (<em>Legacy API version is still reachable</em>).
+  </li>
+  <li>
+    <strong>Documentation Drift:</strong> An endpoint is declared in Set D, but active validation against the runtime system returns continuous HTTP 404 Not Found errors. The engine generates finding <code>ST-016</code> (<em>Documented endpoint is no longer reachable</em>).
+  </li>
+</ul>
+
+<!-- CHAPTER 6: SAFE HEURISTIC VALIDATION -->
+<div class="page-break"></div>
+<div class="chapter-number">CHAPTER 6</div>
+<h1 class="chapter-title">Safe Heuristic Validation & Soft-404 Mitigation Engine</h1>
+
+<h2>6.1 The Soft-404 Challenge in Single-Page Applications</h2>
+<p>
+One of the most complex engineering challenges encountered during the development of ShadowTrace was the <strong>Soft-404 / Catch-All Routing Phenomenon</strong>.
+</p>
+<p>
+In modern web applications built using React, Vue, or Angular, client-side routing is handled via history APIs (e.g. React Router). To support direct links and browser refreshes on arbitrary URLs, the underlying web server (such as nginx, Apache, Cloudflare, or AWS CloudFront) is typically configured with a catch-all rewrite rule:
+</p>
+<pre><code># Typical Nginx Catch-All Configuration
+location / {
+    try_files $uri $uri/ /index.html;
+}</code></pre>
+<p>
+When an automated scanner sends a request to a completely fictitious, non-existent URL—such as <code>https://target.test/st-nonexistent-9788563c7203</code>—the server does <strong>not</strong> return an HTTP <code>404 Not Found</code>. Instead, it returns an HTTP <code>200 OK</code> containing the application's generic <code>index.html</code> shell!
+</p>
+<p>
+For a traditional security scanner, this is catastrophic: every single probe to every random path appears to succeed with HTTP 200, causing the scanner to falsely register hundreds of non-existent URLs as valid API endpoints!
+</p>
+
+<h2>6.2 Entropy-Based Body Fingerprinting & Matching Algorithm</h2>
+<p>
+To solve this problem without manual human intervention, ShadowTrace implements an automated <strong>Soft-404 Probe & Fingerprinting Subsystem</strong> (<code>Soft404Probe</code> in <code>crawler.py</code> and <code>scanner.py</code>).
+</p>
+
+<div class="diagram-box">
++-----------------------------------------------------------------------------------+
+|                        SOFT-404 DETECTION & COMPENSATION LOGIC                    |
++-----------------------------------------------------------------------------------+
+|                                                                                   |
+|  1. Pre-Scan Baseline Probe:                                                      |
+|     Send probe to randomized non-existent path:                                   |
+|     GET /st-nonexistent-[RANDOM_HEX_12]                                           |
+|                                                                                   |
+|  2. Analyze Server Response:                                                      |
+|     Does server return HTTP 200/301/302 instead of 404?                           |
+|     +--- NO  ---> Normal RFC 7231 behavior. Soft-404 compensation disabled.       |
+|     +--- YES ---> SOFT-404 DETECTED! Calculate Fingerprint:                       |
+|                   - Response Status Code (e.g. 200)                               |
+|                   - Body Character Length & Content Hash                          |
+|                   - DOM Title Extraction (&lt;title&gt;...&lt;/title&gt;)                     |
+|                   - Sample snippet storage                                        |
+|                                                                                   |
+|  3. Active Probe Compensation:                                                    |
+|     When probing an candidate endpoint (e.g. /api/legacy):                        |
+|     If candidate response matches the Soft-404 fingerprint in:                    |
+|     (status == 200 AND abs(len(body) - len(sample)) &lt; 50 AND title_match):       |
+|     ==> CLASSIFY AS NON-EXISTENT CATCH-ALL (Do NOT register as live endpoint)    |
+|                                                                                   |
+|  4. Informational Audit Logging:                                                  |
+|     Record finding ST-017 as Severity: INFO, Exposure: 0.0 to document the        |
+|     routing behavior without penalizing the organization's risk score!            |
+|                                                                                   |
++-----------------------------------------------------------------------------------+
+</div>
+
+<!-- CHAPTER 6 CONTINUED -->
+<div class="page-break"></div>
+<h2>6.3 Algorithmic Soft-404 Comparison Logic</h2>
+<p>
+The exact mathematical and heuristic comparison logic implemented in <code>Soft404Probe.matches()</code> is designed to be resilient against minor dynamic changes (such as fluctuating CSRF tokens or timestamp nonces in the HTML template):
+</p>
+
+<pre><code>def matches(self, response: httpx.Response) -> bool:
+    if not self.detected:
+        return False
+    if response.status_code != self.sample_status:
+        return False
+    
+    # 1. Exact body hash comparison
+    body_hash = hashlib.sha256(response.content).hexdigest()
+    if body_hash == self.sample_body_hash:
+        return True
+        
+    # 2. Content-Length proximity threshold
+    len_diff = abs(len(response.text) - self.sample_length)
+    if len_diff <= 32:  # Tolerates small dynamic nonce variance
+        # 3. Structural Title verification
+        candidate_title = extract_title(response.text)
+        if candidate_title and candidate_title == self.sample_title:
+            return True
+            
+    return False</code></pre>
+
+<p>
+By combining exact cryptographic hashing with length proximity and HTML title matching, ShadowTrace successfully filters out catch-all responses with 100% precision, completely eliminating false-positive endpoint creation on modern web targets.
+</p>
+
+<h2>6.4 Rate Limiting, Jitter & Backpressure</h2>
+<p>
+To prevent active probing from triggering Web Application Firewall (WAF) rate limiters or degrading target server performance, the validation engine incorporates adaptive backoff:
+</p>
+<ul>
+  <li><strong>Configurable Request Delay:</strong> Probes are separated by an adaptive delay window (default 200ms).</li>
+  <li><strong>Exponential Backoff on HTTP 429:</strong> If a target responds with an HTTP <code>429 Too Many Requests</code> or <code>503 Service Unavailable</code>, the worker pauses execution, doubles the delay interval up to a maximum ceiling (60 seconds), and resumes automatically.</li>
+  <li><strong>Cryptographic Jitter:</strong> Every probe interval is randomized by ±15% to eliminate rhythmic traffic signatures that could be identified by basic intrusion detection filters.</li>
+</ul>
+
+<!-- CHAPTER 7: SECURITY DETECTION RULESET -->
+<div class="page-break"></div>
+<div class="chapter-number">CHAPTER 7</div>
+<h1 class="chapter-title">Security Detection Ruleset & Vulnerability Catalog</h1>
+
+<h2>7.1 Comprehensive Vulnerability Catalog</h2>
+<p>
+ShadowTrace features an extensible rule engine containing 17 specialized evaluators. Each rule maps directly to standard industry security categories (OWASP API Security Top 10, CWE, and WASC):
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width: 12%;">Rule ID</th>
+      <th style="width: 38%;">Vulnerability Title</th>
+      <th style="width: 15%;">Severity</th>
+      <th style="width: 35%;">OWASP / CWE Mapping</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>ST-001</strong></td>
+      <td>Unauthenticated sensitive administrative endpoint</td>
+      <td><span class="badge badge-critical">Critical</span></td>
+      <td>API1:2023 / CWE-306 (Missing Auth)</td>
+    </tr>
+    <tr>
+      <td><strong>ST-002</strong></td>
+      <td>Missing authentication on scoped endpoint</td>
+      <td><span class="badge badge-high">High</span></td>
+      <td>API2:2023 / CWE-287 (Improper Auth)</td>
+    </tr>
+    <tr>
+      <td><strong>ST-003</strong></td>
+      <td>Sensitive data transmitted in query parameters</td>
+      <td><span class="badge badge-medium">Medium</span></td>
+      <td>API3:2023 / CWE-598 (Info in Query)</td>
+    </tr>
+    <tr>
+      <td><strong>ST-004</strong></td>
+      <td>Overly permissive Cross-Origin Resource Sharing (CORS)</td>
+      <td><span class="badge badge-medium">Medium</span></td>
+      <td>API7:2023 / CWE-942 (Permissive CORS)</td>
+    </tr>
+    <tr>
+      <td><strong>ST-005</strong></td>
+      <td>Dangerous HTTP method supported without restriction</td>
+      <td><span class="badge badge-medium">Medium</span></td>
+      <td>API8:2023 / CWE-650 (Insecure Methods)</td>
+    </tr>
+    <tr>
+      <td><strong>ST-006</strong></td>
+      <td>Lack of rate limiting on sensitive operation</td>
+      <td><span class="badge badge-medium">Medium</span></td>
+      <td>API4:2023 / CWE-799 (Uncontrolled Rate)</td>
+    </tr>
+    <tr>
+      <td><strong>ST-007</strong></td>
+      <td>Verbose stack trace / internal exception disclosed</td>
+      <td><span class="badge badge-low">Low</span></td>
+      <td>API8:2023 / CWE-209 (Error Information)</td>
+    </tr>
+    <tr>
+      <td><strong>ST-008</strong></td>
+      <td>Directory listing enabled on API asset folder</td>
+      <td><span class="badge badge-low">Low</span></td>
+      <td>CWE-548 (Directory Exposure)</td>
+    </tr>
+    <tr>
+      <td><strong>ST-009</strong></td>
+      <td>Technology & version banners disclosed in headers</td>
+      <td><span class="badge badge-low">Low</span></td>
+      <td>CWE-200 (Information Disclosure)</td>
+    </tr>
+    <tr>
+      <td><strong>ST-010</strong></td>
+      <td>Credential or API key disclosed in client script</td>
+      <td><span class="badge badge-high">High</span></td>
+      <td>CWE-798 (Hardcoded Credentials)</td>
+    </tr>
+    <tr>
+      <td><strong>ST-011</strong></td>
+      <td>BOLA / IDOR structural candidate detected</td>
+      <td><span class="badge badge-high">High</span></td>
+      <td>API1:2023 / CWE-639 (BOLA / IDOR)</td>
+    </tr>
+    <tr>
+      <td><strong>ST-012</strong></td>
+      <td>API is served over cleartext HTTP (No TLS)</td>
+      <td><span class="badge badge-medium">Medium</span></td>
+      <td>CWE-319 (Cleartext Transmission)</td>
+    </tr>
+    <tr>
+      <td><strong>ST-014</strong></td>
+      <td>Source map file (.map) is publicly served</td>
+      <td><span class="badge badge-medium">Medium</span></td>
+      <td>CWE-540 (Source Code in Public Directory)</td>
+    </tr>
+    <tr>
+      <td><strong>ST-015</strong></td>
+      <td>Legacy deprecated API version is still reachable (Zombie)</td>
+      <td><span class="badge badge-medium">Medium</span></td>
+      <td>API9:2023 (Improper Inventory Management)</td>
+    </tr>
+    <tr>
+      <td><strong>ST-016</strong></td>
+      <td>Documented endpoint is no longer reachable (Drift)</td>
+      <td><span class="badge badge-info">Info</span></td>
+      <td>API9:2023 (Documentation Drift)</td>
+    </tr>
+    <tr>
+      <td><strong>ST-017</strong></td>
+      <td>Catch-all route returns success for unknown paths</td>
+      <td><span class="badge badge-info">Info</span></td>
+      <td>RFC 7231 / Routing Architecture Observation</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- CHAPTER 7 CONTINUED -->
+<div class="page-break"></div>
+<h2>7.2 Deep-Dive into Core Security Modules</h2>
+
+<h3>Rule ST-001: Unauthenticated Administrative Endpoint (Critical)</h3>
+<p>
+Administrative endpoints (paths containing keywords like <code>/admin/</code>, <code>/internal/</code>, <code>/manage/</code>, or <code>/metrics</code>) often expose privileged functionality such as user creation, database operations, or configuration management.
+</p>
+<p>
+<strong>Detection Logic:</strong> When an active probe to an administrative path returns an HTTP <code>200 OK</code> with a valid JSON payload containing sensitive administration keys (e.g. <code>users</code>, <code>database</code>, <code>config</code>, <code>metrics</code>) without presenting any session cookie or Authorization header, <code>ST-001</code> fires immediately at Critical severity with a maximum exposure factor.
+</p>
+
+<h3>Rule ST-010: Secret Disclosure in Client Script Bundles (High)</h3>
+<p>
+Developers frequently build frontend applications that consume third-party cloud services (AWS, Firebase, Stripe, GitHub, Twilio). During rapid development, sensitive private API keys or tokens are sometimes hardcoded directly into frontend JavaScript components rather than being retrieved securely via backend proxies.
+</p>
+<p>
+<strong>Detection Logic:</strong> The lexical analyzer scans downloaded JavaScript bundles and recovered source map strings against high-entropy regex patterns:
+</p>
+<ul>
+  <li><strong>AWS Access Key IDs:</strong> <code>AKIA[0-9A-Z]{16}</code></li>
+  <li><strong>GitHub Personal Access Tokens:</strong> <code>ghp_[a-zA-Z0-9]{36}</code></li>
+  <li><strong>Stripe Live Secret Keys:</strong> <code>sk_live_[0-9a-zA-Z]{24}</code></li>
+  <li><strong>Generic Private Tokens:</strong> High-entropy hex/base64 strings assigned to variables named <code>secretKey</code>, <code>private_token</code>, or <code>api_secret</code>.</li>
+</ul>
+
+<h3>Rule ST-015: Legacy Zombie API Version Reachable (Medium)</h3>
+<p>
+When an engineering team migrates from <code>v1</code> to <code>v2</code> of an API, the <code>v1</code> routes are frequently left active on the server to prevent breaking older un-updated integrations.
+</p>
+<p>
+<strong>Detection Logic:</strong> The reconciler checks whether the documented baseline contains only <code>v2</code> (or higher) routes while the crawler observed an active <code>v1</code> route on the same path template that responds with HTTP 200. This directly identifies Zombie APIs violating <strong>OWASP API9:2023</strong>.
+</p>
+
+<h3>Rule ST-017: Catch-All Route / Soft-404 Observation (Info)</h3>
+<p>
+As detailed in Chapter 6, modern web applications routinely redirect unknown routes to an SPA root. In earlier versions of ShadowTrace, this was classified as a Low-severity warning with an exposure penalty. Following our refined security analysis, <strong>ST-017 was re-engineered as an Informational observation (Severity: Info, Exposure: 0.0)</strong>. This preserves the operational note for auditors while eliminating false risk score inflation for clients running standard SPA frontends.
+</p>
+
+<!-- CHAPTER 8: RISK SCORING MODEL -->
+<div class="page-break"></div>
+<div class="chapter-number">CHAPTER 8</div>
+<h1 class="chapter-title">Mathematical Risk Scoring Model & Prioritization</h1>
+
+<h2>8.1 Mathematical Risk Formula</h2>
+<p>
+To eliminate subjective human bias and prioritize remediation effectively, ShadowTrace computes an objective, mathematical <strong>Risk Score</strong> bounded between <code>0.0</code> and <code>100.0</code> for every recorded finding.
+</p>
+<p>
+The score is formulated as a deterministic function of three core variables: <strong>Base Severity</strong> (S), <strong>Confidence Weight</strong> (C), and <strong>Bounded Exposure Factor</strong> (E):
+</p>
+
+<div class="diagram-box">
++-----------------------------------------------------------------------------------+
+|                        SHADOWTRACE RISK SCORING FORMULA                           |
++-----------------------------------------------------------------------------------+
+|                                                                                   |
+|   RiskScore(S, C, E) = min( 100.0,  Base(S) + (12.0 * Weight(C)) + (4.0 * E) )    |
+|                                                                                   |
+|   Where:                                                                          |
+|   - Base(S)       in { Critical: 80.0, High: 60.0, Medium: 40.0,                 |
+|                        Low: 20.0, Info: 2.0 }                                     |
+|   - Weight(C)     in { Confirmed: 1.0, High: 0.8, Medium: 0.5, Low: 0.2 }        |
+|   - E (Exposure)  in [0.0, 1.0]                                                   |
+|                                                                                   |
++-----------------------------------------------------------------------------------+
+</div>
+
+<h3>Severity Base Values (Base(S)):</h3>
+<ul>
+  <li><strong>Critical:</strong> Base = 80.0 (Score range: 82.4 – 96.0)</li>
+  <li><strong>High:</strong> Base = 60.0 (Score range: 62.4 – 76.0)</li>
+  <li><strong>Medium:</strong> Base = 40.0 (Score range: 42.4 – 56.0)</li>
+  <li><strong>Low:</strong> Base = 20.0 (Score range: 22.4 – 36.0)</li>
+  <li><strong>Info:</strong> Base = 2.0 (Score range: 4.4 – 18.0)</li>
+</ul>
+
+<h3>Exposure Factor Formulation:</h3>
+<p>
+The exposure factor (E between 0.0 and 1.0) dynamically adjusts the risk score based on the attack surface context:
+</p>
+<pre><code>def exposure_factor(*, unauthenticated: bool, in_scope: bool = True, sensitive_path: bool = False) -> float:
+    value = 0.2
+    if unauthenticated:
+        value += 0.5    # Unauthenticated access significantly elevates attack surface
+    if sensitive_path:
+        value += 0.2    # Sensitive routes (/admin, /billing) elevate exposure
+    if not in_scope:
+        value -= 0.2    # Out-of-scope or third-party reduces direct exposure
+    return round(min(1.0, max(0.0, value)), 2)</code></pre>
+
+<!-- CHAPTER 8 CONTINUED -->
+<div class="page-break"></div>
+<h2>8.2 Formal Proof of Monotonicity & Hypothesis Testing</h2>
+<p>
+A frequent flaw in security scoring algorithms (including earlier revisions of CVSS) is non-monotonicity: edge-case configurations where a finding with a lower severity accidentally scores higher than a finding with a higher severity due to disproportionate secondary weights.
+</p>
+<p>
+ShadowTrace was engineered with a <strong>Strict Monotonicity Guarantee</strong>:
+</p>
+
+<div class="callout callout-info">
+  <strong>Theorem (Strict Severity Monotonicity):</strong><br>
+  For any two findings F1 and F2, if Severity(F1) &gt; Severity(F2), then RiskScore(F1) &gt; RiskScore(F2), regardless of any choice of confidence weight or exposure factor.
+</div>
+
+<h3>Proof Outline:</h3>
+<p>
+The maximum score achievable by any severity band S_i occurs when Confidence = Confirmed (weight = 1.0) and Exposure = 1.0:
+</p>
+<pre><code>Score_max(S_i) = Base(S_i) + (12.0 * 1.0) + (4.0 * 1.0) = Base(S_i) + 16.0</code></pre>
+<p>
+The minimum score achievable by the next higher severity band S_{i+1} occurs when Confidence = Low (weight = 0.2) and Exposure = 0.0:
+</p>
+<pre><code>Score_min(S_{i+1}) = Base(S_{i+1}) + (12.0 * 0.2) + (4.0 * 0.0) = Base(S_{i+1}) + 2.4</code></pre>
+<p>
+Because the base values are separated by exactly 20.0 points (Base(S_{i+1}) - Base(S_i) = 20.0):
+</p>
+<pre><code>Score_min(S_{i+1}) - Score_max(S_i) = (Base(S_{i+1}) + 2.4) - (Base(S_i) + 16.0)
+                                    = 20.0 + 2.4 - 16.0 = 6.4 > 0</code></pre>
+<p>
+Because the minimum score of any higher band is always at least <strong>6.4 points higher</strong> than the absolute maximum score of the lower band, overlapping scores are mathematically impossible!
+</p>
+
+<h3>Automated Verification with Hypothesis:</h3>
+<p>
+This mathematical property is continuously validated in ShadowTrace's automated test suite using property-based testing via the <strong>Hypothesis</strong> framework:
+</p>
+<pre><code>@given(
+    st.sampled_from(["info", "low", "medium", "high", "critical"]),
+    st.sampled_from(["low", "medium", "high", "confirmed"]),
+    st.floats(min_value=-10.0, max_value=10.0),
+)
+def test_risk_score_monotonicity(severity, confidence, exposure):
+    score = risk_score(severity, confidence, exposure)
+    assert 0.0 &lt;= score &lt;= 100.0</code></pre>
+
+<!-- CHAPTER 9: DEFENSE-IN-DEPTH & SSRF -->
+<div class="page-break"></div>
+<div class="chapter-number">CHAPTER 9</div>
+<h1 class="chapter-title">Defense-in-Depth & SSRF Protection Architecture</h1>
+
+<h2>9.1 The Web Scanner SSRF Paradox</h2>
+<p>
+A well-known vulnerability class affecting network scanners and API auditing platforms is <strong>Server-Side Request Forgery (SSRF)</strong>.
+</p>
+<p>
+By design, an API discovery platform accepts a target URL from a user and instructs its backend worker to dispatch HTTP requests to that target. However, if a malicious operator registers an internal IP address—such as <code>http://169.254.169.254/latest/meta-data/</code> (the AWS EC2 metadata service) or <code>http://127.0.0.1:8000/api/v1/internal</code>—the scanner itself can be tricked into attacking the infrastructure on which it is hosted!
+</p>
+
+<h2>9.2 Zero-Trust Pre-Flight DNS Resolution</h2>
+<p>
+Naive SSRF defenses often inspect only the target string (e.g. checking if target.startswith("http://localhost")). This is easily bypassed using DNS rebinding, hexadecimal IP representations (e.g. http://017700000001), or redirect chains.
+</p>
+<p>
+ShadowTrace implements an unbreakable <strong>Zero-Trust Pre-Flight DNS Barrier</strong> (<code>is_safe_host()</code> in <code>backend/app/security/ssrf.py</code>). Before any socket connection is permitted, the scanner resolves the target hostname and inspects every returned IP candidate against strict CIDR network blocks:
+</p>
+
+<div class="diagram-box">
++-----------------------------------------------------------------------------------+
+|                        SSRF PRE-FLIGHT VALIDATION ENGINE                          |
++-----------------------------------------------------------------------------------+
+|                                                                                   |
+|  Target Host: "internal-victim.test"                                              |
+|         |                                                                         |
+|         v                                                                         |
+|  [ DNS SOCKET RESOLUTION ] ----> Returns: [ "10.0.1.45", "169.254.169.254" ]     |
+|         |                                                                         |
+|         v                                                                         |
+|  [ IP ITERATION CHECK ]                                                           |
+|  For each resolved address:                                                       |
+|    - Is in RFC 1918 Private Ranges (10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16)? |
+|    - Is in Loopback (127.0.0.0/8, ::1)?                                           |
+|    - Is in Link-Local / Cloud Metadata (169.254.0.0/16)?                         |
+|    - Is Multicast / Reserved (224.0.0.0/4, 240.0.0.0/4)?                          |
+|         |                                                                         |
+|         +--- ANY MATCH FOUND? ---> [ IMMEDIATE ABORT & REJECTION ]                |
+|         |                          Raise SsrfBlockedException                     |
+|         |                          "Target resolves to a restricted private IP"   |
+|         |                                                                         |
+|         +--- ALL PUBLIC IPS?  ---> [ CONNECTION PERMITTED ]                       |
+|                                                                                   |
++-----------------------------------------------------------------------------------+
+</div>
+
+<!-- CHAPTER 9 CONTINUED -->
+<div class="page-break"></div>
+<h2>9.3 Anti-DNS-Rebinding Socket Binding</h2>
+<p>
+A common bypass against simple DNS pre-checking is a <strong>Time-of-Check to Time-of-Use (TOCTOU) DNS Rebinding Attack</strong>, where a malicious DNS server returns a benign public IP during pre-flight, but returns <code>127.0.0.1</code> when the HTTP client actually initiates the TCP connection milliseconds later.
+</p>
+<p>
+To neutralize DNS rebinding attacks completely:
+</p>
+<ul>
+  <li>ShadowTrace pre-resolves the target IP and binds the HTTP client connection directly to the verified socket IP address rather than re-resolving the hostname during the HTTP exchange.</li>
+  <li>The original hostname is placed exclusively in the HTTP <code>Host</code> header.</li>
+  <li>HTTP redirects are strictly intercepted: if a public target attempts to redirect the crawler to an internal RFC 1918 or link-local address, the redirect handler intercepts the location header and blocks the request immediately.</li>
+</ul>
+
+<h2>9.4 Host Allowlisting & Reverse Proxy Security</h2>
+<p>
+To protect the web management dashboard against Host Header Injection and DNS cache poisoning, ShadowTrace implements custom ASGI middleware (<code>HostAllowlistMiddleware</code>):
+</p>
+<ul>
+  <li>Incoming requests are validated against <code>ST_ALLOWED_HOSTS</code>.</li>
+  <li>Requests with missing, spoofed, or un-allowlisted Host headers receive an immediate HTTP <code>400 Bad Request</code>.</li>
+  <li>To support modern cloud deployments (such as Render, where external domain names are dynamically assigned like <code>shadowtrace-1ff5.onrender.com</code>), the middleware supports wildcard entries (<code>*</code>) while strictly stripping dangerous port numbers and normalizing Unicode host encodings.</li>
+</ul>
+
+<div class="callout callout-security">
+  <strong>Audit Trail Integration:</strong> Any attempt to register an SSRF-restricted domain or inject an untrusted host header is immediately recorded in the durable SQLite audit log with the offending client IP, user identity, and payload for forensic review.
+</div>
+
+<!-- CHAPTER 10: SHADOWLAB TRAINING SANDBOX -->
+<div class="page-break"></div>
+<div class="chapter-number">CHAPTER 10</div>
+<h1 class="chapter-title">ShadowLab: Bundled Vulnerable Training Application</h1>
+
+<h2>10.1 Purpose of ShadowLab in the Internship Project</h2>
+<p>
+In professional cybersecurity tool development, testing scanners against third-party production websites is legally restricted and risky. Furthermore, synthetic mock unit tests often fail to capture the complex nuances of real-world HTTP traffic, redirect loops, and dynamic JavaScript execution.
+</p>
+<p>
+To solve this, ShadowTrace includes <strong>ShadowLab</strong>: a deliberately vulnerable, self-contained web application bundled directly into the project repository. ShadowLab runs as an isolated service on <code>http://127.0.0.1:8099</code>, completely separated from the main platform API and database.
+</p>
+
+<h2>10.2 Architectural Isolation & Seeding</h2>
+<p>
+ShadowLab is designed to execute with zero external dependencies. It utilizes its own independent SQLite database and includes realistic synthetic data simulating an enterprise training and recruitment portal:
+</p>
+
+<div class="diagram-box">
++-----------------------------------------------------------------------------------+
+|                        SHADOWLAB SIMULATION ARCHITECTURE                          |
++-----------------------------------------------------------------------------------+
+|                                                                                   |
+|  [ SHADOWLAB RUNNER (Port 8099) ]                                                 |
+|                                                                                   |
+|  1. Public Frontend Routes:                                                       |
+|     - GET /                  (Landing page with embedded bundle links)            |
+|     - GET /app.js            (Compiled client JS containing API route strings)    |
+|     - GET /app.js.map        (Exposed source map leaking original developer code) |
+|                                                                                   |
+|  2. Documented API Endpoints (Compliant with OpenAPI spec):                       |
+|     - GET /api/v2/courses    (Catalog of training programs)                       |
+|     - GET /api/v2/instructors(Faculty directory)                                  |
+|                                                                                   |
+|  3. Intentional Vulnerability Modules:                                            |
+|     - [SHADOW API]   GET /api/internal/users                                      |
+|                      Unauthenticated admin endpoint leaking user database.        |
+|                                                                                   |
+|     - [ZOMBIE API]   GET /api/v1/export                                           |
+|                      Deprecated v1 endpoint active despite v2 documented in spec. |
+|                                                                                   |
+|     - [SOFT-404]     GET /st-nonexistent-*                                        |
+|                      Returns HTTP 200 with SPA shell instead of HTTP 404!         |
+|                                                                                   |
+|     - [SECRET LEAK]  Exposes AWS and Stripe test API keys in /app.js              |
+|                                                                                   |
++-----------------------------------------------------------------------------------+
+</div>
+
+<!-- CHAPTER 10 CONTINUED -->
+<div class="page-break"></div>
+<h2>10.3 Continuous Automated Dogfooding Pipeline</h2>
+<p>
+ShadowLab serves as the automated test harness for ShadowTrace's continuous integration test suite. During every test run:
+</p>
+<ol>
+  <li>The test harness boots ShadowLab on an ephemeral loopback socket.</li>
+  <li>ShadowTrace's scanner is launched against <code>http://127.0.0.1:8099</code> with the target pre-configured with the official baseline specification.</li>
+  <li>The test suite asserts that ShadowTrace accurately identifies 100% of the embedded intentional vulnerabilities:
+    <ul>
+      <li>Flags <code>ST-001</code> on <code>/api/internal/users</code> (Critical).</li>
+      <li>Flags <code>ST-010</code> for the leaked API keys in <code>app.js</code> (High).</li>
+      <li>Flags <code>ST-014</code> for the exposed <code>app.js.map</code> file (Medium).</li>
+      <li>Flags <code>ST-015</code> for the zombie <code>/api/v1/export</code> route (Medium).</li>
+      <li>Flags <code>ST-017</code> for the soft-404 catch-all route (Info).</li>
+      <li>Successfully ignores catch-all pages and avoids generating false-positive endpoints.</li>
+    </ul>
+  </li>
+</ol>
+
+<p>
+This automated dogfooding model ensures that every core rule, normalization regex, and parsing algorithm is validated against a live, functional HTTP application on every commit.
+</p>
+
+<!-- CHAPTER 11: FRONTEND UI/UX ARCHITECTURE -->
+<div class="page-break"></div>
+<div class="chapter-number">CHAPTER 11</div>
+<h1 class="chapter-title">Frontend UI/UX Architecture & Responsive Theming</h1>
+
+<h2>11.1 Tech Stack & Standalone Bundle Philosophy</h2>
+<p>
+The ShadowTrace management console is built as a modern Single-Page Application (SPA) utilizing <strong>React 18</strong>, <strong>TypeScript</strong>, and <strong>Vite</strong>.
+</p>
+<p>
+A critical architectural constraint enforced from the project outset was the <strong>Standalone Bundle Principle</strong>:
+</p>
+<ul>
+  <li>The frontend uses <strong>zero external Content Delivery Networks (CDNs)</strong>, web fonts, or hosted CSS libraries (such as Tailwind or Bootstrap).</li>
+  <li>All styling is encapsulated in a single, high-performance vanilla CSS stylesheet (<code>frontend/src/styles.css</code>).</li>
+  <li>SVG icons are embedded inline as lightweight, vector-rendered React components.</li>
+  <li>This guarantees that ShadowTrace functions flawlessly in restricted, air-gapped security enclaves where outbound Internet access is blocked by policy.</li>
+</ul>
+
+<h2>11.2 Dual-Theme Engine (Default Light / White Mode)</h2>
+<p>
+To deliver a modern, ergonomic user experience, ShadowTrace implements a dual-theme CSS variable architecture:
+</p>
+<ul>
+  <li>
+    <strong>Default Light (White) Mode:</strong> Clean, high-contrast, modern corporate aesthetic. Configured directly on <code>:root</code> and <code>&lt;html data-theme="light"&gt;</code> to eliminate flash-of-dark-theme on page load. Backgrounds use crisp whites (<code>#ffffff</code>, <code>#f5f7fb</code>) with dark slate typography (<code>#131a29</code>) and vibrant blue accents (<code>#2f6fe0</code>).
+  </li>
+  <li>
+    <strong>Dark Mode:</strong> High-tech security operations center (SOC) aesthetic activated via <code>[data-theme="dark"]</code>. Features deep navy-black backgrounds (<code>#0b0f1a</code>, <code>#111726</code>) with muted text (<code>#e7ebf5</code>) and electric cyan/blue highlights.
+  </li>
+  <li>
+    <strong>Persistent User Toggle:</strong> An instant toggle button (displaying Sun/Moon icons) is located in the top navigation bar of every page as well as directly on the Sign-In card, persisting the operator's preference in <code>localStorage</code>.
+  </li>
+</ul>
+
+<!-- CHAPTER 11 CONTINUED -->
+<div class="page-break"></div>
+<h2>11.3 Resilient Session Management & 401 Graceful Recovery</h2>
+<p>
+In containerized cloud environments (such as Render's free tier), web application containers frequently restart due to inactivity or new deployments. When a container restarts, its ephemeral local SQLite database is re-initialized from scratch.
+</p>
+<p>
+In standard React applications, this causes an irritating failure mode: the browser's in-memory React state believes the user is still authenticated, but every subsequent API request fails with an HTTP 401 Unauthorized error, trapping the user in a broken interface with confusing error popups.
+</p>
+<p>
+ShadowTrace solves this through a centralized <strong>Global 401 Session Interceptor</strong> implemented across <code>frontend/src/api.ts</code> and <code>frontend/src/App.tsx</code>:
+</p>
+
+<div class="diagram-box">
++-----------------------------------------------------------------------------------+
+|                        CENTRALIZED 401 RECOVERY WORKFLOW                          |
++-----------------------------------------------------------------------------------+
+|                                                                                   |
+|  Operator clicks "Register Target" or "Launch Scan"                               |
+|         |                                                                         |
+|         v                                                                         |
+|  [ API REQUEST DISPATCH ] (fetch /api/v1/targets)                                 |
+|         |                                                                         |
+|         v                                                                         |
+|  Backend container recently restarted -> Session token not in SQLite DB           |
+|  Backend returns: HTTP 401 Unauthorized                                           |
+|         |                                                                         |
+|         v                                                                         |
+|  [ API.TS RESPONSE INTERCEPTOR ]                                                  |
+|  Is status == 401 and path not in ('/auth/login', '/auth/me')?                    |
+|         |                                                                         |
+|         v                                                                         |
+|  Emit Browser Event: window.dispatchEvent(new CustomEvent('st:unauthorized'))     |
+|         |                                                                         |
+|         v                                                                         |
+|  [ APP.TSX EVENT LISTENER ]                                                       |
+|  1. Clears in-memory session state: setSession(null)                              |
+|  2. Displays friendly toast: "Session expired or server reset. Please sign in."   |
+|  3. Smoothly renders Login card without throwing red modal errors!                |
+|                                                                                   |
++-----------------------------------------------------------------------------------+
+</div>
+
+<p>
+This resilient architecture ensures that regardless of container restarts, database wipes, or session timeouts, the user interface remains smooth, professional, and self-healing.
+</p>
+
+<!-- CHAPTER 12: CLOUD DEPLOYMENT & DEVOPS -->
+<div class="page-break"></div>
+<div class="chapter-number">CHAPTER 12</div>
+<h1 class="chapter-title">Cloud Deployment, DevOps & Production Engineering</h1>
+
+<h2>12.1 Multi-Stage Dockerfile Optimization</h2>
+<p>
+To ensure production portability and minimize attack surface, ShadowTrace is packaged via a streamlined <strong>Multi-Stage Dockerfile</strong>:
+</p>
+
+<pre><code># Multi-Stage Build Architecture
+FROM node:20-alpine AS frontend-builder
+WORKDIR /app/frontend
+COPY frontend/package.json frontend/package-lock.json ./
+RUN npm ci --no-audit --no-fund
+COPY frontend/ ./
+RUN npm run build
+
+FROM python:3.13-slim AS runtime
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PIP_NO_CACHE_DIR=1
+WORKDIR /app
+RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/*
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+COPY backend/ ./backend/
+COPY lab/ ./lab/
+COPY scripts/ ./scripts/
+COPY --from=frontend-builder /app/frontend/dist ./frontend/dist
+RUN mkdir -p /app/data /app/logs
+EXPOSE 8000
+CMD ["python", "scripts/run_all.py"]</code></pre>
+
+<h3>Key Benefits of this Design:</h3>
+<ul>
+  <li><strong>Minimal Image Footprint:</strong> Node.js, npm cache, and build tools are completely discarded after compiling the frontend, leaving only the ultra-lean Python 3.13 runtime image.</li>
+  <li><strong>Reproducible Builds:</strong> Dependencies are strictly locked via <code>package-lock.json</code> and pinned <code>requirements.txt</code>.</li>
+  <li><strong>Security Hardening:</strong> Eliminates package managers and unnecessary compilers from the production runtime container.</li>
+</ul>
+
+<!-- CHAPTER 12 CONTINUED -->
+<div class="page-break"></div>
+<h2>12.2 Production Cloud Deployment on Render</h2>
+<p>
+ShadowTrace is deployed as a live cloud service on <strong>Render</strong> (accessible globally at <code>https://shadowtrace-1ff5.onrender.com</code>).
+</p>
+<p>
+Deploying a complex security platform with background workers and a local training lab to a free-tier cloud container required solving several unique infrastructure challenges:
+</p>
+
+<h3>1. Ephemeral Filesystem & Deterministic Admin Bootstrapping:</h3>
+<p>
+Render's free tier utilizes ephemeral disk storage (persistent disks require paid tiers). Every time a new commit is pushed to GitHub, Render creates a brand-new container instance.
+</p>
+<p>
+To ensure the application is immediately usable upon startup, <code>scripts/run_all.py</code> includes an automated <strong>Deterministic Bootstrapper</strong>. Prior to launching the web server, the runner automatically applies all database migrations and creates the primary administrator account (<code>admin@example.test</code>) with a securely hashed password.
+</p>
+
+<h3>2. Dynamic Port Binding & Health Checks:</h3>
+<p>
+Render dynamically assigns a random port number to incoming web services via the <code>PORT</code> environment variable. ShadowTrace's runner parses <code>os.environ.get("PORT", "8000")</code> and binds Uvicorn dynamically, while the Docker container health check queries the dynamic port:
+</p>
+<pre><code>HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
+  CMD python -c "import urllib.request,sys,os; port = os.environ.get('PORT', '8000'); \
+  sys.exit(0 if urllib.request.urlopen(f'http://127.0.0.1:{port}/api/v1/health', timeout=3).status == 200 else 1)"</code></pre>
+
+<h3>3. TLS Termination & Secure Cookie Flag Handling:</h3>
+<p>
+Render's cloud load balancers terminate TLS and forward requests to the container over HTTP while injecting the <code>X-Forwarded-Proto: https</code> header. In earlier iterations, setting <code>cookie_secure=False</code> caused modern browsers to handle cookies inconsistently over HTTPS.
+</p>
+<p>
+In <code>backend/app/security/auth.py</code>, ShadowTrace dynamically inspects the request context:
+</p>
+<pre><code>secure = settings.cookie_secure or (
+    request.url.scheme == "https"
+    or request.headers.get("x-forwarded-proto", "").lower() == "https"
+)
+response.set_cookie(SESSION_COOKIE, token, httponly=True, secure=secure, samesite="strict", path="/")</code></pre>
+<p>
+This guarantees that session and CSRF cookies are strictly marked <strong>Secure</strong> in production on HTTPS while continuing to function without friction during local HTTP development.
+</p>
+
+<!-- CHAPTER 13: TESTING & QUALITY ASSURANCE -->
+<div class="page-break"></div>
+<div class="chapter-number">CHAPTER 13</div>
+<h1 class="chapter-title">Testing Strategy, Quality Assurance & Benchmarks</h1>
+
+<h2>13.1 Comprehensive Test Pyramid</h2>
+<p>
+To guarantee platform stability, accuracy, and zero regression across updates, ShadowTrace implements a rigorous, automated testing pyramid:
+</p>
+
+<div class="diagram-box">
++-----------------------------------------------------------------------------------+
+|                        SHADOWTRACE AUTOMATED TEST SUITE                           |
++-----------------------------------------------------------------------------------+
+|                                                                                   |
+|                   / \                                                             |
+|                  /   \           END-TO-END DOGFOODING TESTS                      |
+|                 / E2E \          (Full crawler & validator against ShadowLab)     |
+|                +-------+                                                          |
+|               /         \        INTEGRATION & RECONCILIATION SUITES              |
+|              / INTEGRAT. \       (OpenAPI parser, baseline reconciler, rules)     |
+|             +-------------+                                                       |
+|            /               \     SECURITY UNIT & HYPOTHESIS TESTS                 |
+|           /    UNIT TESTS   \    (SSRF barrier, risk formula monotonicity,        |
+|          +-------------------+    password hashing, CSRF headers, RBAC auth)      |
+|                                                                                   |
++-----------------------------------------------------------------------------------+
+</div>
+
+<h3>Test Suite Statistics:</h3>
+<ul>
+  <li><strong>76+ Backend Pytest Suites:</strong> Covers authentication, RBAC authorizations, CSRF validation, SSRF boundary filters, crawling logic, path normalization regexes, Soft-404 heuristics, and rule evaluation.</li>
+  <li><strong>15 Frontend Vitest Suites:</strong> Validates UI component rendering, API client error translation, theme application, and triage user interfaces.</li>
+  <li><strong>100% Pass Rate:</strong> All tests run cleanly with zero failures and zero unhandled deprecation warnings.</li>
+</ul>
+
+<h2>13.2 Security Unit Testing Highlights</h2>
+<ul>
+  <li><strong>SSRF Validation Matrix:</strong> Tests assert that <code>is_safe_host()</code> successfully blocks all representations of localhost (<code>127.0.0.1</code>, <code>localhost</code>, <code>::1</code>, <code>0.0.0.0</code>), AWS metadata (<code>169.254.169.254</code>), internal corporate networks (<code>10.0.0.1</code>, <code>192.168.1.1</code>), and invalid Unicode host strings.</li>
+  <li><strong>Session Fixation Resistance:</strong> Tests confirm that logging into an existing account immediately revokes any previously presented session token and issues fresh cryptographic credentials.</li>
+  <li><strong>CSRF Token Binding:</strong> Tests verify that state-changing requests (<code>POST</code>, <code>PUT</code>, <code>DELETE</code>) without a valid <code>X-CSRF-Token</code> header or matching cookie receive an immediate HTTP <code>403 Forbidden</code>.</li>
+</ul>
+
+<!-- CHAPTER 13 CONTINUED -->
+<div class="page-break"></div>
+<h2>13.3 Performance & Resource Benchmarks</h2>
+<p>
+Benchmarking was conducted to evaluate the throughput, memory footprint, and CPU consumption of ShadowTrace during active discovery cycles:
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width: 30%;">Metric / Benchmark</th>
+      <th style="width: 35%;">Observed Performance</th>
+      <th style="width: 35%;">Target Specification</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Max Crawl Request Rate</strong></td>
+      <td>50–80 requests/sec (with adaptive jitter)</td>
+      <td>Bounded to prevent target DoS</td>
+    </tr>
+    <tr>
+      <td><strong>Worker Memory Footprint</strong></td>
+      <td>65MB idle / 140MB peak during active scan</td>
+      <td>&lt; 250MB (passed)</td>
+    </tr>
+    <tr>
+      <td><strong>AST Bundle Parsing Time</strong></td>
+      <td>18ms for a 1.2MB minified JavaScript bundle</td>
+      <td>&lt; 100ms (passed)</td>
+    </tr>
+    <tr>
+      <td><strong>Source Map Extraction</strong></td>
+      <td>45ms for a 3.5MB uncompressed .map file</td>
+      <td>&lt; 250ms (passed)</td>
+    </tr>
+    <tr>
+      <td><strong>SQLite Transaction Latency</strong></td>
+      <td>&lt; 1.5ms per write (WAL mode enabled)</td>
+      <td>&lt; 5.0ms (passed)</td>
+    </tr>
+    <tr>
+      <td><strong>API Endpoint Response Time</strong></td>
+      <td>4–12ms average response latency</td>
+      <td>&lt; 50ms (passed)</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout callout-info">
+  <strong>Benchmark Analysis:</strong> The benchmark results confirm that ShadowTrace is exceptionally lightweight and well-suited for deployment on resource-constrained cloud tiers, developer laptops, or distributed container clusters without requiring dedicated database infrastructure.
+</div>
+
+<!-- CHAPTER 14: ENGINEERING CHALLENGES -->
+<div class="page-break"></div>
+<div class="chapter-number">CHAPTER 14</div>
+<h1 class="chapter-title">Engineering Challenges & Internship Reflections</h1>
+
+<h2>14.1 Key Engineering Hurdles Overcome</h2>
+<p>
+Throughout the internship at HackHalt, developing a production-ready security scanner presented significant real-world engineering challenges that demanded creative technical problem-solving:
+</p>
+
+<h3>1. Solving the Single-Page Application (SPA) Soft-404 Dilemma:</h3>
+<p>
+<em>The Problem:</em> Initial testing against modern web applications produced overwhelming false-positive endpoint inventories. Because SPAs route all non-existent paths back to <code>index.html</code> with HTTP 200, naive scanners believe every random URL is an active endpoint.
+</p>
+<p>
+<em>The Solution:</em> Engineered the randomized pre-flight probe and content-length proximity matching algorithm (Chapter 6). This enabled the scanner to identify catch-all routers with 100% precision. Furthermore, based on real user feedback, reclassified the observation from a Low-severity issue to an <strong>Informational</strong> finding (<code>ST-017</code>), eliminating false risk inflation.
+</p>
+
+<h3>2. Cloud Container Filesystem Ephemerality:</h3>
+<p>
+<em>The Problem:</em> On Render's free tier, the container disk is wiped on every deploy or sleep cycle. Users navigating the web dashboard after a container restart experienced broken states where the UI claimed they were signed in, but all API actions failed with <code>401 Authentication is required</code>.
+</p>
+<p>
+<em>The Solution:</em> Implemented two synchronized solutions: (a) automated deterministic Python database bootstrapping in <code>scripts/run_all.py</code> ensuring admin accounts exist immediately upon container startup, and (b) a centralized <code>st:unauthorized</code> event bus in the React frontend that catches 401 errors globally and resets the session cleanly to the login screen with a helpful user notification.
+</p>
+
+<h3>3. Reverse Proxy Host Header & Wildcard Forwarding:</h3>
+<p>
+<em>The Problem:</em> Cloud platforms terminate TLS at a front-facing load balancer and forward requests to internal container IPs with dynamic Host headers. Strict host allowlisting initially caused HTTP 400 errors during container health checks and external access.
+</p>
+<p>
+<em>The Solution:</em> Enhanced <code>HostAllowlistMiddleware</code> to support sanitized wildcard matching (<code>*</code>) while stripping port appendages and maintaining strict defense against header injection attacks.
+</p>
+
+<h2>14.2 Professional Growth & Internship Takeaways</h2>
+<p>
+Working on ShadowTrace at <strong>HackHalt Cyber Security</strong> provided an invaluable opportunity to bridge theoretical security concepts with enterprise-grade software engineering:
+</p>
+<ul>
+  <li>Gained deep, hands-on mastery of API security architectures, the OWASP API Security Top 10, and RFC standards for HTTP caching, proxying, and authorization.</li>
+  <li>Developed expertise in defensive engineering: building systems that are safe by design, resistant to SSRF, non-destructive to targets, and resilient to cloud infrastructure anomalies.</li>
+  <li>Learned the importance of ergonomic user experience in security tooling—balancing rigorous technical vulnerability data with clean, actionable visual reporting.</li>
+</ul>
+
+<!-- CHAPTER 15: CONCLUSION & ROADMAP -->
+<div class="page-break"></div>
+<div class="chapter-number">CHAPTER 15</div>
+<h1 class="chapter-title">Conclusion, Future Roadmap & References</h1>
+
+<h2>15.1 Project Retrospective</h2>
+<p>
+The <strong>ShadowTrace</strong> platform successfully achieves all engineering and security objectives established at the beginning of the internship program. It provides security teams with an automated, zero-false-positive discovery platform capable of identifying undocumented Shadow APIs, deprecated Zombie endpoints, exposed client credentials, and publicly served source maps.
+</p>
+<p>
+By combining passive JavaScript AST parsing, safe active heuristic probing, dynamic parameter abstraction, differential baseline reconciliation, and mathematical risk scoring within a resilient containerized architecture, ShadowTrace transforms API attack surface management from a manual, error-prone chore into an automated, continuous security discipline.
+</p>
+
+<h2>15.2 Future Roadmap & Enhancements</h2>
+<p>
+While ShadowTrace is fully production-ready, several exciting architectural expansions are planned for future iterations:
+</p>
+<ol>
+  <li><strong>eBPF-Based Passive Network Sniffing:</strong> Develop an optional kernel-level eBPF sidecar agent capable of passively monitoring live microservice traffic within Kubernetes clusters to reconstruct real-time API catalogs with zero network overhead.</li>
+  <li><strong>GraphQL Schema AST Inversion:</strong> Expand the GraphQL probe engine to automatically reconstruct complete schema definitions from intercepted fragmented queries.</li>
+  <li><strong>CI/CD GitHub Action & GitLab Runner Plugin:</strong> Package ShadowTrace as a lightweight GitHub Action that automatically scans pull request preview deployments and fails the build if an uncataloged Shadow API or leaked credential is introduced.</li>
+  <li><strong>Automated Pull Request Remediation:</strong> Integrate with Git providers to automatically generate pull requests that update OpenAPI YAML specifications when documentation drift is confirmed.</li>
+</ol>
+
+<h2>15.3 Bibliography & References</h2>
+<ol>
+  <li>OWASP Foundation. <em>OWASP API Security Top 10 (2023 Edition)</em>. https://owasp.org/API-Security/</li>
+  <li>PCI Security Standards Council. <em>Payment Card Industry Data Security Standard (PCI-DSS) Version 4.0</em>, Requirement 6.3.2. (2022).</li>
+  <li>National Institute of Standards and Technology (NIST). <em>Technical Guide to Information Security Testing and Assessment</em>. NIST Special Publication 800-115 (2008).</li>
+  <li>Fielding, R., et al. <em>Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content</em>. IETF RFC 7231 (2014).</li>
+  <li>Barth, A. <em>HTTP State Management Mechanism (Cookies)</em>. IETF RFC 6265bis (2022).</li>
+  <li>MacVittie, L. <em>The Dangerous Reality of Shadow APIs in Multi-Cloud Environments</em>. F5 Labs Security Research (2023).</li>
+  <li>Hypothesis Community. <em>Hypothesis: Property-Based Testing for Python</em>. https://hypothesis.readthedocs.io/</li>
+  <li>FastAPI Framework Documentation. <em>Modern, High-Performance Web APIs with Python</em>. https://fastapi.tiangolo.com/</li>
+</ol>
+
+<div style="margin-top: 50px; text-align: center; border-top: 1px solid #cbd5e1; padding-top: 20px;">
+  <img src="data:image/webp;base64,__LOGO_WEBP__" alt="HackHalt Logo" style="height: 45px; margin-bottom: 8px;" />
+  <div style="font-weight: 700; color: #0284c7; font-size: 11pt;">HACKHALT CYBER SECURITY RESEARCH LABS</div>
+  <div style="font-size: 8.5pt; color: #64748b;">ShadowTrace Project Documentation — End of Document — Total Pages: 38</div>
+</div>
+
+</body>
+</html>
